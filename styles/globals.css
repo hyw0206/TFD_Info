@@ -12,6 +12,9 @@
 .area {
   background: #363944;
 }
+.areagray {
+  background: #cecece;
+}
 .border {
   border-left-width: 1px;
   border-right-width: 1px;
@@ -19,6 +22,19 @@
 }
 .skill {
   background: #cecece;
+}
+.skillname {
+  color: #36436F;
+}
+.selectedskill {
+  border: 2px solid red;
+}
+.footer {
+  background: #eeeeee;
+}
+
+.weapon {
+  padding: 0px -4px 0px -4px;
 }
 body {
   color: #000000;

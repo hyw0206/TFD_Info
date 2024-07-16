@@ -12,6 +12,7 @@
     "@types/node": "^20.11.26",
     "@types/react": "^17.0.19",
     "@types/react-dom": "^17.0.25",
+    "antd": "^5.19.2",
     "autoprefixer": "10.4.19",
     "axios": "^1.7.2",
     "eslint": "8.57.0",

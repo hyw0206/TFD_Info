@@ -1,4 +1,4 @@
-export interface RootObject {
+export interface Descendant {
   descendant_id: string;
   descendant_name: string;
   descendant_image_url: string;
