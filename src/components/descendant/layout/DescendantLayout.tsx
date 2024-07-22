@@ -1,9 +1,9 @@
 import DescendantDetailPage from '../components/DescendantDetailPage'
 import { useState } from 'react'
-import { Descendant } from '@/src/data/descendant_type'
+import { Descendant } from '@/src/data/type/descendant_type'
 
 export default function DescendantLayoutPage() {
-  const datas = require('@/src/data/descendant.json')
+  const datas = require('@/src/data/json/descendant.json')
 
   const [descendantId, setDescendantId] = useState('17')
 
@@ -21,11 +21,15 @@ export default function DescendantLayoutPage() {
         계승자 목록
       </div>
       <div className="flex flex-wrap ml-4 border cursor-pointer">
+        {
+          // 계승자 목록을 가져와서 list 형태로 배열
+        }
         {datas?.map((data: Descendant, idx: number) => {
           return (
             <div
               key={data.descendant_id}
               className="w-40 mt-2"
+              // idx 순서 == json 파일의 순서기에 idx 사용
               id={String(idx)}
               onClick={() => onClickGetDetail(String(idx))}
             >

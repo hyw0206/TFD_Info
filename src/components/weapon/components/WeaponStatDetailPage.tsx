@@ -1,23 +1,11 @@
-import { Stat, Basestat } from '@/src/data/stat'
-import { Weapon } from '@/src/data/weapon_type'
 import { useEffect, useState } from 'react'
 import { Flex, Progress, Select, Space } from 'antd'
-import { StatInfo } from '@/src/data/statinfo'
+import { StatInfo } from '@/src/data/type/statinfo'
+import { Weapon } from '@/src/data/type/weapon_type'
+import { Stat, Basestat } from '@/src/data/type/stat'
 
 export default function WeaponStatDetailPage(props: { weaponNumber: string }) {
-  const [datas, setDatas] = useState<Weapon[]>([])
-  const [stats, setStats] = useState<Stat[]>([])
-  const [statInfo, setStatInfo] = useState<StatInfo>()
-  const [level, setLevel] = useState('160')
-  const [isLoading, setIsLoading] = useState(true)
-  const levelOptions = Array.from({ length: 160 }, (_, i) => ({
-    value: `${i + 1}`,
-    label: `LV.${i + 1}`,
-  }))
-  const onChangeGetLevel = (level: string) => {
-    setLevel(level)
-  }
-  const weaponNumber = Number(props.weaponNumber)
+
   const wantStats = [
     '발사 속도',
     '약점 배율',
@@ -32,6 +20,34 @@ export default function WeaponStatDetailPage(props: { weaponNumber: string }) {
     '관통력',
     '속성 상태효과 부여확률',
   ]
+  // 무기 데이터
+  const [datas, setDatas] = useState<Weapon[]>([])
+  // 스텟 데이터
+  const [stats, setStats] = useState<Stat[]>([])
+  // 스텟 평균값 데이터
+  const [statInfo, setStatInfo] = useState<StatInfo>()
+  // 내가 볼 무기 레벨 데이터
+  const [level, setLevel] = useState('160')
+  // 데이터 불러오기 전 까지는 로딩중 띄우기
+  const [isLoading, setIsLoading] = useState(true)
+
+  // 1~160레벨 세팅
+  const levelOptions = Array.from({ length: 160 }, (_, i) => ({
+    value: `${i + 1}`,
+    label: `LV.${i + 1}`,
+  }))
+
+  // 다른 레벨의 정보를 보고 싶을 때
+  const onChangeGetLevel = (selectLevel: string) => {
+    // 리렌더링 방지
+    if (level == selectLevel) return;
+    setLevel(selectLevel)
+  }
+
+  // 내가 볼 무기 순서
+  const weaponNumber = Number(props.weaponNumber);
+  
+  // 일부 스탯 값 픽스
   const changeStatValue = (stat: Basestat): string => {
     if (['약점 배율', '총기 치명타 배율'].includes(getStatName(stat.stat_id)))
       return stat.stat_value + 'x'
@@ -45,32 +61,41 @@ export default function WeaponStatDetailPage(props: { weaponNumber: string }) {
       return String(stat.stat_value.toFixed(2))
     return stat.stat_value
   }
+
   useEffect(() => {
+    // 데이터를 불러오고, 준비가 된다면 보여주기
     const fetchData = async () => {
-      const weaponData = await import('@/src/data/weapon.json')
-      const statData = await import('@/src/data/stat.json')
-      const statInfoData = await import('@/src/data/statInfo.json')
+      const weaponData = await import('@/src/data/json/weapon.json')
+      const statData = await import('@/src/data/json/stat.json')
+      const statInfoData = await import('@/src/data/json/statInfo.json')
       setDatas(weaponData.default)
       setStats(statData.default)
       setStatInfo(statInfoData.default)
-      setIsLoading(false)
       setLevel('160')
+      setIsLoading(false)
     }
     fetchData()
   }, [])
+
+  // id 형태인 스탯을 이름으로 바꿔줌
   const getStatName = (id: string): string => {
     const result = stats?.find((stat) => stat.stat_id === id)
     return result ? result.stat_name : 'error'
   }
+  // 스탯 값 하위 0~100% 계산
   const calculatePercentageOfStat = (value: number, statName: string) => {
     const { min, max, average } = statInfo[statName]
 
     let percent = parseInt((value / max) * 100)
     return percent < 2 ? 2 : percent
   }
+
+  // 로딩 중 처리
   if (isLoading) {
     return <div>최초 무기 정보 로딩중..</div>
   }
+  console.log(weaponNumber);
+
   return (
     <>
       <div className="mb-4 text-xl">
@@ -80,7 +105,7 @@ export default function WeaponStatDetailPage(props: { weaponNumber: string }) {
         <div className="flex">
           <div className="h-16 w-36 mr-4">
             <img
-              className="p-1 weapon h-14 w-36 object-cover"
+              className="h-14 w-36 p-1 object-cover weapon"
               src={datas[weaponNumber].image_url}
             />
           </div>
@@ -102,7 +127,7 @@ export default function WeaponStatDetailPage(props: { weaponNumber: string }) {
           />
         </Space>
         <div className="flex flex-row">
-          <div className="w-48 text-right mr-4 text-lg">
+          <div className="w-48 mr-4 text-lg text-right">
             {getStatName(
               datas[weaponNumber].firearm_atk[Number(level) - 1].firearm[0]
                 .firearm_atk_type,
@@ -136,7 +161,7 @@ export default function WeaponStatDetailPage(props: { weaponNumber: string }) {
             .filter((stat) => wantStats.includes(getStatName(stat.stat_id)))
             .map((stat, index) => (
               <div className="flex flex-row" key={index}>
-                <div className="w-48 text-right mr-4 text-lg">
+                <div className="w-48 mr-4 text-lg text-right">
                   {getStatName(stat.stat_id)}
                 </div>
                 <Flex style={{ width: 200 }}>
@@ -153,7 +178,32 @@ export default function WeaponStatDetailPage(props: { weaponNumber: string }) {
               </div>
             ))}
         </div>
+      
       </div>
+      <div>
+
+      </div>
+      <div className="mt-4 mb-4 text-xl">
+        <strong>{datas[weaponNumber].weapon_name}</strong> 특성
+      </div>
+        <div className="pb-10">
+          {
+            datas[weaponNumber].weapon_perk_ability_image_url !== null ?
+            <>
+              <img className="w-16 mt-4 skill" src={datas[weaponNumber]?.weapon_perk_ability_image_url}></img>
+              <div className="mt-4 text-2xl font-bold text-gray-500">
+                {datas[weaponNumber].weapon_perk_ability_name}
+              </div>  
+              <div className="mt-2">
+                {datas[weaponNumber].weapon_perk_ability_description}
+              </div> 
+            </>
+          : 
+          <div>
+            특성 없음
+          </div>
+          }
+        </div>
     </>
   )
 }

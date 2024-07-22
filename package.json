@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@ant-design/icons": "^5.4.0",
     "@types/node": "^20.11.26",
     "@types/react": "^17.0.19",
     "@types/react-dom": "^17.0.25",

@@ -1,12 +1,16 @@
-import { Descendant } from '@/src/data/descendant_type'
+import { Descendant } from '@/src/data/type/descendant_type'
 
 export default function DescendantSkillDetailPage(props: {
   descendantId: string
   skillId: string
 }) {
+  // 정보를 볼 계승자 id
   const descendantId = parseInt(props.descendantId)
+  // 정보를 볼 스킬 id
   const skillId = parseInt(props.skillId)
-  const datas: Descendant[] = require('@/src/data/descendant.json')
+
+  // 계승자 데이터 불러오기
+  const datas: Descendant[] = require('@/src/data/json/descendant.json')
   return (
     <>
       <div className="mt-4">

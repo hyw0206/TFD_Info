@@ -9,6 +9,7 @@ export interface Weapon {
   firearm_atk: Firearmatk[];
   weapon_perk_ability_name: string | null;
   weapon_perk_ability_description: string | null;
+  weapon_perk_ability_image_url: string | null;
 }
 interface Firearmatk {
   level: number;
