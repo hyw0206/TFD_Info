@@ -6,7 +6,7 @@ export default function Home() {
   const url = 'https://open.api.nexon.com'
 
   useEffect(() => {
-    axios.get(`${url}/static/tfd/meta/ko/reactor.json`).then((r) => {
+    axios.get(`${url}/static/tfd/meta/ko/module.json`).then((r) => {
       console.log('response : ', r)
     })
   }, [])

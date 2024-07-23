@@ -30,13 +30,13 @@ export default function RewardLayoutPage() {
       [key]: !prevState[key]
     }));
   };
-
-  const toggleVisibilityFarming = (key) => {
+   const toggleVisibilityFarming = (key) => {
     setVisibleFramingItem(prevState => ({
-      ...prevState,
-      [key]: !prevState[key]
+    ...prevState,
+    [key]: !prevState[key]
     }));
   }
+
 
   const datas: RewardData[] = require("@/src/data/json/reward.json");
 
@@ -44,7 +44,7 @@ export default function RewardLayoutPage() {
     <div className="max-w-4xl m-auto p-4">
       <div className="mt-8 ml-6 text-2xl font-bold">난이도 보상 정보</div>
       <div className="mb-4 ml-6 text-sm">난이도 보상 정보는 총 20개의 로테이션로 나뉩니다. 숫자는 로테이션 숫자를 나타냅니다.</div>
-      <div className="mb-4 ml-6 text-3xl">현재 로테이션 : 5 (다음 로테이션 : 7월 23일 오후 4시, 6)</div>
+      <div className="mb-4 ml-6 text-3xl">현재 로테이션 : 6 (다음 로테이션 : 7월 30일 오후 4시, 7)</div>
       <div 
         onClick={() => toggleVisibilityFarming(0)} 
         className="mb-4 ml-6 text-xl text-gray-400 cursor-pointer"
@@ -114,6 +114,8 @@ export default function RewardLayoutPage() {
         <div className="mb-2 ml-10 text-lg">백야 협곡 - 산령 (2, 19) | 달무덤 유역 (10) | 경계구역 (5, 19) | 적하기지 (7)</div>
       </div>
 
+
+      <div className="mt-8 mb-4 text-2xl font-bold">전체 로테이션 정보 보기</div>
       <div>
         {
           datas?.filter(reward =>
