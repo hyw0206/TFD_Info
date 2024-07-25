@@ -7,6 +7,9 @@ export default function ReactorLayoutPage() {
   return (
     <div className="max-w-4xl m-auto p-4">
       <div className="mt-8 ml-6 text-2xl font-bold">반응로 정보</div>
+      <div className="mt-8 ml-6 text-xl">주의 : 반응로의 등급에 따라 최적화 조건 무기군이 결정됩니다.</div>
+      <div className="ml-6 text-xl">ex) 궁극 -> 궁극 등급 특정 무기 | 희귀 -> 특정 무기군</div>
+      
       <div className="flex items-center mt-6 ml-6 text-center">
         <div className="w-40">반응로</div>
         <div className="w-28">등급</div>
