@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
 import { Flex, Progress, Select, Space, Tooltip } from 'antd'
 import { StatInfo } from '@/src/data/type/statinfo'
-import { Weapon } from '@/src/data/type/weapon_type'
-import { Stat, Basestat } from '@/src/data/type/stat'
+import { Weapon, Basestat } from '@/src/data/type/weapon_type'
+import { Stat } from '@/src/data/type/stat'
 import { Module } from '@/src/data/type/module'
 
 export default function WeaponStatDetailPage(props: { weaponNumber: string }) {
@@ -64,8 +64,8 @@ export default function WeaponStatDetailPage(props: { weaponNumber: string }) {
     )
       return stat.stat_value + '%'
     if (['재장전 시간'].includes(getStatName(stat.stat_id)))
-      return String(stat.stat_value.toFixed(2))
-    return stat.stat_value
+      return Number(stat.stat_value).toFixed(2)
+    return String(stat.stat_value)
   }
 
   useEffect(() => {
@@ -91,13 +91,18 @@ export default function WeaponStatDetailPage(props: { weaponNumber: string }) {
     return result ? result.stat_name : 'error'
   }
 
-  // 스텟 값 하위 0~100% 계산
   const calculatePercentageOfStat = (value: number, statName: string) => {
-    const { min, max, average } = statInfo[statName]
-
-    let percent = parseInt((value / max) * 100)
-    return percent < 2 ? 2 : percent
-  }
+    // statInfo가 undefined일 경우, 기본값 처리
+    if (!statInfo) return 0;
+  
+    // statInfo가 string 인덱스 시그니처를 갖도록 강제함
+    const { min, max } = (statInfo as unknown as Record<string, { min: number; max: number }>)?.[statName] || { min: 0, max: 100 };
+    
+  // value를 number로 처리
+    let percent = (value / max) * 100;
+    percent = Math.min(Math.max(percent, 2), 100); // Ensure percent is between 2 and 100
+    return Math.round(percent); // Return rounded percentage
+  };
 
   // 로딩 중 처리
   if (isLoading) {
