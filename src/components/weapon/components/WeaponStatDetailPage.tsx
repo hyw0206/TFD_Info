@@ -207,22 +207,25 @@ export default function WeaponStatDetailPage(props: { weaponNumber: string }) {
         <strong>{datas[weaponNumber].weapon_name}</strong> 특성
       </div>
       <div>
-        {
-          datas[weaponNumber].weapon_perk_ability_image_url !== null ?
+        {datas[weaponNumber]?.weapon_perk_ability_image_url ? (
           <>
-            <img className="w-16 mt-4 skill" src={datas[weaponNumber]?.weapon_perk_ability_image_url}></img>
+            <img
+              className="w-16 mt-4 skill"
+              src={datas[weaponNumber].weapon_perk_ability_image_url || ''} // null을 빈 문자열로 변환
+              alt={datas[weaponNumber].weapon_perk_ability_name || '무기 특성 이미지'} // alt 속성 추가
+            />
             <div className="mt-4 text-2xl font-bold text-gray-500">
               {datas[weaponNumber].weapon_perk_ability_name}
-            </div>  
+            </div>
             <div className="mt-2">
               {datas[weaponNumber].weapon_perk_ability_description}
-            </div> 
+            </div>
           </>
-        : 
-        <div>
-          특성 없음
-        </div>
-        }
+        ) : (
+          <div>
+            특성 없음
+          </div>
+        )}
       </div>
       <div className="mt-4 mb-4 text-xl font-bold">
         장착 가능한 모듈 (마우스 올릴 시 자세한 설명)
