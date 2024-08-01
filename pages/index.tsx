@@ -6,27 +6,27 @@ export default function Home() {
   const url = 'https://open.api.nexon.com'
 
   useEffect(() => {
-    axios.get(`${url}/static/tfd/meta/ko/descendant.json`).then((r) => {
-      console.log('response : ', r)
-    })
-    axios.get(`${url}/static/tfd/meta/ko/weapon.json`).then((r) => {
-      console.log('response : ', r)
-    })
-    axios.get(`${url}/static/tfd/meta/ko/module.json`).then((r) => {
-      console.log('response : ', r)
-    })
-    axios.get(`${url}/static/tfd/meta/ko/reactor.json`).then((r) => {
-      console.log('response : ', r)
-    })
-    axios.get(`${url}/static/tfd/meta/ko/reward.json`).then((r) => {
-      console.log('response : ', r)
-    })
-    axios.get(`${url}/static/tfd/meta/ko/stat.json`).then((r) => {
-      console.log('response : ', r)
-    })
-    axios.get(`${url}/static/tfd/meta/ko/external-component.json`).then((r) => {
-      console.log('response : ', r)
-    })
+    // axios.get(`${url}/static/tfd/meta/ko/descendant.json`).then((r) => {
+    //   console.log('response : ', r)
+    // })
+    // axios.get(`${url}/static/tfd/meta/ko/weapon.json`).then((r) => {
+    //   console.log('response : ', r)
+    // })
+    // axios.get(`${url}/static/tfd/meta/ko/module.json`).then((r) => {
+    //   console.log('response : ', r)
+    // })
+    // axios.get(`${url}/static/tfd/meta/ko/reactor.json`).then((r) => {
+    //   console.log('response : ', r)
+    // })
+    // axios.get(`${url}/static/tfd/meta/ko/reward.json`).then((r) => {
+    //   console.log('response : ', r)
+    // })
+    // axios.get(`${url}/static/tfd/meta/ko/stat.json`).then((r) => {
+    //   console.log('response : ', r)
+    // })
+    // axios.get(`${url}/static/tfd/meta/ko/external-component.json`).then((r) => {
+    //   console.log('response : ', r)
+    // })
   }, [])
 
   return (
