@@ -1,4 +1,4 @@
-
+import { Component } from "@/src/data/type/component";
 import { Stat } from "@/src/data/type/stat";
 import { useState } from "react";
 
