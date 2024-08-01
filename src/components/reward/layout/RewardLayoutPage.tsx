@@ -2,9 +2,12 @@ import { CaretDownOutlined } from "@ant-design/icons";
 import { RewardData } from "@/src/data/type/reward";
 import { useState, useMemo } from "react";
 
+type VisibilityState = { [key: number]: boolean };
+type RewardVisibilityState = { [key: string]: boolean };
+
 export default function RewardLayoutPage() {
-  const [visibleBattleZones, setVisibleBattleZones] = useState({});
-  const [visibleRewards, setVisibleRewards] = useState({});
+  const [visibleBattleZones, setVisibleBattleZones] = useState<VisibilityState>({});
+  const [visibleRewards, setVisibleRewards] = useState<RewardVisibilityState>({});
 
   const [selectedRewardType, setSelectedRewardType] = useState<string | null>(null);
   const [selectedReactorElementType, setSelectedReactorElementType] = useState<string | null>(null);
@@ -13,7 +16,7 @@ export default function RewardLayoutPage() {
 
   const datas: RewardData[] = require("@/src/data/json/reward.json");
 
-  const toggleVisibility = (mapIdx) => {
+  const toggleVisibility = (mapIdx: number) => {
     setVisibleBattleZones(prevState => {
       const newState = { ...prevState, [mapIdx]: !prevState[mapIdx] };
       if (!newState[mapIdx]) {
@@ -29,7 +32,7 @@ export default function RewardLayoutPage() {
     });
   };
 
-  const toggleVisibilityReward = (mapIdx, battleIdx) => {
+  const toggleVisibilityReward = (mapIdx: number, battleIdx: number) => {
     const key = `${mapIdx}-${battleIdx}`;
     setVisibleRewards(prevState => ({
       ...prevState,
@@ -77,16 +80,19 @@ export default function RewardLayoutPage() {
     return type === current ? "bg-blue-500 text-white" : "bg-gray-500 text-white";
   };
 
-  const formatRotations = (rotations) => {
-    if (rotations.length === 0) return "없음";
-
-    // 중복 제거 및 정렬
-    const uniqueSortedRotations = Array.from(new Set(rotations)).sort((a, b) => a - b);
-
+  const formatRotations = (rotations: string | any[] | Iterable<unknown> | null | undefined) => {
+    if (!rotations || (Array.isArray(rotations) && rotations.length === 0)) {
+      return "없음";
+    }
+  
+    const arrayOfRotations = Array.isArray(rotations) ? rotations : Array.from(rotations || []);
+    
+    const uniqueSortedRotations = Array.from(new Set(arrayOfRotations)).sort((a, b) => a - b);
+  
     let ranges = [];
     let rangeStart = uniqueSortedRotations[0];
     let rangeEnd = uniqueSortedRotations[0];
-
+  
     for (let i = 1; i < uniqueSortedRotations.length; i++) {
       if (uniqueSortedRotations[i] === rangeEnd + 1) {
         rangeEnd = uniqueSortedRotations[i];
@@ -96,16 +102,17 @@ export default function RewardLayoutPage() {
         rangeEnd = uniqueSortedRotations[i];
       }
     }
-
+  
     ranges.push(rangeStart === rangeEnd ? `${rangeStart}` : `${rangeStart}-${rangeEnd}`);
     return ranges.join(", ");
   };
+  
 
   return (
     <div className="max-w-4xl m-auto p-4">
       <div className="mt-8 ml-6 text-2xl font-bold">난이도 보상 정보</div>
       <div className="mb-4 ml-6 text-sm">난이도 보상 정보는 총 20개의 로테이션로 나뉩니다. 숫자는 로테이션 숫자를 나타냅니다.</div>
-      <div className="mb-4 ml-6 text-3xl">현재 로테이션 : 7 (7/30 PM 4:00 ~ 8/6 PM 3:59)</div>
+      <div className="mb-4 ml-6 text-3xl">현재 로테이션 : 7 (7/30 PM 4:00 ~ 8/6 PM)</div>
      
       <div className="mb-4 ml-6">
         <div className="text-lg mb-2">보상 타입</div>
