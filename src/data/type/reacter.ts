@@ -1,4 +1,4 @@
-export interface Module {
+export interface Reactor {
   reactor_id: string
   reactor_name: string
   image_url: string
