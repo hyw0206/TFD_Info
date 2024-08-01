@@ -73,7 +73,7 @@ export default function ComponentLayoutPage() {
       <div className="mt-2 ml-6 text-lg">세트 효과</div>    
       <div className="flex flex-wrap mt-2 ml-6">
         {
-        ['무덤 선봉대', '초신성', '전투의 미학', '절멸', '처형인', '학살자', '혹한', '극야', '맹독의 정수', '숙련 사수', '늪 정찰대', '얼어붙은 심장', '곡예사', '활화산', '전체'].map((data, idx) => {
+        ['무덤 선봉대', '초신성', '전투의 미학', '절멸', '처형인', '학살자', '혹한', '극야', '맹독의 정수', '숙련 사수', '늪 정찰대', '얼어붙은 심장', '곡예사', '활화산', '굶주린 음파', '전체'].map((data, idx) => {
           return (
             data !== "전체" ?
             <button className={`mr-2 mb-2 p-2 ${getButtonClass(data, selectedSetOption)}`} onClick={() => handleSetOptionFilterClick(data)}>{data}</button>

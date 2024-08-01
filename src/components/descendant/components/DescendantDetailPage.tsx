@@ -203,10 +203,15 @@ export default function DescendantDetailPage(props: { descendantId: string }) {
                 (datas[descendantId].descendant_name === "프레이나")
                 ||
                 (Number(module.module_id) >= 254009001 &&
-                Number(module.module_id) <= 254009006)
+                Number(module.module_id) <= 254009004)
                 &&
                 (datas[descendantId].descendant_name === "글레이" ||
                 datas[descendantId].descendant_name === "얼티밋 글레이")
+                ||
+                (Number(module.module_id) >= 254009005 &&
+                Number(module.module_id) <= 254009006)
+                &&
+                datas[descendantId].descendant_name === "얼티밋 글레이"
                 ||
                 (Number(module.module_id) >= 254010001 &&
                 Number(module.module_id) <= 254010002)
@@ -217,7 +222,49 @@ export default function DescendantDetailPage(props: { descendantId: string }) {
                 Number(module.module_id) <= 254011004)
                 &&
                 (datas[descendantId].descendant_name === "샤렌")
-
+                ||
+                (Number(module.module_id) >= 254013001 &&
+                Number(module.module_id) <= 254013004)
+                &&
+                (datas[descendantId].descendant_name === "밸비" ||
+                datas[descendantId].descendant_name === "얼티밋 밸비"
+                )
+                ||
+                (Number(module.module_id) >= 254013005 &&
+                Number(module.module_id) <= 254013006)
+                &&
+                (datas[descendantId].descendant_name === "얼티밋 밸비"
+                )
+                ||
+                (Number(module.module_id) >= 254014001 &&
+                Number(module.module_id) <= 254014004)
+                &&
+                (datas[descendantId].descendant_name === "카일")
+                ||
+                (Number(module.module_id) >= 254015001 &&
+                Number(module.module_id) <= 254015004)
+                &&
+                (datas[descendantId].descendant_name === "에시모")
+                ||
+                (Number(module.module_id) >= 254016001 &&
+                Number(module.module_id) <= 254016004)
+                &&
+                (datas[descendantId].descendant_name === "엔조")
+                ||
+                (Number(module.module_id) >= 254017001 &&
+                Number(module.module_id) <= 254017004)
+                &&
+                (datas[descendantId].descendant_name === "유진")
+                ||
+                (Number(module.module_id) >= 254018001 &&
+                Number(module.module_id) <= 254018004)
+                &&
+                (datas[descendantId].descendant_name === "블레어")
+                ||
+                (Number(module.module_id) >= 254019001 &&
+                Number(module.module_id) <= 254019002)
+                &&
+                (datas[descendantId].descendant_name === "얼티밋 버니")
                 
 
               )

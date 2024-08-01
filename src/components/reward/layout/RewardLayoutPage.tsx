@@ -105,7 +105,7 @@ export default function RewardLayoutPage() {
     <div className="max-w-4xl m-auto p-4">
       <div className="mt-8 ml-6 text-2xl font-bold">난이도 보상 정보</div>
       <div className="mb-4 ml-6 text-sm">난이도 보상 정보는 총 20개의 로테이션로 나뉩니다. 숫자는 로테이션 숫자를 나타냅니다.</div>
-      <div className="mb-4 ml-6 text-3xl">현재 로테이션 : 6 (다음 로테이션 : 7월 30일 오후 4시, 7)</div>
+      <div className="mb-4 ml-6 text-3xl">현재 로테이션 : 7 (7/30 PM 4:00 ~ 8/6 PM 3:59)</div>
      
       <div className="mb-4 ml-6">
         <div className="text-lg mb-2">보상 타입</div>

@@ -5,7 +5,7 @@ import { Descendant } from '@/src/data/type/descendant_type'
 export default function DescendantLayoutPage() {
   const datas = require('@/src/data/json/descendant.json')
 
-  const [descendantId, setDescendantId] = useState('17')
+  const [descendantId, setDescendantId] = useState('18')
 
   // 현재 내가 누른 descendant_id에 맞는 data를 로드한다.
   const onClickGetDetail = (id: string) => {
