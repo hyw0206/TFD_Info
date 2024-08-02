@@ -1,38 +1,20 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## 퍼스트 디센던트 정보 제공 사이트, TFD Info
+- 퍼스트 디센던트 공식 API를 통한 정보 제공
+- 각종 인 게임 도움이 되는 정보도 추가 예정
 
-## Getting Started
+## 추가 예정 기능
+- 모듈 세팅 기능
+- 전체 지도 & 파밍 가능한 아이템 확인
+- 각 캐릭터 / 무기마다 파밍처 추가
 
-First, run the development server:
+## 개선할 기능 / 화면
+- Title & Tab Name & 로고
+- 모바일 뷰 개선
+- 필터 탭 순서
+- 신규 게승자 모듈 추가
+- 모듈 탭 초월부터 보이게 (선택되게)
+- 모듈 극성 이름 말고 로고도 보이게 (말라카이트, 알만딘.. -> Image)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
-
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
-
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## 기술
+- Next.js 12 Ver (React 17 Ver)
+- Typescript 5.4.3 Ver
