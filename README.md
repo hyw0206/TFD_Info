@@ -14,6 +14,7 @@
 - Next.js 12 Ver (React 17 Ver)
 - Typescript 5.4.3 Ver
 
+
 ## 업데이트 내역
 
 ### 2024/08/06
