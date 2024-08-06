@@ -1,5 +1,4 @@
 import { Analytics } from '@vercel/analytics/react'
-import { SpeedInsights } from '@vercel/speed-insights/next';
 import Link from "next/link";
 
 export default function Layout(props: { children: JSX.Element }) {
@@ -17,7 +16,6 @@ export default function Layout(props: { children: JSX.Element }) {
       </div>
       {props.children}
       <Analytics />
-      <SpeedInsights />
       <div className="h-24 p-4 footer">
         <div className="max-w-4xl m-auto">
           © TFD Info All Rights Reserved. Hosted by Vercel. The First Descendant
