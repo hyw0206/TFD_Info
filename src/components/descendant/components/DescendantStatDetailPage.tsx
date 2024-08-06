@@ -25,7 +25,7 @@ export default function DescendantStatDetailPage(props: {
         return (
           <div key={stat.stat_type + stat.stat_value}>
             <div className="flex mt-2">
-              <div className="w-44 text-xl text-center opacity-75">
+              <div className="w-44 text-center opacity-75 fix:text-xl">
                 {stat.stat_type}
               </div>
               <div className="w-44 text-lg text-center">{stat.stat_value}</div>

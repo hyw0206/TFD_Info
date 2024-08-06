@@ -196,7 +196,7 @@ export default function RewardLayoutPage() {
       <div className="mb-4 ml-6">
         <div className="text-lg mb-2">보상 타입</div>
         <button
-          className={`mr-2 p-2 rounded ${getButtonClass(selectedRewardType, null)}`}
+          className={`mr-2 mb-2 p-2 rounded ${getButtonClass(selectedRewardType, null)}`}
           onClick={() => handleRewardTypeFilterClick(null)}
         >
           전체
@@ -204,7 +204,7 @@ export default function RewardLayoutPage() {
         {["반응로", "보조 전원", "센서", "메모리", "처리 장치"].map(type => (
           <button
             key={type}
-            className={`mr-2 p-2 rounded ${getButtonClass(selectedRewardType, type)}`}
+            className={`mr-2 mb-2 p-2 rounded ${getButtonClass(selectedRewardType, type)}`}
             onClick={() => handleRewardTypeFilterClick(type)}
           >
             {type}
@@ -214,7 +214,7 @@ export default function RewardLayoutPage() {
       <div className="mb-4 ml-6">
         <div className="text-lg mb-2">속성</div>
         <button
-          className={`mr-2 p-2 rounded ${getButtonClass(selectedReactorElementType, null)}`}
+          className={`mr-2 mb-2 p-2 rounded ${getButtonClass(selectedReactorElementType, null)}`}
           onClick={() => handleReactorElementTypeFilterClick(null)}
         >
           전체
@@ -222,7 +222,7 @@ export default function RewardLayoutPage() {
         {["전기", "화염", "냉기", "독성", "무 속성"].map(type => (
           <button
             key={type}
-            className={`mr-2 p-2 rounded ${getButtonClass(selectedReactorElementType, type)}`}
+            className={`mr-2 mb-2 p-2 rounded ${getButtonClass(selectedReactorElementType, type)}`}
             onClick={() => handleReactorElementTypeFilterClick(type)}
           >
             {type}
@@ -232,7 +232,7 @@ export default function RewardLayoutPage() {
       <div className="mb-4 ml-6">
         <div className="text-lg mb-2">무기 탄</div>
         <button
-          className={`mr-2 p-2 rounded ${getButtonClass(selectedWeaponRoundsType, null)}`}
+          className={`mr-2 mb-2 p-2 rounded ${getButtonClass(selectedWeaponRoundsType, null)}`}
           onClick={() => handleWeaponRoundsTypeFilterClick(null)}
         >
           전체
@@ -240,7 +240,7 @@ export default function RewardLayoutPage() {
         {["일반탄", "특수탄", "충격탄", "고위력탄"].map(type => (
           <button
             key={type}
-            className={`mr-2 p-2 rounded ${getButtonClass(selectedWeaponRoundsType, type)}`}
+            className={`mr-2 mb-2 p-2 rounded ${getButtonClass(selectedWeaponRoundsType, type)}`}
             onClick={() => handleWeaponRoundsTypeFilterClick(type)}
           >
             {type}
@@ -250,7 +250,7 @@ export default function RewardLayoutPage() {
       <div className="mb-4 ml-6">
         <div className="text-lg mb-2">타입</div>
         <button
-          className={`mr-2 p-2 rounded ${getButtonClass(selectedArcheType, null)}`}
+          className={`mr-2 mb-2 p-2 rounded ${getButtonClass(selectedArcheType, null)}`}
           onClick={() => handleArcheTypeFilterClick(null)}
         >
           전체
@@ -258,7 +258,7 @@ export default function RewardLayoutPage() {
         {["차원", "공학", "융합", "특이"].map(type => (
           <button
             key={type}
-            className={`mr-2 p-2 rounded ${getButtonClass(selectedArcheType, type)}`}
+            className={`mr-2 mb-2 p-2 rounded ${getButtonClass(selectedArcheType, type)}`}
             onClick={() => handleArcheTypeFilterClick(type)}
           >
             {type}
@@ -305,7 +305,7 @@ export default function RewardLayoutPage() {
                     </div>
                     <div className={`${visibleRewards[`${mapIdx}-${battleIdx}`] ? '' : 'hidden'}`}>
                       {rewards.map((reward, rewardIdx) => (
-                        <div key={rewardIdx} className="ml-4 p-2 bg-gray-100">
+                        <div key={rewardIdx} className={`ml-4 p-2 bg-gray-100 ${rotationDetails.rotationNumber === reward.rotation && "font-bold"}`}>
                           <div>로테이션: {reward.rotation}</div>
                           <div>보상 타입: {reward.reward_type}</div>
                           {reward.reactor_element_type && <div>속성: {reward.reactor_element_type}</div>}

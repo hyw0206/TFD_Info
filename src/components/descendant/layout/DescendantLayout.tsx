@@ -1,13 +1,25 @@
+// Component import
 import DescendantDetailPage from '../components/DescendantDetailPage'
-import { useState } from 'react'
+
+// Type import
 import { Descendant } from '@/src/data/type/descendant_type'
 
-export default function DescendantLayoutPage() {
-  const datas = require('@/src/data/json/descendant.json')
+// Hook import
+import { useState } from 'react'
 
+// data import
+const datas: Descendant[] = require('@/src/data/json/descendant.json')
+
+export default function DescendantLayoutPage() {
+  
+  // useState Hook Setting
+
+  // 선택된 계승자 id (기본 : 얼티밋 버니)
   const [descendantId, setDescendantId] = useState('18')
 
-  // 현재 내가 누른 descendant_id에 맞는 data를 로드한다.
+  // 바인딩 함수
+  
+  // 클릭 시 세부 정보 가져오는 바꾸기
   const onClickGetDetail = (id: string) => {
     // 리렌더링 방지 (현재 보여지는 정보와 내가 누른 정보가 같을 경우)
     if (descendantId === id) return
@@ -28,13 +40,13 @@ export default function DescendantLayoutPage() {
           return (
             <div
               key={data.descendant_id}
-              className="w-40 mt-2"
+              className="w-32 mt-2 fix:w-40"
               // idx 순서 == json 파일의 순서기에 idx 사용
               id={String(idx)}
               onClick={() => onClickGetDetail(String(idx))}
             >
               <img
-                className="w-16 m-auto border-2 border-black shadow-lg"
+                className="w-12 m-auto border-2 border-black shadow-lg fix:w-16"
                 src={data.descendant_image_url}
                 alt={data.descendant_name}
               />

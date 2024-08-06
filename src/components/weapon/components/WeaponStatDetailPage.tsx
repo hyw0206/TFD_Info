@@ -118,9 +118,9 @@ export default function WeaponStatDetailPage(props: { weaponNumber: string }) {
       </div>
       <div className="flex flex-col">
         <div className="flex">
-          <div className="h-16 w-36 mr-4">
+          <div className="w-32 h-16 mr-4">
             <img
-              className="h-14 w-36 p-1 object-cover weapon"
+              className="w-32 h-14 p-1 object-cover weapon"
               src={datas[weaponNumber].image_url}
             />
           </div>
@@ -145,13 +145,13 @@ export default function WeaponStatDetailPage(props: { weaponNumber: string }) {
          <span>Lv.{level}</span>
         </Space>
         <div className="flex flex-row">
-          <div className="w-48 mr-4 text-lg text-right">
+          <div className="w-36 mr-4 text-sm text-right fix:w-48 fix:text-lg">
             {getStatName(
               datas[weaponNumber].firearm_atk[Number(level) - 1].firearm[0]
                 .firearm_atk_type,
             )}
           </div>
-          <Flex style={{ width: 200 }}>
+          <Flex className="w-16 fix:w-52">
             <Progress
               percent={parseInt(
                 (
@@ -179,10 +179,10 @@ export default function WeaponStatDetailPage(props: { weaponNumber: string }) {
             .filter((stat) => wantStats.includes(getStatName(stat.stat_id)))
             .map((stat, index) => (
               <div className="flex flex-row" key={stat.stat_id + index + stat.stat_value}>
-                <div className="w-48 mr-4 text-lg text-right">
+                <div className="w-36 mr-4 text-sm text-right fix:w-48 fix:text-lg">
                   {getStatName(stat.stat_id)}
                 </div>
-                <Flex style={{ width: 200 }}>
+                <Flex className="w-16 fix:w-52">
                   <Progress
                     percent={calculatePercentageOfStat(
                       Number(stat.stat_value),

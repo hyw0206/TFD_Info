@@ -15,7 +15,10 @@ module.exports = {
       },
       flexBasis: {
         '1/10': '10%',
-      }
+      },
+      screens: {
+        'fix': '701px',
+      },
     },
   },
   plugins: [],

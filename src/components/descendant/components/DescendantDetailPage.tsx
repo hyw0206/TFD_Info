@@ -10,9 +10,7 @@
   import { useEffect, useState } from 'react'
 
   // antd import
-  import { Select, Space, Tooltip } from 'antd'
-  import { SliderSingleProps } from 'antd/lib/slider'
-  import dynamic from 'next/dynamic'
+  import { Select, Slider, Space, Tooltip } from 'antd'
 
   // data import
   const datas: Descendant[] = require('@/src/data/json/descendant.json')
@@ -39,7 +37,6 @@
 
     // 일반 함수
 
-    const Slider = dynamic(() => import('antd/lib/slider').then(mod => mod.default as unknown as React.FC<SliderSingleProps>), { ssr: false })
 
 
     // 바인딩 함수
@@ -172,6 +169,7 @@
         </div>
         <Space wrap>
           <Slider 
+            value={parseInt(level)}
             defaultValue={40}
             min={1}
             max={40}

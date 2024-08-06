@@ -13,6 +13,8 @@
     "@types/node": "^20.11.26",
     "@types/react": "^17.0.19",
     "@types/react-dom": "^17.0.25",
+    "@vercel/analytics": "^1.0.2",
+    "@vercel/speed-insights": "^1.0.2",
     "antd": "^5.19.2",
     "autoprefixer": "10.4.19",
     "axios": "^1.7.2",

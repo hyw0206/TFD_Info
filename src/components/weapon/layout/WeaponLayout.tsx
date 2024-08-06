@@ -36,14 +36,14 @@ export default function WeaponLayout() {
             return (
               <div key={`weapon-round-${idx}`}>
                 <div className="flex p-2">
-                  <div className="w-20 text-center">{type.weaponRoundType}</div>
+                  <div className="w-16 text-center text-sm fix:w-20 fix:text-base">{type.weaponRoundType}</div>
                   <div className="flex">
                     {
                       type.weaponType.map((weaponType, idx2) => {
                         return (
                           <>
                             <div key={`weapon-${idx}-${idx2}`}  onClick={onClickWeaponNav} id={idx + " " + idx2} className={weaponRoundTypeId === String(idx) && weaponTypeId === String(idx2) ?
-                              "mr-2 font-bold cursor-pointer" : "mr-2 cursor-pointer"
+                              "mr-2 font-bold text-sm cursor-pointer fix:text-base" : "mr-2 text-sm cursor-pointer fix:text-base"
                             }>{weaponType}</div>
                           </>
                         )
@@ -57,7 +57,7 @@ export default function WeaponLayout() {
         }
       </div>
       <div className="flex pt-4 pb-4">
-        <div className="w-64 pt-2 pb-2 text-center areagray">아이템 이름</div>
+        <div className="w-32 pr-2 pt-2 pb-2 text-center areagray fix:w-64 fix:pr-0">아이템 이름</div>
         <div className="grow pt-2 pb-2 text-center areagray">특성 정보</div>
       </div>
       <WepaonDetailPage weaponRoundTypeid={weaponRoundTypeId} weaponTypeid={weaponTypeId} />
