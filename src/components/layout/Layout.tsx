@@ -4,7 +4,7 @@ export default function Layout(props: { children: JSX.Element }) {
   return (
     <>
       <div className="h-24 pt-2 footer">
-        <div className="flex flex-row justify-items-center items-center max-w-4xl m-auto h-24">
+        <div className="flex flex-row justify-items-center items-center max-w-4xl m-auto h-24 flex-wrap min[670px]:flex-nowrap">
           <div className="text-2xl font-bold color-white mr-8 text-center"><Link href="/">TFD Info</Link></div>
           <div className="text-2xl font-bold color-white mr-8 text-center"><Link href="/descendant">계승자</Link></div>
           <div className="text-2xl font-bold color-white mr-8 text-center"><Link href="/weapon">무기</Link></div>

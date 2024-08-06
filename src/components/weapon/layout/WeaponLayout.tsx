@@ -1,13 +1,22 @@
+// Component import
 import WepaonDetailPage from "../components/WeaponDetailPage";
-import { WeaponType } from "@/src/data/etc/weaponvars";
+
+// Hook import
 import React, { useState } from "react"
 
+// etc import
+import { WeaponType } from "@/src/data/etc/weaponvars";
+
 export default function WeaponLayout() {
+  // useState Hook Setting
+
   // 무기 계열
   const [weaponRoundTypeId, setWeaponRoundTypeId] = useState("0");
   // 무기 종류
   const [weaponTypeId, setWeaponTypeId] = useState("0"); 
   
+  // 바인딩 함수
+
   // 각 tag에 id로 남겨진 무기 계열, 종류를 확인하고 이에 맞는 데이터를 보여줌 (setState -> props 전달)
   const onClickWeaponNav = (event: React.MouseEvent<HTMLElement, MouseEvent>) => {
     const eventWeaponRoundTypeId = event.currentTarget.id.split(" ")[0];
@@ -25,15 +34,15 @@ export default function WeaponLayout() {
         {
           WeaponType.map((type, idx) => {
             return (
-              <>
-                <div key={idx + type.weaponRoundType} className="flex p-2">
+              <div key={`weapon-round-${idx}`}>
+                <div className="flex p-2">
                   <div className="w-20 text-center">{type.weaponRoundType}</div>
                   <div className="flex">
                     {
                       type.weaponType.map((weaponType, idx2) => {
                         return (
                           <>
-                            <div onClick={onClickWeaponNav} id={idx + " " + idx2} className={weaponRoundTypeId === String(idx) && weaponTypeId === String(idx2) ?
+                            <div key={`weapon-${idx}-${idx2}`}  onClick={onClickWeaponNav} id={idx + " " + idx2} className={weaponRoundTypeId === String(idx) && weaponTypeId === String(idx2) ?
                               "mr-2 font-bold cursor-pointer" : "mr-2 cursor-pointer"
                             }>{weaponType}</div>
                           </>
@@ -42,7 +51,7 @@ export default function WeaponLayout() {
                     }
                   </div>
                 </div>
-              </>
+              </div>
             )
           })
         }

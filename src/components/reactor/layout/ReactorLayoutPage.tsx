@@ -1,4 +1,8 @@
+// Type import
+
 import { Reactor } from "@/src/data/type/reacter";
+
+// data import
 
 const datas: Reactor[] = require("@/src/data/json/reactor.json");
 
@@ -27,7 +31,7 @@ export default function ReactorLayoutPage() {
             )
           }).map((data, idx) => {
             return (
-              <div className="flex mt-6 ml-6 items-center">
+              <div className="flex mt-6 ml-6 items-center" key={data.image_url + idx}>
                 <div className="flex flex-col items-center w-40">
                   <img className="h-20 w-20 object-cover" src={data.image_url} />
                   <div>{data.reactor_name}</div>

@@ -1,11 +1,37 @@
-import { useEffect, useState } from 'react'
-import { Flex, Progress, Select, Space, Tooltip } from 'antd'
-import { StatInfo } from '@/src/data/type/statinfo'
+// Type import
+
 import { Weapon, Basestat } from '@/src/data/type/weapon_type'
 import { Stat } from '@/src/data/type/stat'
 import { Module } from '@/src/data/type/module'
+import { StatInfo } from '@/src/data/type/statinfo'
+
+// Hook import
+
+import { useEffect, useState } from 'react'
+
+// antd import
+
+import { Flex, Progress, Select, Space, Tooltip, Slider} from 'antd'
+// data import
+
+const datas: Weapon[] = require('@/src/data/json/weapon.json');
+const stats: Stat[] = require('@/src/data/json/stat.json');
+const statInfo: StatInfo[] = require('@/src/data/json/statInfo.json');
+const moduleInfo: Module[] = require('@/src/data/json/module.json');
 
 export default function WeaponStatDetailPage(props: { weaponNumber: string }) {
+  // useState Hook Setting
+  
+  // 내가 볼 무기 레벨 데이터
+  const [level, setLevel] = useState('100')
+  // 데이터 불러오기 전 까지는 로딩중 띄우기
+
+  // 필터링 상태
+  const [tierFilter, setTierFilter] = useState<string | null>(null);
+  const [socketTypeFilter, setSocketTypeFilter] = useState<string | null>(null);
+
+  // 일반 변수
+
   const wantStats = [
     '발사 속도',
     '약점 배율',
@@ -21,37 +47,18 @@ export default function WeaponStatDetailPage(props: { weaponNumber: string }) {
     '속성 상태효과 부여확률',
   ]
 
-  // 무기 데이터
-  const [datas, setDatas] = useState<Weapon[]>([])
-  // 스텟 데이터
-  const [stats, setStats] = useState<Stat[]>([])
-  // 스텟 평균값 데이터
-  const [statInfo, setStatInfo] = useState<StatInfo>()
-  const [moduleInfo, setModuleInfo] = useState<Module[]>([]);
-  
-  // 내가 볼 무기 레벨 데이터
-  const [level, setLevel] = useState('160')
-  // 데이터 불러오기 전 까지는 로딩중 띄우기
-  const [isLoading, setIsLoading] = useState(true)
-
-  // 필터링 상태
-  const [tierFilter, setTierFilter] = useState<string | null>(null);
-  const [socketTypeFilter, setSocketTypeFilter] = useState<string | null>(null);
-
-  // 1~160레벨 세팅
-  const levelOptions = Array.from({ length: 160 }, (_, i) => ({
-    value: `${i + 1}`,
-    label: `LV.${i + 1}`,
-  }))
-
-  // 다른 레벨의 정보를 보고 싶을 때
-  const onChangeGetLevel = (selectLevel: string) => {
-    if (level === selectLevel) return;
-    setLevel(selectLevel)
-  }
-
   // 내가 볼 무기 순서
   const weaponNumber = Number(props.weaponNumber);
+
+  // 일반 함수
+
+
+  
+  const onChangeGetLevel2 = (selectLevel: number) => {
+    const levelStr = String(selectLevel)
+    if (level === levelStr) return
+    setLevel(String(levelStr))
+  }
 
   // 일부 스탯 값 픽스
   const changeStatValue = (stat: Basestat): string => {
@@ -68,23 +75,6 @@ export default function WeaponStatDetailPage(props: { weaponNumber: string }) {
     return String(stat.stat_value)
   }
 
-  useEffect(() => {
-    // 데이터를 불러오고, 준비가 된다면 보여주기
-    const fetchData = async () => {
-      const weaponData = await import('@/src/data/json/weapon.json')
-      const statData = await import('@/src/data/json/stat.json')
-      const statInfoData = await import('@/src/data/json/statInfo.json')
-      const moduleInfoData = await import('@/src/data/json/module.json')
-      setDatas(weaponData.default)
-      setStats(statData.default)
-      setStatInfo(statInfoData.default)
-      setModuleInfo(moduleInfoData.default)
-      setLevel('160')
-      setIsLoading(false)
-    }
-    fetchData()
-  }, [])
-
   // id 형태인 스탯을 이름으로 바꿔줌
   const getStatName = (id: string): string => {
     const result = stats?.find((stat) => stat.stat_id === id)
@@ -98,17 +88,15 @@ export default function WeaponStatDetailPage(props: { weaponNumber: string }) {
     // statInfo가 string 인덱스 시그니처를 갖도록 강제함
     const { min, max } = (statInfo as unknown as Record<string, { min: number; max: number }>)?.[statName] || { min: 0, max: 100 };
     
-  // value를 number로 처리
+    // value를 number로 처리
     let percent = (value / max) * 100;
     percent = Math.min(Math.max(percent, 2), 100); // Ensure percent is between 2 and 100
     return Math.round(percent); // Return rounded percentage
   };
 
-  // 로딩 중 처리
-  if (isLoading) {
-    return <div>최초 무기 정보 로딩중..</div>
-  }
 
+  // 데이터 필터링 함수
+  
   // 모듈 필터링
   const filteredModules = moduleInfo.filter(module => {
     const isTierMatch = tierFilter ? module.module_tier === tierFilter : true;
@@ -116,10 +104,13 @@ export default function WeaponStatDetailPage(props: { weaponNumber: string }) {
     return isTierMatch && isSocketTypeMatch;
   });
 
-  // 필터 옵션
-  const tierOptions = ['일반', '희귀', '궁극', '전체'];
-  const socketTypeOptions = ['말라카이트', '크산틱', '루틸', '알만딘', '세룰리안', '일반', '전체'];
+  // useEffect Hook Setting
 
+  useEffect(() => {
+    setLevel('100')
+  
+  }, [])
+  
   return (
     <>
       <div className="mb-4 text-xl">
@@ -142,13 +133,16 @@ export default function WeaponStatDetailPage(props: { weaponNumber: string }) {
             </div>
           </div>
         </div>
-        <Space wrap>
-          <Select
-            value={`LV.${level}`}
-            style={{ width: 120, marginBottom: 8 }}
-            options={levelOptions}
-            onChange={onChangeGetLevel}
+        <Space wrap>  
+          <Slider 
+            value={parseInt(level)}
+            defaultValue={100}
+            min={1}
+            max={160}
+            onChange={onChangeGetLevel2} 
+            style={{ width: 250}}
           />
+         <span>Lv.{level}</span>
         </Space>
         <div className="flex flex-row">
           <div className="w-48 mr-4 text-lg text-right">
@@ -184,7 +178,7 @@ export default function WeaponStatDetailPage(props: { weaponNumber: string }) {
           {datas[weaponNumber].base_stat
             .filter((stat) => wantStats.includes(getStatName(stat.stat_id)))
             .map((stat, index) => (
-              <div className="flex flex-row" key={index}>
+              <div className="flex flex-row" key={stat.stat_id + index + stat.stat_value}>
                 <div className="w-48 mr-4 text-lg text-right">
                   {getStatName(stat.stat_id)}
                 </div>
@@ -238,7 +232,7 @@ export default function WeaponStatDetailPage(props: { weaponNumber: string }) {
             value={tierFilter || '전체'}
             onChange={setTierFilter}
           >
-            {tierOptions.map(tier => (
+            {['일반', '희귀', '궁극', '전체'].map(tier => (
               <Select.Option key={tier} value={tier === '전체' ? null : tier}>{tier}</Select.Option>
             ))}
           </Select>
@@ -248,7 +242,7 @@ export default function WeaponStatDetailPage(props: { weaponNumber: string }) {
             value={socketTypeFilter || '전체'}
             onChange={setSocketTypeFilter}
           >
-            {socketTypeOptions.map(socketType => (
+            { ['말라카이트', '크산틱', '루틸', '알만딘', '세룰리안', '전체'].map(socketType => (
               <Select.Option key={socketType} value={socketType === '전체' ? null : socketType}>{socketType}</Select.Option>
             ))}
           </Select>
@@ -289,7 +283,7 @@ export default function WeaponStatDetailPage(props: { weaponNumber: string }) {
                   <div>{module.module_stat[module.module_stat.length-1].value}</div>
                 </div>
               </div>
-            } key={idx}>
+            } key={module.image_url + idx}>
               <div className="w-28 flex flex-col pb-2 cursor-pointer">
                 <img className="w-16 m-auto skill" src={module.image_url} />
                 <div className="text-center text-sm">{module.module_name}</div>

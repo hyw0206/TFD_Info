@@ -50,34 +50,43 @@ export default function ComponentLayoutPage() {
       <div className="mt-8 ml-6 text-2xl font-bold">외장 부품 정보</div>
       <div className="mt-4 ml-6 text-lg">부품 종류</div>      
       <div className="flex mt-2 ml-6">
-        <button className={`mr-2 p-2 ${getButtonClass('보조 전원', selectedType)}`} onClick={() => handleTypeFilterClick('보조 전원')}>보조 전원</button>
-        <button className={`mr-2 p-2 ${getButtonClass('센서', selectedType)}`} onClick={() => handleTypeFilterClick('센서')}>센서</button>
-        <button className={`mr-2 p-2 ${getButtonClass('메모리', selectedType)}`} onClick={() => handleTypeFilterClick('메모리')}>메모리</button>
-        <button className={`mr-2 p-2 ${getButtonClass('처리 장치', selectedType)}`} onClick={() => handleTypeFilterClick('처리 장치')}>처리 장치</button>
-        <button className={`mr-2 p-2 ${getButtonClass(null, selectedType)}`} onClick={() => handleTypeFilterClick(null)}>전체</button>
+        {
+          ['전체', '보조 전원', '센서', '메모리', '처리 장치'].map((data, idx) => {
+            return (
+              data !== "전체" ?
+              <button key={data + "부품" + idx} className={`mr-2 mb-2 p-2 ${getButtonClass(data, selectedType)}`} onClick={() => handleTypeFilterClick(data)}>{data}</button>
+            :  <button key={data + "부품" + idx} className={`mr-2 mb-2 p-2 ${getButtonClass(null, selectedType)}`} onClick={() => handleTypeFilterClick(null)}>{data}</button>
+            )
+          })
+        }
       </div>
       <div className="mt-2 ml-6 text-lg">증가 능력치</div>     
       <div className="flex mt-2 ml-6">
+        <button className={`mr-2 p-2 ${getButtonClass(null, selectedStat)}`} onClick={() => handleStatFilterClick(null)}>전체</button>
         <button className={`mr-2 p-2 ${getButtonClass('105000001', selectedStat)}`} onClick={() => handleStatFilterClick('105000001')}>최대 체력</button>
         <button className={`mr-2 p-2 ${getButtonClass('105000025', selectedStat)}`} onClick={() => handleStatFilterClick('105000025')}>최대 실드</button>
         <button className={`mr-2 p-2 ${getButtonClass('105000029', selectedStat)}`} onClick={() => handleStatFilterClick('105000029')}>방어력</button>
-        <button className={`mr-2 p-2 ${getButtonClass(null, selectedStat)}`} onClick={() => handleStatFilterClick(null)}>전체</button>
       </div>
       <div className="mt-2 ml-6 text-lg">등급</div>    
       <div className="flex mt-2 ml-6">
-        <button className={`mr-2 p-2 ${getButtonClass('일반', selectedTier)}`} onClick={() => handleTierFilterClick('일반')}>일반</button>
-        <button className={`mr-2 p-2 ${getButtonClass('희귀', selectedTier)}`} onClick={() => handleTierFilterClick('희귀')}>희귀</button>
-        <button className={`mr-2 p-2 ${getButtonClass('궁극', selectedTier)}`} onClick={() => handleTierFilterClick('궁극')}>궁극</button>
-        <button className={`mr-2 p-2 ${getButtonClass(null, selectedTier)}`} onClick={() => handleTierFilterClick(null)}>전체</button>
+        {
+          ['전체', '일반', '희귀', '궁극'].map((data, idx) => {
+            return (
+              data !== "전체" ?
+              <button key={data + "등급" + idx} className={`mr-2 mb-2 p-2 ${getButtonClass(data, selectedTier)}`} onClick={() => handleTierFilterClick(data)}>{data}</button>
+            :  <button key={data + "등급" + idx} className={`mr-2 mb-2 p-2 ${getButtonClass(null, selectedTier)}`} onClick={() => handleTierFilterClick(null)}>{data}</button>
+            )
+          })
+        }
       </div>
       <div className="mt-2 ml-6 text-lg">세트 효과</div>    
       <div className="flex flex-wrap mt-2 ml-6">
         {
-        ['무덤 선봉대', '초신성', '전투의 미학', '절멸', '처형인', '학살자', '혹한', '극야', '맹독의 정수', '숙련 사수', '늪 정찰대', '얼어붙은 심장', '곡예사', '활화산', '굶주린 음파', '전체'].map((data, idx) => {
+        ['전체', '무덤 선봉대', '초신성', '전투의 미학', '절멸', '처형인', '학살자', '혹한', '극야', '맹독의 정수', '숙련 사수', '늪 정찰대', '얼어붙은 심장', '곡예사', '활화산', '굶주린 음파'].map((data, idx) => {
           return (
             data !== "전체" ?
-            <button className={`mr-2 mb-2 p-2 ${getButtonClass(data, selectedSetOption)}`} onClick={() => handleSetOptionFilterClick(data)}>{data}</button>
-          :  <button className={`mr-2 mb-2 p-2 ${getButtonClass(null, selectedSetOption)}`} onClick={() => handleSetOptionFilterClick(null)}>{data}</button>
+            <button key={data + "세트" + idx} className={`mr-2 mb-2 p-2 ${getButtonClass(data, selectedSetOption)}`} onClick={() => handleSetOptionFilterClick(data)}>{data}</button>
+          :  <button key={data + "세트" + idx} className={`mr-2 mb-2 p-2 ${getButtonClass(null, selectedSetOption)}`} onClick={() => handleSetOptionFilterClick(null)}>{data}</button>
           )
         })
         }
@@ -94,7 +103,7 @@ export default function ComponentLayoutPage() {
         {
           filterData.map((data, idx) => {
             return (
-              <div className="flex mt-6 ml-6 items-center">
+              <div className="flex mt-6 ml-6 items-center" key={data.image_url + idx}>
                 <div className="flex flex-col items-center w-44">
                   <img className="h-20 w-20 object-cover" src={data.image_url} />
                   <div>{data.external_component_name}</div>
@@ -110,7 +119,7 @@ export default function ComponentLayoutPage() {
                     {
                       data.set_option_detail.map((setData, idx) => {
                         return (
-                        <div className={`${idx === 0 ? 'w-28' : 'w-60 text-sm'} text-center`}>{setData.set_option} <br /> {setData.set_option_effect}</div>
+                        <div className={`${idx === 0 ? 'w-28' : 'w-60 text-sm'} text-center`} key={setData.set_option + idx}>{setData.set_option} <br /> {setData.set_option_effect}</div>
                         )
                       })
                     }

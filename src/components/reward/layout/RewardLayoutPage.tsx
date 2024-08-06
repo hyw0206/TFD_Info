@@ -1,85 +1,72 @@
-import { CaretDownOutlined } from "@ant-design/icons";
+// Type import
 import { RewardData } from "@/src/data/type/reward";
-import { useState, useMemo } from "react";
 
+// Hook import
+import { useState, useMemo, useEffect } from "react";
+
+// antd import
+import { CaretDownOutlined } from "@ant-design/icons";
+
+// data import
+const datas: RewardData[] = require("@/src/data/json/reward.json");
+
+// type 선언
 type VisibilityState = { [key: number]: boolean };
 type RewardVisibilityState = { [key: string]: boolean };
 
-export default function RewardLayoutPage() {
-  const [visibleBattleZones, setVisibleBattleZones] = useState<VisibilityState>({});
-  const [visibleRewards, setVisibleRewards] = useState<RewardVisibilityState>({});
+const getCurrentRotationDetails = () => {
+  const now = new Date();
+  
+  // 로테이션 설정
+  const rotationDates = [
+    { rotation: 8, start: new Date('2024-08-06T16:00:00'), end: new Date('2024-08-13T15:59:59') },
+    { rotation: 9, start: new Date('2024-08-13T16:00:00'), end: new Date('2024-08-20T15:59:59') },
+    { rotation: 10, start: new Date('2024-08-20T16:00:00'), end: new Date('2024-08-27T15:59:59') },
+    { rotation: 11, start: new Date('2024-08-27T16:00:00'), end: new Date('2024-09-03T15:59:59') },
+    { rotation: 12, start: new Date('2024-09-03T16:00:00'), end: new Date('2024-09-10T15:59:59') },
+    { rotation: 13, start: new Date('2024-09-10T16:00:00'), end: new Date('2024-09-17T15:59:59') },
+  ];
 
+  // 현재 날짜에 해당하는 로테이션 번호와 날짜 범위 찾기
+  for (const rotation of rotationDates) {
+    if (now >= rotation.start && now <= rotation.end) {
+      return {
+        rotationNumber: rotation.rotation,
+        startDate: rotation.start.toLocaleDateString(),
+        endDate: rotation.end.toLocaleDateString()
+      };
+    }
+  }
+
+  // 현재 로테이션이 없을 경우 기본값 반환
+  return {
+    rotationNumber: 1,
+    startDate: rotationDates[0].start.toLocaleDateString(),
+    endDate: rotationDates[0].end.toLocaleDateString()
+  };
+};
+
+export default function RewardLayoutPage() {
+  // useState Hook Setting
+  
+  // 로테이션별 날짜 체크
+  const [rotationDetails, setRotationDetails] = useState(getCurrentRotationDetails());
+  // 지역 토글
+  const [visibleBattleZones, setVisibleBattleZones] = useState<VisibilityState>({});
+  // 세부 지역 토글
+  const [visibleRewards, setVisibleRewards] = useState<RewardVisibilityState>({});
+  // 보상 타입 필터
   const [selectedRewardType, setSelectedRewardType] = useState<string | null>(null);
+  // 속성 필터
   const [selectedReactorElementType, setSelectedReactorElementType] = useState<string | null>(null);
+  // 무기 탄 필터
   const [selectedWeaponRoundsType, setSelectedWeaponRoundsType] = useState<string | null>(null);
+  // 타입 필터
   const [selectedArcheType, setSelectedArcheType] = useState<string | null>(null);
 
-  const datas: RewardData[] = require("@/src/data/json/reward.json");
-
-  const toggleVisibility = (mapIdx: number) => {
-    setVisibleBattleZones(prevState => {
-      const newState = { ...prevState, [mapIdx]: !prevState[mapIdx] };
-      if (!newState[mapIdx]) {
-        setVisibleRewards(prevState => {
-          const newRewardsState = { ...prevState };
-          Object.keys(newRewardsState)
-            .filter(key => key.startsWith(mapIdx.toString()))
-            .forEach(key => delete newRewardsState[key]);
-          return newRewardsState;
-        });
-      }
-      return newState;
-    });
-  };
-
-  const toggleVisibilityReward = (mapIdx: number, battleIdx: number) => {
-    const key = `${mapIdx}-${battleIdx}`;
-    setVisibleRewards(prevState => ({
-      ...prevState,
-      [key]: !prevState[key]
-    }));
-  };
-
-  const handleRewardTypeFilterClick = (type: string | null) => {
-    if (selectedRewardType === type) return;
-    setSelectedRewardType(type);
-  };
-
-  const handleReactorElementTypeFilterClick = (type: string | null) => {
-    if (selectedReactorElementType === type) return;
-    setSelectedReactorElementType(type);
-  };
-
-  const handleWeaponRoundsTypeFilterClick = (type: string | null) => {
-    if (selectedWeaponRoundsType === type) return;
-    setSelectedWeaponRoundsType(type);
-  };
-
-  const handleArcheTypeFilterClick = (type: string | null) => {
-    if (selectedArcheType === type) return;
-    setSelectedArcheType(type);
-  };
-
-  const filterData = useMemo(() => datas.filter(reward =>
-    reward.battle_zone.length !== 0
-  ).map(data => ({
-    ...data,
-    battle_zone: data.battle_zone.map(battle => ({
-      ...battle,
-      reward: battle.reward.filter(reward => {
-        const rewardTypeMatch = selectedRewardType ? reward.reward_type === selectedRewardType : true;
-        const reactorElementTypeMatch = selectedReactorElementType ? reward.reactor_element_type === selectedReactorElementType : true;
-        const weaponRoundsTypeMatch = selectedWeaponRoundsType ? reward.weapon_rounds_type === selectedWeaponRoundsType : true;
-        const archeTypeMatch = selectedArcheType ? reward.arche_type === selectedArcheType : true;
-        return rewardTypeMatch && reactorElementTypeMatch && weaponRoundsTypeMatch && archeTypeMatch;
-      })
-    }))
-  })), [selectedRewardType, selectedReactorElementType, selectedWeaponRoundsType, selectedArcheType, datas]);
-
-  const getButtonClass = (type: string | null, current: string | null) => {
-    return type === current ? "bg-blue-500 text-white" : "bg-gray-500 text-white";
-  };
-
+  // 일반 함수
+  
+  // 로테이션 관련 세팅 함수
   const formatRotations = (rotations: string | any[] | Iterable<unknown> | null | undefined) => {
     if (!rotations || (Array.isArray(rotations) && rotations.length === 0)) {
       return "없음";
@@ -89,7 +76,7 @@ export default function RewardLayoutPage() {
     
     const uniqueSortedRotations = Array.from(new Set(arrayOfRotations)).sort((a, b) => a - b);
   
-    let ranges = [];
+    const ranges = [];
     let rangeStart = uniqueSortedRotations[0];
     let rangeEnd = uniqueSortedRotations[0];
   
@@ -106,13 +93,105 @@ export default function RewardLayoutPage() {
     ranges.push(rangeStart === rangeEnd ? `${rangeStart}` : `${rangeStart}-${rangeEnd}`);
     return ranges.join(", ");
   };
+
+
+
+
+  // 바인딩 함수
+
+  // 지역 토글
+  const toggleVisibility = (mapIdx: number) => {
+    setVisibleBattleZones(prevState => {
+      // 기존 상태 복사, mapIdx 토글
+      const newState = { ...prevState, [mapIdx]: !prevState[mapIdx] };
+      // true -> false인 경우
+      if (!newState[mapIdx]) {
+        setVisibleRewards(prevState => {
+          const newRewardsState = { ...prevState };
+          // 해당 항목 안에 열려 있는 모든 상태를 닫음
+          Object.keys(newRewardsState)
+            .filter(key => key.startsWith(mapIdx.toString()))
+            .forEach(key => delete newRewardsState[key]);
+          return newRewardsState;
+        });
+      }
+      return newState;
+    });
+  };
+
+  // 세부 지역 토글
+  const toggleVisibilityReward = (mapIdx: number, battleIdx: number) => {
+    const key = `${mapIdx}-${battleIdx}`;
+    // 내부 데이터를 닫거나 / 연다 (세부 지역 토글)
+    setVisibleRewards(prevState => ({
+      ...prevState,
+      [key]: !prevState[key]
+    }));
+  };
+
+  // 보상 타입 필터
+  const handleRewardTypeFilterClick = (type: string | null) => {
+    if (selectedRewardType === type) return;
+    setSelectedRewardType(type);
+  };
+
+  // 속성 필터
+  const handleReactorElementTypeFilterClick = (type: string | null) => {
+    if (selectedReactorElementType === type) return;
+    setSelectedReactorElementType(type);
+  };
   
+  // 무기 탄 필터
+  const handleWeaponRoundsTypeFilterClick = (type: string | null) => {
+    if (selectedWeaponRoundsType === type) return;
+    setSelectedWeaponRoundsType(type);
+  };
+  
+  // 타입 필터
+  const handleArcheTypeFilterClick = (type: string | null) => {
+    if (selectedArcheType === type) return;
+    setSelectedArcheType(type);
+  };
+
+  // 데이터 필터 함수
+
+  // useMemo로 의존성 배열 체크
+  const filterData = useMemo(() => datas.filter(reward =>
+    reward.battle_zone.length !== 0
+  ).map(data => ({
+    ...data,
+    battle_zone: data.battle_zone.map(battle => ({
+      ...battle,
+      reward: battle.reward.filter(reward => {
+        const rewardTypeMatch = selectedRewardType ? reward.reward_type === selectedRewardType : true;
+        const reactorElementTypeMatch = selectedReactorElementType ? reward.reactor_element_type === selectedReactorElementType : true;
+        const weaponRoundsTypeMatch = selectedWeaponRoundsType ? reward.weapon_rounds_type === selectedWeaponRoundsType : true;
+        const archeTypeMatch = selectedArcheType ? reward.arche_type === selectedArcheType : true;
+        return rewardTypeMatch && reactorElementTypeMatch && weaponRoundsTypeMatch && archeTypeMatch;
+      })
+    }))
+  })), [selectedRewardType, selectedReactorElementType, selectedWeaponRoundsType, selectedArcheType, datas]);
+
+  // 스타일링 함수
+
+  const getButtonClass = (type: string | null, current: string | null) => {
+    return type === current ? "bg-blue-500 text-white" : "bg-gray-500 text-white";
+  };
+
+  // useEffect Hook Setting
+
+  useEffect(() => {
+    const updateRotationDetails = () => {
+      setRotationDetails(getCurrentRotationDetails());
+    };
+    updateRotationDetails();
+  }, []);
 
   return (
     <div className="max-w-4xl m-auto p-4">
       <div className="mt-8 ml-6 text-2xl font-bold">난이도 보상 정보</div>
       <div className="mb-4 ml-6 text-sm">난이도 보상 정보는 총 20개의 로테이션로 나뉩니다. 숫자는 로테이션 숫자를 나타냅니다.</div>
-      <div className="mb-4 ml-6 text-3xl">현재 로테이션 : 7 (7/30 PM 4:00 ~ 8/6 PM)</div>
+      <div className="mb-4 ml-6 text-3xl">현재 로테이션 : {rotationDetails.rotationNumber} ({rotationDetails.startDate} PM 4:00 ~ {rotationDetails.endDate} PM 3:59)</div>
      
       <div className="mb-4 ml-6">
         <div className="text-lg mb-2">보상 타입</div>
