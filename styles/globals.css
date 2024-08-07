@@ -18,6 +18,9 @@
 .areagray {
   background: #cecece;
 }
+.module_area {
+  background: rgba(206, 206, 206, 0.70)
+}
 .border {
   border-left-width: 1px;
   border-right-width: 1px;
@@ -47,4 +50,72 @@ body {
   padding: 0;
   margin: 0;
   font-family: 'Pretendard-Regular';
+}
+
+.grade1 {
+  background: linear-gradient(
+    to bottom right, 
+    #3d6c8c 0%,    
+    #3d6c8c 20%,
+    black 50%,   
+    #3d6c8c 80%       
+  );
+}
+.grade2 {
+  background: linear-gradient(
+    to bottom right, 
+    #511e7a  0%,    
+    #511e7a  20%,
+    black 50%,   
+    #511e7a  80%       
+  );
+}
+.grade3 {
+  background: linear-gradient(
+    to bottom right, 
+    #988b5e  0%,    
+    #988b5e  20%,
+    black 50%,   
+    #988b5e  80%       
+  );
+}
+.grade4 {
+  background: linear-gradient(
+    to bottom right, 
+    #843e2f  0%,    
+    #843e2f  20%,
+    black 50%,   
+    #843e2f  80%       
+  );
+}
+
+.Malachite {
+  background: url("/Malachite.png");
+  background-repeat: none;
+  background-size: 24px 24px;
+}
+.Almandine {
+  background: url("/Almandine.png");
+  background-repeat: none;
+  background-size: 24px 24px;
+}
+.Cerulean {
+  background: url("/Cerulean.png");
+  background-repeat: none;
+  background-size: 24px 24px;
+}
+.Rutile {
+  background: url("/Rutile.png");
+  background-repeat: none;
+  background-size: 24px 24px;
+}
+.Xantic {
+  background: url("/Xantic.png");
+  background-repeat: none;
+  background-size: 24px 24px;
+}
+.longtext {
+  word-wrap: break-word;
+  overflow-wrap: break-word; 
+  word-break: break-all;
 }

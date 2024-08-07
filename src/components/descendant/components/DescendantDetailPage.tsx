@@ -38,7 +38,6 @@
     // 일반 함수
 
 
-
     // 바인딩 함수
 
     // 다른 스킬의 정보를 보고 싶을 때
@@ -112,7 +111,26 @@
       const isDescendantMatch = checkDescendantMatch(module)
       return isTierMatch && isSocketTypeMatch && isDescendantMatch
     })
-
+    
+    // 스타일링 함수
+    
+    const setClassWithTier = (data: string) => {
+      if (data === "일반") return "grade1" 
+      if (data === "희귀") return "grade2" 
+      if (data === "궁극") return "grade3" 
+      if (data === "초월") return "grade4" 
+      return "";
+    }
+    
+    const setClassWithSocket = (data: string) => {
+      if (data === "말라카이트") return "Malachite"
+      if (data === "크산틱") return "Xantic"
+      if (data === "루틸") return "Rutile"
+      if (data === "알만딘") return "Almandine"
+      if (data === "세룰리안") return "Cerulean"
+      return ""
+    }
+    
     // useEffect Hook Setting
 
     // 내가 보고자 하는 계승자가 바뀌면, 보고자 하는 스킬 + 레벨값 초기로 돌리기
@@ -248,10 +266,14 @@
                   </div>
                 </div>
               } key={module.module_id}>
-                <div className="w-32 flex flex-col pb-2 cursor-pointer">
-                  <img className="w-16 m-auto skill" src={module.image_url} />
+                <div className="relative w-32 flex flex-col pb-2 cursor-pointer">
+                  <div className="absolute flex bottom-24 left-10 w-12 p-0.5 text-center module_area">
+                    <div className={`mr-0.5 w-6 h-6 ${setClassWithSocket(module.module_socket_type)}`}></div>
+                    <div>{module.module_stat[0].module_capacity}</div>
+                  </div>
+                  <img className={`w-16 m-auto ${setClassWithTier(module.module_tier)}`} src={module.image_url} />
                   <div className="text-center text-sm">{module.module_name}</div>
-                  <div className="text-center text-sm">{module.module_tier} / {module.module_socket_type}</div>
+                  <div className="text-center text-sm">{module.module_type ? module.module_type : "-"}</div>
                 </div>
               </Tooltip>
             ))}

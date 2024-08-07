@@ -104,6 +104,26 @@ export default function WeaponStatDetailPage(props: { weaponNumber: string }) {
     return isTierMatch && isSocketTypeMatch;
   });
 
+  // 스타일링 함수
+
+  const setClassWithTier = (data: string) => {
+    if (data === "일반") return "grade1" 
+    if (data === "희귀") return "grade2" 
+    if (data === "궁극") return "grade3" 
+    if (data === "초월") return "grade4" 
+    return "";
+  }
+  
+  const setClassWithSocket = (data: string) => {
+    if (data === "말라카이트") return "Malachite"
+    if (data === "크산틱") return "Xantic"
+    if (data === "루틸") return "Rutile"
+    if (data === "알만딘") return "Almandine"
+    if (data === "세룰리안") return "Cerulean"
+    return ""
+  }
+
+
   // useEffect Hook Setting
 
   useEffect(() => {
@@ -284,10 +304,14 @@ export default function WeaponStatDetailPage(props: { weaponNumber: string }) {
                 </div>
               </div>
             } key={module.image_url + idx}>
-              <div className="w-28 flex flex-col pb-2 cursor-pointer">
-                <img className="w-16 m-auto skill" src={module.image_url} />
-                <div className="text-center text-sm">{module.module_name}</div>
-                <div className="text-center text-sm">{module.module_tier} / {module.module_socket_type}</div>
+                <div className="relative w-32 flex flex-col pb-2 cursor-pointer">
+                  <div className="absolute flex bottom-24 left-10 w-12 p-0.5 text-center module_area">
+                    <div className={`mr-0.5 w-6 h-6 ${setClassWithSocket(module.module_socket_type)}`}></div>
+                    <div>{module.module_stat[0].module_capacity}</div>
+                  </div>
+                  <img className={`w-16 m-auto ${setClassWithTier(module.module_tier)}`} src={module.image_url} />
+                  <div className="text-center text-sm">{module.module_name}</div>
+                  <div className="text-center text-sm">{module.module_type ? module.module_type : "-"}</div>
               </div>
             </Tooltip>
           ))}

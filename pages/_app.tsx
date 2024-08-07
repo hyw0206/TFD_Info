@@ -8,6 +8,7 @@ export default function App({ Component, pageProps }: AppProps) {
     <>
       <Head>
         <link rel="icon" href="/favicon.ico" />
+        <meta name="Keyword" content="퍼스트 디센던트, 퍼스트 디센던트 정보, 퍼디, 퍼디 정보, 계승자, 무기, 외장 부품, 반응로, 보상 로테이션" />
       </Head>
       <Layout>
         <Component {...pageProps} />

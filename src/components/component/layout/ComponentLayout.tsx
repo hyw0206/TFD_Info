@@ -2,8 +2,12 @@
 import { Component } from "@/src/data/type/component";
 import { Stat } from "@/src/data/type/stat";
 
+
 // Hook import
 import { useState } from "react";
+
+// Antd import
+import { Tooltip } from "antd";
 
 // data import
 const datas: Component[] = require("@/src/data/json/component.json");
@@ -71,6 +75,13 @@ export default function ComponentLayoutPage() {
     return type === current ? "rounded bg-blue-500 text-white " : "rounded bg-gray-500 text-white";
   }
 
+  const setClassWithTier = (data: string) => {
+    if (data === "일반") return "grade1" 
+    if (data === "희귀") return "grade2" 
+    if (data === "궁극") return "grade3" 
+    if (data === "초월") return "grade4" 
+    return "";
+  }
 
   return (
     <div className="max-w-4xl m-auto p-4">
@@ -118,19 +129,54 @@ export default function ComponentLayoutPage() {
         })
         }
       </div>
-      <div className="flex items-center mt-6 ml-6 text-center">
-        <div className="w-44">부품</div>
-        <div className="w-28">등급</div>
-        <div className="w-40">증가 능력치</div>
-        <div className="w-28">2세트 옵션</div>
-        <div className="w-60">4세트 옵션</div>
-      </div>
-      
+
+        <div className="flex flex-wrap mt-4">
         {
           filterData.map((data, idx) => {
             return (
-              // 필터링된 데이터 보여주기
-              <div className="flex mt-6 ml-6 items-center text-sm fix:text-base" key={data.image_url + idx}>
+              <>
+              <Tooltip title={
+                <div className="flex flex-col w-60 p-2">
+                  <div className="pb-2 border-b font-bold">
+                      <div className="text-lg">{data.external_component_name}</div>
+                      <div className="flex justify-between">
+                        <div>{data.external_component_equipment_type}</div>
+                        <div>{data.external_component_tier}</div>
+                      </div>
+                  </div>
+                  <div className="pt-2 pb-2 border-b">
+                    <div className="flex justify-between">
+                      <div>{getStatName(data.base_stat[99].stat_id)}</div>
+                      <div>{data.base_stat[99].stat_value}</div>
+                    </div>
+                  </div>
+                  <div className="max-w-lg overflow-hidden pt-2 pb-2 border-b">
+                    <div className="font-bold">세트 효과</div>
+                    {
+                    data.set_option_detail.length !== 0 ?
+                    <>
+                      <div className="font-bold">{data.set_option_detail[0].set_option}</div>
+                      <div className="font-bold">2세트</div>
+                      <div className="ml-2 whitespace-pre-wrap break-words">{data.set_option_detail[0].set_option_effect}</div>
+                      <div className="font-bold">4세트</div>
+                      <div className="ml-2 whitespace-pre-wrap break-words">{data.set_option_detail[1].set_option_effect}</div>
+                    </>
+                    : <div>효과 없음</div>
+                    }
+                  </div>
+                </div>
+              }>
+                <div className="relative flex flex-col w-40 mb-4 text-sm text-center cursor-pointer">
+                  <img className={`w-20 h-20 m-auto object-cover ${setClassWithTier(data.external_component_tier)}`} src={data.image_url}></img>
+                  <div>{data.external_component_name}</div>
+                  {
+                    data.set_option_detail.length !== 0 ?
+                    <div>{data.set_option_detail[0].set_option} 세트</div>
+                    : <div>효과 없음</div>
+                  }
+                </div>
+              </Tooltip>
+              {/* <div className="flex mt-6 ml-6 items-center text-sm fix:text-base" key={data.image_url + idx}>
                 <div className="flex flex-col items-center w-44">
                   <img className="w-12 h-12 object-cover fix:w-20 fix:h-20" src={data.image_url} />
                   <div>{data.external_component_name}</div>
@@ -152,16 +198,21 @@ export default function ComponentLayoutPage() {
                       })
                     }
                   </>
+                  
                   : 
                   <>
                     <div className="w-28 text-center">세트 효과 없음</div>
                     <div className="w-60 text-center">세트 효과 없음</div>
                   </>
+                  
                   } 
-              </div>
+              </div> */}
+            </>
             )
           })
+          
         }
+        </div>
       </div>
   )
 }
