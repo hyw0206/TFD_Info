@@ -6,6 +6,7 @@ import { useState, useMemo, useEffect } from "react";
 
 // antd import
 import { CaretDownOutlined } from "@ant-design/icons";
+import { Checkbox } from "antd";
 
 // data import
 const datas: RewardData[] = require("@/src/data/json/reward.json");
@@ -63,7 +64,8 @@ export default function RewardLayoutPage() {
   const [selectedWeaponRoundsType, setSelectedWeaponRoundsType] = useState<string | null>(null);
   // 타입 필터
   const [selectedArcheType, setSelectedArcheType] = useState<string | null>(null);
-
+  // 현재 로테이션만 보기 필터
+  const [showCurrentRotationOnly, setShowCurrentRotationOnly] = useState(false); 
   // 일반 함수
   
   // 로테이션 관련 세팅 함수
@@ -167,10 +169,11 @@ export default function RewardLayoutPage() {
         const reactorElementTypeMatch = selectedReactorElementType ? reward.reactor_element_type === selectedReactorElementType : true;
         const weaponRoundsTypeMatch = selectedWeaponRoundsType ? reward.weapon_rounds_type === selectedWeaponRoundsType : true;
         const archeTypeMatch = selectedArcheType ? reward.arche_type === selectedArcheType : true;
-        return rewardTypeMatch && reactorElementTypeMatch && weaponRoundsTypeMatch && archeTypeMatch;
+        const currentRotationMatch = showCurrentRotationOnly ? reward.rotation === rotationDetails.rotationNumber : true;
+        return rewardTypeMatch && reactorElementTypeMatch && weaponRoundsTypeMatch && archeTypeMatch && currentRotationMatch;
       })
     }))
-  })), [selectedRewardType, selectedReactorElementType, selectedWeaponRoundsType, selectedArcheType, datas]);
+  })), [selectedRewardType, selectedReactorElementType, selectedWeaponRoundsType, selectedArcheType, showCurrentRotationOnly, datas]);
 
   // 스타일링 함수
 
@@ -265,6 +268,15 @@ export default function RewardLayoutPage() {
           </button>
         ))}
       </div>
+      <div className="mb-4 ml-6 ">
+        <Checkbox
+          checked={showCurrentRotationOnly}
+          onChange={(e) => setShowCurrentRotationOnly(e.target.checked)}
+          className="dark:text-gray-100"
+        >
+          현재 로테이션만 보기
+        </Checkbox>
+      </div>
       {filterData.map((data, mapIdx) => {
         const battleZoneInfo = data.battle_zone.map(battle => {
           const rewards = battle.reward;
@@ -281,9 +293,9 @@ export default function RewardLayoutPage() {
         const totalFilteredRewardsCount = battleZoneInfo.flatMap(info => info.rotations).length;
 
         return (
-          <div key={mapIdx} className="mt-4">
+          <div key={mapIdx} className="mt-4 dark:text-gray-100">
             <div
-              className="p-2 bg-gray-300 cursor-pointer"
+              className="p-2 bg-gray-300 cursor-pointer dark:bg-darkhf"
               onClick={() => toggleVisibility(mapIdx)}
             >
               {data.map_name} (선택한 옵션 {totalFilteredRewardsCount}개 존재) / (로테이션 {rotationRanges} 존재)
@@ -297,7 +309,7 @@ export default function RewardLayoutPage() {
                 return (
                   <div key={battleIdx} className="ml-4">
                     <div
-                      className="p-2 bg-gray-200 cursor-pointer"
+                      className="p-2 bg-gray-200 cursor-pointer dark:bg-darkdw"
                       onClick={() => toggleVisibilityReward(mapIdx, battleIdx)}
                     >
                       {battle.battle_zone_name} (선택한 옵션 {filteredRewardsCount}개 존재) / (로테이션 {formatRotations(rotations)} 존재)
@@ -305,7 +317,7 @@ export default function RewardLayoutPage() {
                     </div>
                     <div className={`${visibleRewards[`${mapIdx}-${battleIdx}`] ? '' : 'hidden'}`}>
                       {rewards.map((reward, rewardIdx) => (
-                        <div key={rewardIdx} className={`ml-4 p-2 bg-gray-100 ${rotationDetails.rotationNumber === reward.rotation && "font-bold"}`}>
+                        <div key={rewardIdx} className={`ml-4 p-2 bg-gray-100 ${rotationDetails.rotationNumber === reward.rotation && "font-bold"} dark:bg-darkdd`}>
                           <div>로테이션: {reward.rotation}</div>
                           <div>보상 타입: {reward.reward_type}</div>
                           {reward.reactor_element_type && <div>속성: {reward.reactor_element_type}</div>}

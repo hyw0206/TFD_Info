@@ -5,6 +5,7 @@
   // Type import
   import { Descendant } from '@/src/data/type/descendant_type'
   import { Module } from '@/src/data/type/module'
+  import { UnstructuredReward } from '@/src/data/type/unstructured_reward'
 
   // Hook import
   import { useEffect, useState } from 'react'
@@ -15,6 +16,9 @@
   // data import
   const datas: Descendant[] = require('@/src/data/json/descendant.json')
   const modules: Module[] = require('@/src/data/json/module.json')
+  const UnstructReward: UnstructuredReward[] = require('@/src/data/json/unstructured_reward.json');
+
+  type RewardKeys = `reward_${1 | 2 | 3 | 4 | 5}`;
 
   export default function DescendantDetailPage(props: { descendantId: string }) {
     // useState Hook Setting
@@ -38,6 +42,34 @@
     // 일반 함수
 
 
+     // 비정형 필터링
+     const containsName = (reward: UnstructuredReward, name: string): boolean => {
+      if (!name.includes("얼티밋")) {
+        name = "일반 " + name
+      }
+      return Object.values(reward).some(value => {        
+        return value.includes(name);
+      });
+    };
+    
+    // 이름에 맞는 이미지 불러오기
+    const getImageSrc = (reward: UnstructuredReward, descendantName: string) => {
+      const rewardTypes = [
+        { type: "강화 세포", imgSrc: "1.png" },
+        { type: "안정화 장치", imgSrc: "2.png" },
+        { type: "나선 촉매", imgSrc: "3.png" },
+        { type: "코드", imgSrc: "4.png" },
+      ];
+    
+      for (let rewardType of rewardTypes) {
+        for (let i = 1; i <= 5; i++) {
+          const key = `reward_${i}` as RewardKeys;
+          if (reward[key] && reward[key].includes(`${descendantName} ${rewardType.type}`)) {
+            return rewardType.imgSrc;
+          }
+        }
+      }
+    };
     // 바인딩 함수
 
     // 다른 스킬의 정보를 보고 싶을 때
@@ -112,6 +144,7 @@
       return isTierMatch && isSocketTypeMatch && isDescendantMatch
     })
     
+   
     // 스타일링 함수
     
     const setClassWithTier = (data: string) => {
@@ -131,6 +164,9 @@
       return ""
     }
     
+    const setBoldDescendant = (data: string, descendant: string) => {
+      return data.includes(descendant) ? "font-bold" : ""
+    }
     // useEffect Hook Setting
 
     // 내가 보고자 하는 계승자가 바뀌면, 보고자 하는 스킬 + 레벨값 초기로 돌리기
@@ -185,6 +221,7 @@
         <div className="mt-12 mb-4 text-xl">
           <strong>{datas[descendantId].descendant_name}</strong> 스탯
         </div>
+    
         <Space wrap>
           <Slider 
             value={parseInt(level)}
@@ -200,6 +237,53 @@
           descendantId={props.descendantId}
           level={level}
         />
+
+        <div className="mt-12 mb-4 text-xl">
+          <strong>{datas[descendantId].descendant_name}</strong> 파밍 정보
+        </div>
+          {
+            (datas[descendantId].descendant_name === "프레이나" || 
+            datas[descendantId].descendant_name === "샤렌" || 
+            datas[descendantId].descendant_name === "블레어" || 
+            datas[descendantId].descendant_name === "버니") &&
+            <div>비정형 물질 파밍 X / 특정 임무 클리어로 바로 파밍</div>
+          }
+        {
+          UnstructReward.filter(reward =>
+            containsName(reward, datas[descendantId].descendant_name)
+          ).map((reward, idx) =>{
+            return (
+              <div className="flex items-center mb-4 text-sm fix:text-base" key={reward.name + reward.gain}>
+                <div>
+                  <img className="w-10 mr-2 fix:w-20" src={`/descendant/${datas[descendantId].descendant_id}/${getImageSrc(reward, datas[descendantId].descendant_name)}`} />
+                </div>
+                <div className="w-32 fix:w-64">
+                  <div>{reward.name}</div>
+                  <div>획득 : {reward.gain}</div>
+                  <div>사용 : {reward.unlock}</div>
+                </div>
+                {
+                Number(reward.name.split(" ")[0]) <= 54 ?
+                <div>
+                  <div className={setBoldDescendant(reward.reward_1, datas[descendantId].descendant_name)}>{reward.reward_1} 3%</div>
+                  <div className={setBoldDescendant(reward.reward_2, datas[descendantId].descendant_name)}>{reward.reward_2} 6%</div>
+                  <div className={setBoldDescendant(reward.reward_3, datas[descendantId].descendant_name)}>{reward.reward_3} 15%</div>
+                  <div className={setBoldDescendant(reward.reward_4, datas[descendantId].descendant_name)}>{reward.reward_4} 38%</div>
+                  <div className={setBoldDescendant(reward.reward_5, datas[descendantId].descendant_name)}>{reward.reward_5} 38%</div>     
+                </div> : 
+                <div>
+                 <div className={setBoldDescendant(reward.reward_1, datas[descendantId].descendant_name)}>{reward.reward_1} 6%</div>
+                 <div className={setBoldDescendant(reward.reward_2, datas[descendantId].descendant_name)}>{reward.reward_2} 10%</div>
+                 <div className={setBoldDescendant(reward.reward_3, datas[descendantId].descendant_name)}>{reward.reward_3} 20%</div>
+                 <div className={setBoldDescendant(reward.reward_4, datas[descendantId].descendant_name)}>{reward.reward_4} 32%</div>
+                 <div className={setBoldDescendant(reward.reward_5, datas[descendantId].descendant_name)}>{reward.reward_5} 32%</div>     
+               </div> 
+                }
+              </div>
+            )
+          })
+        }
+
         <div className="mt-12 mb-4 text-xl font-bold">
           장착 가능한 모듈 (마우스 올릴 시 자세한 설명)
         </div>

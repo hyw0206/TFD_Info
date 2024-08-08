@@ -46,7 +46,7 @@ export default function DescendantLayoutPage() {
               onClick={() => onClickGetDetail(String(idx))}
             >
               <img
-                className="w-12 m-auto border-2 border-black shadow-lg fix:w-16"
+                className="w-12 m-auto border-2 border-black shadow-lg fix:w-16 dark:border-white dark:border-1"
                 src={data.descendant_image_url}
                 alt={data.descendant_name}
               />

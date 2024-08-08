@@ -57,8 +57,8 @@ export default function WeaponLayout() {
         }
       </div>
       <div className="flex pt-4 pb-4">
-        <div className="w-32 pr-2 pt-2 pb-2 text-center areagray fix:w-64 fix:pr-0">아이템 이름</div>
-        <div className="grow pt-2 pb-2 text-center areagray">특성 정보</div>
+        <div className="w-32 pr-2 pt-2 pb-2 text-center areagray fix:w-64 fix:pr-0 dark:bg-darkhf">아이템 이름</div>
+        <div className="grow pt-2 pb-2 text-center areagray dark:bg-darkhf">특성 정보</div>
       </div>
       <WepaonDetailPage weaponRoundTypeid={weaponRoundTypeId} weaponTypeid={weaponTypeId} />
     </div>
