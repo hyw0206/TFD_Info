@@ -41,7 +41,7 @@ export default function Layout(props: { children: JSX.Element }) {
           </div>
         </div>
       </div>
-      <div className="dark:bg-darkbg dark:text-gray-100">
+      <div className="min-h-screen dark:bg-darkbg dark:text-gray-100">
         {props.children}
       </div>
       <Analytics />
