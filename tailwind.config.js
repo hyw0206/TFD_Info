@@ -16,6 +16,7 @@ module.exports = {
       },
       flexBasis: {
         '1/10': '10%',
+        '1/5': '20%',
       },
       screens: {
         'fix': '701px',
@@ -25,6 +26,12 @@ module.exports = {
         'darkhf': '#202020',
         'darkdw': '#2a2a2a',
         'darkdd': '#3a3a3a',
+        'navy': '#030621',
+        'lightnavy': '#0f172a',
+        'yellow': '#D1B700'
+      },
+      inset: {
+        '10p': '10%',
       }
     },
   },

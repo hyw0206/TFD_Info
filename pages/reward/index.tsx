@@ -1,7 +1,7 @@
 import RewardLayoutPage from '@/src/components/reward/layout/RewardLayoutPage'
 import Head from 'next/head'
 
-export default function DescendantMainPage() {
+export default function RewardMainPage() {
   return (
     <>
       <Head>

@@ -71,6 +71,9 @@ body {
     #3d6c8c 80%       
   );
 }
+.grade1_text {
+  color: #3d6c8c;
+}
 .grade2 {
   background: linear-gradient(
     to bottom right, 
@@ -79,6 +82,9 @@ body {
     black 50%,   
     #511e7a  80%       
   );
+}
+.grade2_text {
+  color: #864AB7;
 }
 .grade3 {
   background: linear-gradient(
@@ -89,6 +95,9 @@ body {
     #988b5e  80%       
   );
 }
+.grade3_text {
+  color: #988b5e;
+}
 .grade4 {
   background: linear-gradient(
     to bottom right, 
@@ -98,7 +107,9 @@ body {
     #843e2f  80%       
   );
 }
-
+.grade4_text {
+  color: #843e2f;
+}
 .Malachite {
   background: url("/Malachite.png");
   background-repeat: none;
@@ -129,3 +140,4 @@ body {
   overflow-wrap: break-word; 
   word-break: break-all;
 }
+

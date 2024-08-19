@@ -8,25 +8,25 @@ export default function Home() {
 
   useEffect(() => {
     // axios.get(`${url}/static/tfd/meta/ko/descendant.json`).then((r) => {
-    //   console.log('response : ', r)
+    //   console.log('des response : ', r)
     // })
     // axios.get(`${url}/static/tfd/meta/ko/weapon.json`).then((r) => {
-    //   console.log('response : ', r)
+    //   console.log('wea response : ', r)
     // })
     // axios.get(`${url}/static/tfd/meta/ko/module.json`).then((r) => {
-    //   console.log('response : ', r)
+    //   console.log('mod response : ', r)
     // })
     // axios.get(`${url}/static/tfd/meta/ko/reactor.json`).then((r) => {
-    //   console.log('response : ', r)
+    //   console.log('react response : ', r)
     // })
     // axios.get(`${url}/static/tfd/meta/ko/reward.json`).then((r) => {
-    //   console.log('response : ', r)
+    //   console.log('reward response : ', r)
     // })
     // axios.get(`${url}/static/tfd/meta/ko/stat.json`).then((r) => {
-    //   console.log('response : ', r)
+    //   console.log('stat response : ', r)
     // })
     // axios.get(`${url}/static/tfd/meta/ko/external-component.json`).then((r) => {
-    //   console.log('response : ', r)
+    //   console.log('compo response : ', r)
     // })
   }, [])
 
