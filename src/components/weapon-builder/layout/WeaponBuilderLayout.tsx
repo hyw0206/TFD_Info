@@ -285,7 +285,7 @@ export default function WeaponBuilderLayout() {
                   <Tooltip title={
                     activeModules[idx] !== null ?
                     <div className="w-60 p-2">
-                      {activeModules[idx].module_stat[activeModules[idx].levelnow].value}
+                      {activeModules[idx]!.module_stat[activeModules[idx].levelnow].value}
                     </div>
                     : ""
                   }
