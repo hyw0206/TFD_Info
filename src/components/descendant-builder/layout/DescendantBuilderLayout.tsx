@@ -375,7 +375,7 @@ export default function DescendantBuilderLayout() {
                         }
                         {  
                           activeModules[idx] !== null && (
-                          [...Array(activeModules[idx].module_stat.length - 1)].map((_, idx2) => {
+                          [...Array(activeModules[idx]!.module_stat!.length - 1)].map((_, idx2) => {
                             return (
                               <div className={`w-6 h-2 bg-darkdd mb-0.5 rounded ${activeModules[idx]!.module_stat.length - activeModules[idx]!.levelnow - 1 <= idx2 && "bg-yellow"}`}>
 
