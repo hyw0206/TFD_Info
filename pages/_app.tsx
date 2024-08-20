@@ -22,7 +22,7 @@ export default function App({ Component, pageProps }: AppProps) {
         <meta name="twitter:title" content="TFD Info" />
         <meta name="twitter:description" content="퍼스트 디센던트 정보 사이트" />
         <meta name="twitter:image" content="/favicon.ico" />
-        <meta name="google-site-verification" content="xbQQAPkmVrNxR7yffhLfnuxBjujn1QTC54U7MglMQZw" />
+        <meta name="google-site-verification" content="Bj-S5JYAz0S3_WfSna66mTxZZoxADZEnle3Au_Hhga8" />
       </Head>
       <Script
         src="https://www.googletagmanager.com/gtag/js?id=G-CRKFG9WF5J"
