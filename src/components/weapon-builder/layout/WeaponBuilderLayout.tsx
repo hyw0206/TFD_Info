@@ -350,7 +350,7 @@ export default function WeaponBuilderLayout() {
                           activeModules[idx] !== null && (
                             <>
                               <div className="absolute flex bottom-28 w-12 p-0.5 text-center module_area">
-                                <div className={`mr-0.5 w-6 h-6 ${setClassWithSocket(activeModules[idx]?.module_socket_type)}`}></div>
+                                <div className={`mr-0.5 w-6 h-6 ${setClassWithSocket(activeModules[idx]!.module_socket_type)}`}></div>
                                   {
                                     
                                     activeModules[idx].socketmatch ?
