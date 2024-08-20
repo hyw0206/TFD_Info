@@ -386,7 +386,7 @@ export default function DescendantBuilderLayout() {
                         }
                       </div>
                       <div className="flex flex-col justify-center items-center">
-                        <img src={activeModules[idx] ? activeModules[idx].image_url : "/chipset.png"} className="w-[60%]" />
+                        <img src={activeModules[idx] ? activeModules[idx]!.image_url : "/chipset.png"} className="w-[60%]" />
                         {
                           activeModules[idx] !== null && (
                             <>
