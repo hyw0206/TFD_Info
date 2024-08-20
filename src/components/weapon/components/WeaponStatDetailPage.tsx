@@ -312,7 +312,7 @@ export default function WeaponStatDetailPage(props: { weaponNumber: string }) {
                   <img className={`w-16 m-auto ${setClassWithTier(module.module_tier)}`} src={module.image_url} />
                   <div className="text-center text-sm">{module.module_name}</div>
                   <div className="text-center text-sm">{module.module_type ? module.module_type : "-"}</div>
-              </div>
+                </div>
             </Tooltip>
           ))}
         </div>

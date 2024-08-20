@@ -6,7 +6,7 @@ import { Weapon } from "@/src/data/type/weapon_type";
 import { useState, useRef } from "react";
 
 // antd import
-import { Select, Space, Tooltip, notification } from "antd";
+import { Input, Select, Space, Tooltip, notification } from "antd";
 import type { NotificationArgsProps } from 'antd';
 
 // type declare
@@ -37,8 +37,24 @@ export default function WeaponBuilderLayout() {
   
   // 1~10번째 슬롯의 모듈 소켓 타입
   const [socket, setSocket] = useState<(string | null)[]>([null, null, null, null, null, null, null, null, null, null]);
-  
+    
+  // 모듈 검색 내용
+  const [searchTerm, setSearchTerm] = useState<string>("");
 
+  // 모듈 등급 필터
+  const [moduleTierFilter, setModuleTierFilter] = useState<string | null>(null);
+
+  // 모듈 소켓 필터
+  const [moduleSocketFilter, setModuleSocketFilter] = useState<string | null>(null);
+
+  // 무기 검색 내용
+  const [searchWeaponTerm, setSearchWeaponTerm] = useState<string>("");
+
+  // 무기 탄약 필터
+  const [ammoTypeFilter, setAmmoTypeFilter] = useState<string | null>(null);
+
+  // 무기 타입 필터
+  const [weaponTypeFilter, setWeaponTypeFilter] = useState<string | null>(null);
   // useRef Hook Setting
   
   // 무기 선택 부분
@@ -62,6 +78,35 @@ export default function WeaponBuilderLayout() {
     { value: 'Xantic', label: '크산틱' },
   ];
 
+  const tierOptions = [
+    { value: null, label: '전체 등급' },
+    { value: '일반', label: '일반' },
+    { value: '희귀', label: '희귀' },
+    { value: '궁극', label: '궁극' },
+    { value: '초월', label: '초월' },
+  ];
+
+  const ammoOptions = [
+    { value: null, label: '전체 탄약' },
+    { value: '일반탄', label: '일반탄' },
+    { value: '특수탄', label: '특수탄' },
+    { value: '충격탄', label: '충격탄' },
+    { value: '고위력탄', label: '고위력탄' }
+  ]
+
+  const typeOptions = [
+    { value: null, label: '전체 타입' },
+    { value: '권총', label: '권총' },
+    { value: '기관단총', label: '기관단총' },
+    { value: '돌격소총', label: '돌격소총' },
+    { value: '전술소총', label: '전술소총' },
+    { value: '광선소총', label: '광선소총' },
+    { value: '핸드 캐논', label: '핸드 캐논' },
+    { value: '정찰소총', label: '정찰소총' },
+    { value: '산탄총', label: '산탄총' },
+    { value: '저격총', label: '저격총' },
+    { value: '런처', label: '런처' }
+  ]
   // 일반 함수
 
   // 티어에 따라 텍스트 색 클래스 반환
@@ -128,6 +173,11 @@ export default function WeaponBuilderLayout() {
       setShowWeaponSelector(false);
       document.removeEventListener("click", handleOutsideClick);
     }
+  };
+
+  // 드롭다운 메뉴 클릭 이벤트 전파 방지
+  const handleDropdownClick = (event: React.MouseEvent) => {
+    event.stopPropagation();
   };
 
   // 무기를 선택한 경우
@@ -199,6 +249,52 @@ export default function WeaponBuilderLayout() {
     setActiveModules([...activeModules]);
   }
 
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchTerm(e.target.value);
+  };
+
+  const handleTierFilterChange = (value: string | null) => {
+    if (moduleTierFilter === value) return 
+    setModuleTierFilter(value);
+  };
+
+  const handleSocketFilterChange = (value: string | null) => {
+    if (moduleSocketFilter === value) return;
+    setModuleSocketFilter(value);
+  };
+
+  const handleSearchWeaponChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchWeaponTerm(e.target.value);
+  };
+
+  const handleAmmoTypeFilterChange = (value: string | null) => {
+    if (ammoTypeFilter === value) return;
+    setAmmoTypeFilter(value);
+  };
+
+  const handleWeaponTypeFilterChange = (value: string | null) => {
+    if (weaponTypeFilter === value) return;
+    setWeaponTypeFilter(value);
+  };
+
+  // 데이터 필터링 함수
+  const filterWeapons = (weapons: Weapon[]) => {
+    return weapons.filter(weapon => {
+      const matchesSearchTerm = weapon.weapon_name.toLowerCase().includes(searchWeaponTerm.toLowerCase());
+      const matchesAmmoFilter = ammoTypeFilter ? weapon.weapon_rounds_type === ammoTypeFilter : true;
+      const matchesTypeFilter = weaponTypeFilter ? weapon.weapon_type === weaponTypeFilter : true;
+      return matchesSearchTerm && matchesAmmoFilter && matchesTypeFilter;
+    });
+  };
+
+  const filterModules = (modules: Module[]) => {
+    return modules.filter(module => {
+      const matchesSearchTerm = module.module_name.toLowerCase().includes(searchTerm.toLowerCase());
+      const matchesTierFilter = moduleTierFilter ? module.module_tier === moduleTierFilter : true;
+      const matchesSocketFilter = moduleSocketFilter ? module.module_socket_type === moduleSocketFilter : true;
+      return matchesSearchTerm && matchesTierFilter && matchesSocketFilter;
+    });
+  };
 
   return (
     <div className="max-w-5xl m-auto p-4">
@@ -254,18 +350,41 @@ export default function WeaponBuilderLayout() {
             <div
               ref={weaponSelectorRef}
               className="absolute left-10p flex flex-col justify-center w-[930px] p-4 font-bold color-white bg-navy z-10 rounded"
+              onClick={handleDropdownClick}
             >
               <div className="w-5xl text-center text-2xl">무기 선택</div>
               <hr className="mt-4 mb-4" />
+              <div className="flex mb-4">
+                <Input
+                  placeholder="무기 검색"
+                  value={searchWeaponTerm}
+                  onChange={handleSearchWeaponChange}
+                  style={{ marginRight: 16, width: 200, color: "black" }}
+                />
+                <Space>
+                  <Select
+                    defaultValue={null}
+                    style={{ width: 130 }}
+                    options={ammoOptions}
+                    onChange={handleAmmoTypeFilterChange}
+                  />
+                  <Select
+                    defaultValue={null}
+                    style={{ width: 130 }}
+                    options={typeOptions}
+                    onChange={handleWeaponTypeFilterChange}
+                  />
+                </Space>
+              </div>
               <div className="flex flex-row justify-between flex-wrap p-2 max-h-80 overflow-auto">
-                {weaponData?.map((data, idx) => (
+                {filterWeapons(weaponData).map((data, idx) => (
                   <div
                     key={idx}
                     className={`flex flex-col justify-center items-center w-44 mb-2 rounded ${setClassWithTierText(data.weapon_tier)}`}
                     onClick={() => {
                       setShowWeaponSelector(false);
                       document.removeEventListener("click", handleOutsideClick);
-                      handleSetWeaponCick(idx)
+                      handleSetWeaponCick(idx);
                     }}
                   >
                     <img className="w-40 h-20 p-0.5" src={data.image_url} alt={data.weapon_name} />
@@ -275,12 +394,11 @@ export default function WeaponBuilderLayout() {
               </div>
             </div>
           )}
-
         </div>
         <div>
           <div className="flex flex-wrap w-full">
             {
-              [0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map((item, idx) => {
+              Array(10).fill(1).map((arr, i) => { return i}).map((item, idx) => {
                 return (
                   <Tooltip title={
                     activeModules[idx] !== null ?
@@ -291,7 +409,7 @@ export default function WeaponBuilderLayout() {
                   }
                 >
                   <div 
-                    className={`flex flex-col justify-around items-center w-[135px] h-40 m-[1%] bg-gray-200 dark:bg-darkhf box-border rounded cursor-pointer ${slot === item ? "border-2 border-black dark:border-white" : ""}`}
+                    className={`flex flex-col justify-around items-center w-[135px] h-40 m-[1%] bg-gray-400 dark:bg-darkhf box-border rounded cursor-pointer ${slot === item ? "border-2 border-black dark:border-white" : ""}`}
                     onClick={() => {
                       setSlot(idx)
                     }}  
@@ -411,11 +529,33 @@ export default function WeaponBuilderLayout() {
             }
           </div>
           <hr className="mt-2 mb-4 border-t-2 border-black dark:border-white"/>
+          <div className="flex mb-4">
+            <Input
+              placeholder="모듈 검색"
+              value={searchTerm}
+              onChange={handleSearchChange}
+              style={{ marginRight: 16, width: 200, color: "black"}}
+            />
+            <Space>
+              <Select
+                defaultValue={null}
+                style={{ width: 130 }}
+                options={tierOptions}
+                onChange={handleTierFilterChange}
+              />
+              <Select
+                defaultValue={null}
+                style={{ width: 130 }}
+                options={options}
+                onChange={handleSocketFilterChange}
+              />
+            </Space>
+          </div>
           <div className="flex flex-wrap h-96 pt-4 overflow-y-scroll">
             {
               weapon !== null &&
               (
-                moduleData.filter(module =>
+                filterModules(moduleData).filter(module =>
                   module.module_class === weaponData[weapon].weapon_rounds_type
                 ).map((module, idx) => {
                   return (

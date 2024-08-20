@@ -1,13 +1,12 @@
 // type import
 import { Module, ModuleBuilder } from "@/src/data/type/module";
-import { Weapon } from "@/src/data/type/weapon_type";
 import { Descendant } from "@/src/data/type/descendant_type";
 
 // Hook import
 import { useState, useRef } from "react";
 
 // antd import
-import { Select, Space, Tooltip, notification } from "antd";
+import { Input, Select, Space, Tooltip, notification } from "antd";
 import type { NotificationArgsProps } from 'antd';
 
 
@@ -15,7 +14,6 @@ import type { NotificationArgsProps } from 'antd';
 type NotificationPlacement = NotificationArgsProps['placement'];
 
 // data import
-const weaponData: Weapon[] = require("@/src/data/json/weapon.json");
 const descendantData: Descendant[] = require("@/src/data/json/descendant.json");
 const moduleData: Module[] = require("@/src/data/json/module.json");
 
@@ -23,28 +21,37 @@ export default function DescendantBuilderLayout() {
   
   // useState Hook Setting
 
-  // 1~10번째 슬롯 중 선택된 슬롯
+  // 1~12번째 슬롯 중 선택된 슬롯
   const [slot, setSlot] = useState<number>(0);
 
   // 계승자 종류
   const [descendant, setDescendant] = useState<number | null>(null);
 
   // 모듈 수용량
-  const [capacity, setCapacity] = useState<number[]>([0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
+  const [capacity, setCapacity] = useState<number[]>(Array(12).fill(0));
   
-  // 무기 선택 창 표시 여부
+  // 계승자 선택 창 표시 여부
   const [showDescendantSelector, setShowDescendantSelector] = useState<boolean>(false);
 
   // 1~10번째 슬롯에 들어간 모듈
-  const [activeModules, setActiveModules] = useState<(ModuleBuilder | null)[]>([null, null, null, null, null, null, null, null, null, null]);
+  const [activeModules, setActiveModules] = useState<(ModuleBuilder | null)[]>(Array(12).fill(null));
   
   // 1~10번째 슬롯의 모듈 소켓 타입
-  const [socket, setSocket] = useState<(string | null)[]>([null, null, null, null, null, null, null, null, null, null]);
+  const [socket, setSocket] = useState<(string | null)[]>(Array(12).fill(null));
   
+  // 검색 내용
+  const [searchTerm, setSearchTerm] = useState<string>("");
 
+  // 모듈 등급 필터
+  const [moduleTierFilter, setModuleTierFilter] = useState<string | null>(null);
+
+  // 모듈 소켓 필터
+  const [moduleSocketFilter, setModuleSocketFilter] = useState<string | null>(null);
+  
+  
   // useRef Hook Setting
   
-  // 무기 선택 부분
+  // 계승자 선택 부분
   const descendantSelectorRef = useRef<HTMLDivElement>(null);
   
   // antd Setting
@@ -58,11 +65,19 @@ export default function DescendantBuilderLayout() {
   // 슬롯의 Select 항목에 들어갈 내용
   const options = [
     { value: null, label: '소켓 선택' },
-    { value: 'Almandine', label: '알만딘' },
-    { value: 'Cerulean', label: '세룰리안' },
-    { value: 'Malachite', label: '말라카이트' },
-    { value: 'Rutile', label: '루틸' },
-    { value: 'Xantic', label: '크산틱' },
+    { value: '알만딘', label: '알만딘' },
+    { value: '세룰리안', label: '세룰리안' },
+    { value: '말라카이트', label: '말라카이트' },
+    { value: '루틸', label: '루틸' },
+    { value: '크산틱', label: '크산틱' },
+  ];
+
+  const tierOptions = [
+    { value: null, label: '전체' },
+    { value: '일반', label: '일반' },
+    { value: '희귀', label: '희귀' },
+    { value: '궁극', label: '궁극' },
+    { value: '초월', label: '초월' },
   ];
 
   // 일반 함수
@@ -109,14 +124,14 @@ export default function DescendantBuilderLayout() {
 
   // bindind Func
 
-  // 무기 선택 창 여는 경우
+  // 계승자 선택 창 여는 경우
   const handleDescendantClick = (e: React.MouseEvent) => {
     e.stopPropagation();
     setShowDescendantSelector(true);
     document.addEventListener("click", handleOutsideClick);
   };
 
-  // 무기 선택 창 밖을 클릭해서 닫히는 경우
+  // 계승자 선택 창 밖을 클릭해서 닫히는 경우
   const handleOutsideClick = (event: MouseEvent) => {
     if (descendantSelectorRef.current && !descendantSelectorRef.current.contains(event.target as Node)) {
       setShowDescendantSelector(false);
@@ -124,10 +139,12 @@ export default function DescendantBuilderLayout() {
     }
   };
 
-  // 무기를 선택한 경우
-  const handleSetDescendantClick = (weaponNum: number) => {
-    if (descendant === weaponNum) return;
-    setDescendant(weaponNum);
+  // 계승자를 선택한 경우
+  const handleSetDescendantClick = (descendantNum: number) => {
+    if (descendant === descendantNum) return;
+    setActiveModules(Array(12).fill(null));
+    setCapacity(Array(12).fill(0));
+    setDescendant(descendantNum);
   }
 
   // 모듈을 클릭해서, 슬롯에 들어가는 경우
@@ -192,8 +209,30 @@ export default function DescendantBuilderLayout() {
     }
     setActiveModules([...activeModules]);
   }
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchTerm(e.target.value);
+  };
 
+  const handleTierFilterChange = (value: string | null) => {
+    if (moduleTierFilter === value) return 
+    setModuleTierFilter(value);
+  };
+
+  const handleSocketFilterChange = (value: string | null) => {
+    if (moduleSocketFilter === value) return;
+    setModuleSocketFilter(value);
+  };
   // 데이터 필터링 함수
+
+  const filterModules = (modules: Module[]) => {
+    return modules.filter(module => {
+      const matchesSearchTerm = module.module_name.toLowerCase().includes(searchTerm.toLowerCase());
+      const matchesTierFilter = moduleTierFilter ? module.module_tier === moduleTierFilter : true;
+      const matchesSocketFilter = moduleSocketFilter ? module.module_socket_type === moduleSocketFilter : true;
+      return matchesSearchTerm && matchesTierFilter && matchesSocketFilter;
+    });
+  };
+
   const checkDescendantMatch = (module: Module) => {
     if (descendant !== null) {
       return module.module_class === "계승자" && (
@@ -246,7 +285,7 @@ export default function DescendantBuilderLayout() {
     }
   }
   return (
-    <div className="max-w-5xl m-auto p-4">
+    <div className="max-w-6xl m-auto p-4">
       {
         // contextHolder : Notification 창이 뜨는 곳 지정
       }
@@ -286,7 +325,7 @@ export default function DescendantBuilderLayout() {
             activeModules.map((item, idx) => {
               if (item === null) return;
               return (
-                <div className="max-w-60 text-sm">{item.module_stat[item.levelnow].value}</div>
+                <div key={item.module_stat[item.levelnow].value} className="max-w-60 text-sm">{item.module_stat[item.levelnow].value}</div>
               )
               
             })
@@ -294,15 +333,15 @@ export default function DescendantBuilderLayout() {
           {showDescendantSelector && (
             <div
               ref={descendantSelectorRef}
-              className="absolute left-10p flex flex-col justify-center w-[930px] p-4 font-bold color-white bg-navy z-10 rounded"
+              className="absolute top-20 left-28 flex flex-col justify-center w-[930px] p-4 font-bold color-white bg-navy z-10 rounded"
             >
-              <div className="w-5xl text-center text-2xl">계승자 선택</div>
+              <div className="w-5xl text-center text-2xl text-white">계승자 선택</div>
               <hr className="mt-4 mb-4" />
               <div className="flex flex-row justify-between flex-wrap p-2 max-h-80 overflow-auto">
                 {descendantData?.map((data, idx) => (
                   <div
-                    key={idx}
-                    className={`flex flex-col justify-center items-center w-44 mb-2 rounded`}
+                    key={data.descendant_id}
+                    className={`flex flex-col justify-center items-center w-44 mb-2 rounded text-white`}
                     onClick={() => {
                       setShowDescendantSelector(false);
                       document.removeEventListener("click", handleOutsideClick);
@@ -321,7 +360,7 @@ export default function DescendantBuilderLayout() {
         <div>
           <div className="flex flex-wrap w-full">
             {
-              [0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map((item, idx) => {
+              Array(12).fill(1).map((arr, i) => { return i }).map((item, idx) => {
                 return (
                   <Tooltip title={
                     activeModules[idx] !== null ?
@@ -332,7 +371,7 @@ export default function DescendantBuilderLayout() {
                   }
                 >
                   <div 
-                    className={`flex flex-col justify-around items-center w-[135px] h-40 m-[1%] bg-gray-200 dark:bg-darkhf box-border rounded cursor-pointer ${slot === item ? "border-2 border-black dark:border-white" : ""}`}
+                    className={`flex flex-col justify-around items-center w-[129px] h-40 m-[1%] bg-gray-400 dark:bg-darkhf box-border rounded cursor-pointer ${slot === item ? "border-2 border-black dark:border-white" : ""}`}
                     onClick={() => {
                       setSlot(idx)
                     }}  
@@ -390,7 +429,7 @@ export default function DescendantBuilderLayout() {
                         {
                           activeModules[idx] !== null && (
                             <>
-                              <div className="absolute flex bottom-28 w-12 p-0.5 text-center module_area">
+                              <div className="absolute flex bottom-28 w-12 p-0.5 font-bold text-center module_area">
                                 <div className={`mr-0.5 w-6 h-6 ${setClassWithSocket(activeModules[idx]!.module_socket_type)}`}></div>
                                   {
                                     
@@ -420,7 +459,7 @@ export default function DescendantBuilderLayout() {
                     <Space wrap>
                       <Select
                         defaultValue="Empty"
-                        style={{ width: "130px"}}
+                        style={{ width: "105px"}}
                         options={options}
                         onChange={(value) => {
                           const selectedOption = options.find(option => option.value === value);
@@ -452,15 +491,37 @@ export default function DescendantBuilderLayout() {
             }
           </div>
           <hr className="mt-2 mb-4 border-t-2 border-black dark:border-white"/>
+          <div className="flex mb-4">
+            <Input
+              placeholder="모듈 검색"
+              value={searchTerm}
+              onChange={handleSearchChange}
+              style={{ marginRight: 16, width: 200, color: "black"}}
+            />
+            <Space>
+              <Select
+                defaultValue={null}
+                style={{ width: 130 }}
+                options={tierOptions}
+                onChange={handleTierFilterChange}
+              />
+              <Select
+                defaultValue={null}
+                style={{ width: 130 }}
+                options={options}
+                onChange={handleSocketFilterChange}
+              />
+            </Space>
+          </div>
           <div className="flex flex-wrap max-h-96 pt-4 overflow-y-scroll">
             {
               descendant !== null &&
               (
-                moduleData.filter(module =>
+                filterModules(moduleData).filter(module =>
                   slot === 0 ?
                   Number(module.module_id) >= 254001001 &&
                   checkDescendantMatch(module) :
-                  slot === 5 ?
+                  slot === 6 ?
                   Number(module.module_id) >= 253001001 &&
                   Number(module.module_id) < 254000000 &&
                   checkDescendantMatch(module) :
