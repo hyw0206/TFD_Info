@@ -513,7 +513,7 @@ export default function DescendantBuilderLayout() {
               />
             </Space>
           </div>
-          <div className="flex flex-wrap h-[820px] pt-4 overflow-y-scroll fix:h-96">
+          <div className="flex flex-wrap h-72 pt-4 overflow-y-scroll mb-[530px] fix:mb-0">
             {
               descendant !== null &&
               (
@@ -563,7 +563,7 @@ export default function DescendantBuilderLayout() {
                       </div>
                     } key={module.image_url + idx}>
                         <div 
-                          className="relative w-28 h-28 flex flex-col pb-2 cursor-pointer"
+                          className="relative w-28 h-[112px] flex flex-col pb-2 cursor-pointer"
                           onClick={() => {
                               handleModuleClick(module)
                               console.log(activeModules[slot]);
