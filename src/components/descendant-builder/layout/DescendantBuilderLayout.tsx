@@ -396,16 +396,16 @@ export default function DescendantBuilderLayout() {
                                     
                                     activeModules[idx]!.socketmatch ?
                                     <div className="text-green-500">
-                                      {Math.ceil(activeModules[idx]?.module_stat[activeModules[idx]?.levelnow].module_capacity / 2)}
+                                      {Math.ceil(activeModules[idx]!.module_stat[activeModules[idx]!.levelnow].module_capacity / 2)}
                                     </div>
                                     :
                                     socket[idx] === null || socket[idx] === "소켓 선택" ?
                                     <div>
-                                      {activeModules[idx]?.module_stat[activeModules[idx]?.levelnow].module_capacity}
+                                      {activeModules[idx]!.module_stat[activeModules[idx]!.levelnow].module_capacity}
                                     </div>
                                     :
                                     <div className="text-red-500">
-                                      {activeModules[idx]?.module_stat[activeModules[idx]?.levelnow].module_capacity + 5}
+                                      {activeModules[idx]!.module_stat[activeModules[idx]!.levelnow].module_capacity + 5}
                                     </div>
                                   }
                                 </div>
