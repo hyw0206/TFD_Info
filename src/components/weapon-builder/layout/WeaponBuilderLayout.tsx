@@ -353,7 +353,7 @@ export default function WeaponBuilderLayout() {
                                 <div className={`mr-0.5 w-6 h-6 ${setClassWithSocket(activeModules[idx]!.module_socket_type)}`}></div>
                                   {
                                     
-                                    activeModules[idx].socketmatch ?
+                                    activeModules[idx]!.socketmatch ?
                                     <div className="text-green-500">
                                       {Math.ceil(activeModules[idx]?.module_stat[activeModules[idx]?.levelnow].module_capacity / 2)}
                                     </div>
@@ -368,8 +368,8 @@ export default function WeaponBuilderLayout() {
                                     </div>
                                   }
                                 </div>
-                              <div className="text-sm">{activeModules[idx].module_name}</div>
-                              <div className="text-sm">{activeModules[idx].module_type ? activeModules[idx].module_type : "-"}</div>
+                              <div className="text-sm">{activeModules[idx]!.module_name}</div>
+                              <div className="text-sm">{activeModules[idx]!.module_type ? activeModules[idx]!.module_type : "-"}</div>
                             </>
                           )
                         }
@@ -387,12 +387,12 @@ export default function WeaponBuilderLayout() {
                           const newSocket = [...socket];
                           newSocket[idx] = label;
                           if (activeModules[idx] !== null) {
-                            const capacitys = activeModules[idx].module_stat[activeModules[idx].levelnow].module_capacity;
-                            if (newSocket[idx] === activeModules[idx].module_socket_type) {
-                              activeModules[idx].socketmatch = true;
+                            const capacitys = activeModules[idx]!.module_stat[activeModules[idx]!.levelnow].module_capacity;
+                            if (newSocket[idx] === activeModules[idx]!.module_socket_type) {
+                              activeModules[idx]!.socketmatch = true;
                               capacity[idx] = Math.ceil(capacitys / 2)
-                            } else if (activeModules[idx] !== null && (newSocket[idx] !== activeModules[idx].module_socket_type))  {
-                              activeModules[idx].socketmatch = false;
+                            } else if (activeModules[idx] !== null && (newSocket[idx] !== activeModules[idx]!.module_socket_type))  {
+                              activeModules[idx]!.socketmatch = false;
                               if (label === "소켓 선택" || label === null) {
                                 capacity[idx] = capacitys
                               } else {
