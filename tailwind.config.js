@@ -20,6 +20,7 @@ module.exports = {
       },
       screens: {
         'fix': '701px',
+        'desktop': '1000px',
       },
       colors: {
         'darkbg': '#181818',

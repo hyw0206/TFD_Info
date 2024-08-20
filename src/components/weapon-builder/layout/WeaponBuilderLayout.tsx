@@ -349,7 +349,7 @@ export default function WeaponBuilderLayout() {
           {showWeaponSelector && (
             <div
               ref={weaponSelectorRef}
-              className="absolute left-10p flex flex-col justify-center w-[930px] p-4 font-bold color-white bg-navy z-10 rounded"
+              className="absolute left-10p flex flex-col justify-center w-[600px] p-4 font-bold color-white bg-navy z-10 rounded desktop:w-[930px]"
               onClick={handleDropdownClick}
             >
               <div className="w-5xl text-center text-2xl">무기 선택</div>
@@ -551,7 +551,7 @@ export default function WeaponBuilderLayout() {
               />
             </Space>
           </div>
-          <div className="flex flex-wrap h-96 pt-4 overflow-y-scroll">
+          <div className="flex flex-wrap h-[820px] pt-4 overflow-y-scroll fix:h-96">
             {
               weapon !== null &&
               (

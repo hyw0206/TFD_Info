@@ -333,7 +333,7 @@ export default function DescendantBuilderLayout() {
           {showDescendantSelector && (
             <div
               ref={descendantSelectorRef}
-              className="absolute top-20 left-28 flex flex-col justify-center w-[930px] p-4 font-bold color-white bg-navy z-10 rounded"
+              className="absolute top-20 left-28 flex flex-col justify-center w-[600px] p-4 font-bold color-white bg-navy z-10 rounded desktop:w-[930px]"
             >
               <div className="w-5xl text-center text-2xl text-white">계승자 선택</div>
               <hr className="mt-4 mb-4" />
@@ -513,7 +513,7 @@ export default function DescendantBuilderLayout() {
               />
             </Space>
           </div>
-          <div className="flex flex-wrap max-h-96 pt-4 overflow-y-scroll">
+          <div className="flex flex-wrap h-[820px] pt-4 overflow-y-scroll fix:h-96">
             {
               descendant !== null &&
               (

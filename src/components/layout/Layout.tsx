@@ -53,7 +53,7 @@ export default function Layout(props: { children: JSX.Element }) {
       </button>
 
       {isOpen && (
-        <div className="absolute top-full left-0 mt-2 w-24 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-lg shadow-lg z-10 text-center">
+        <div className="absolute top-full right-4 mt-2 w-24 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-lg shadow-lg z-10 text-center">
           <Link href="/weapon-builder">
             <a className="block px-4 py-2 text-gray-800 dark:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-700">무기</a>
           </Link>
@@ -63,7 +63,7 @@ export default function Layout(props: { children: JSX.Element }) {
         </div>
       )}
     </div>
-          <div className="absolute top-4 right-4">
+          <div className="absolute top-12 right-4">
             <Switch
               checked={isDarkMode}
               onChange={() => setIsDarkMode(prevMode => !prevMode)}
@@ -73,7 +73,7 @@ export default function Layout(props: { children: JSX.Element }) {
           </div>
         </div>
       </div>
-      <div className="pt-16 pb-24 min-w-fit min-h-screen bg-slate-300 dark:bg-darkbg dark:text-gray-100">
+      <div className="pt-16 pb-24 min-w-fit min-h-dvh bg-slate-300 dark:bg-darkbg dark:text-gray-100 desktop:h-[100%]">
         {props.children}
       </div>
       <Analytics />
