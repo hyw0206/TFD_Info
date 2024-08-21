@@ -9,7 +9,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   if (typeof user_name !== 'string') {
     return res.status(400).json({ error: 'Invalid user_name parameter' });
   }
-  console.log(process.env.NEXON_API_KEY);
   try {
     const response = await axios.get('https://open.api.nexon.com/tfd/v1/id', {
       params: { user_name },
