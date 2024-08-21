@@ -73,7 +73,7 @@ export default function Layout(props: { children: JSX.Element }) {
           </div>
         </div>
       </div>
-      <div className="pt-16 pb-24 min-w-[800px] min-h-dvh bg-slate-300 dark:bg-darkbg dark:text-gray-100 desktop:h-[100%]">
+      <div className="pt-16 pb-24 min-w-[800px] min-h-[200dvh] bg-slate-300 dark:bg-darkbg dark:text-gray-100 fix:min-h-[100dvh]">
         {props.children}
       </div>
       <Analytics />

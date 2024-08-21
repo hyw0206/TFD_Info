@@ -355,7 +355,7 @@ export default function WeaponBuilderLayout() {
               <div className="w-5xl text-center text-2xl">무기 선택</div>
               <hr className="mt-4 mb-4" />
               <div className="flex mb-4">
-                <Input
+                {/* <Input
                   placeholder="무기 검색"
                   value={searchWeaponTerm}
                   onChange={handleSearchWeaponChange}
@@ -374,7 +374,7 @@ export default function WeaponBuilderLayout() {
                     options={typeOptions}
                     onChange={handleWeaponTypeFilterChange}
                   />
-                </Space>
+                </Space> */}
               </div>
               <div className="flex flex-row justify-between flex-wrap p-2 max-h-80 overflow-auto">
                 {filterWeapons(weaponData).map((data, idx) => (
