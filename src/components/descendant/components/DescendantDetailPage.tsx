@@ -257,7 +257,7 @@
                 <div>
                   <img className="w-10 mr-2 fix:w-20" src={`/descendant/${datas[descendantId].descendant_id}/${getImageSrc(reward, datas[descendantId].descendant_name)}`} />
                 </div>
-                <div className="w-32 fix:w-64">
+                <div className="w-64">
                   <div>{reward.name}</div>
                   <div>획득 : {reward.gain}</div>
                   <div>사용 : {reward.unlock}</div>

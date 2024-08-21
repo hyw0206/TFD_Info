@@ -23,7 +23,7 @@ export default function Layout(props: { children: JSX.Element }) {
   }, [isDarkMode]);
   return (
     <>
-      <div className="fixed top-0 left-0 right-0 h-16 bg-gray-800 text-white dark:bg-darkhf dark:text-gray-100 z-10">
+      <div className="fixed top-0 left-0 right-0 h-16 bg-gray-800 text-white dark:bg-darkhf dark:text-gray-100 z-10 min-w-[800px]">
         <div className="flex items-center h-full px-4 max-w-4xl mx-auto font-bold text-lg">
           <div className="flex-1 text-center">
             <Link href="/">TFD Info</Link>
@@ -73,11 +73,11 @@ export default function Layout(props: { children: JSX.Element }) {
           </div>
         </div>
       </div>
-      <div className="pt-16 pb-24 min-w-fit min-h-dvh bg-slate-300 dark:bg-darkbg dark:text-gray-100 desktop:h-[100%]">
+      <div className="pt-16 pb-24 min-w-[800px] min-h-dvh bg-slate-300 dark:bg-darkbg dark:text-gray-100 desktop:h-[100%]">
         {props.children}
       </div>
       <Analytics />
-      <div className="fixed bottom-0 left-0 right-0 h-24 bg-gray-800 text-white dark:bg-darkhf dark:text-gray-100">
+      <div className="fixed bottom-0 left-0 right-0 h-24 bg-gray-800 text-white dark:bg-darkhf dark:text-gray-100 min-w-[800px]">
         <div className="max-w-full mx-auto p-4 text-center">
           © TFD Info All Rights Reserved. Hosted by Vercel. The First Descendant
           and all related logos are trademarks of Nexon.

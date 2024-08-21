@@ -513,7 +513,7 @@ export default function DescendantBuilderLayout() {
               />
             </Space>
           </div>
-          <div className="flex flex-wrap h-72 pt-4 overflow-y-scroll mb-[530px] fix:mb-0">
+          <div className="flex flex-wrap h-72 pt-4 overflow-y-scroll fix:mb-0">
             {
               descendant !== null &&
               (

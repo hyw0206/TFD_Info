@@ -551,7 +551,7 @@ export default function WeaponBuilderLayout() {
               />
             </Space>
           </div>
-          <div className="flex flex-wrap h-72 pt-4 overflow-y-scroll mb-[530px] fix:mb-0">
+          <div className="flex flex-wrap h-72 pt-4 overflow-y-scroll ix:mb-0">
             {
               weapon !== null &&
               (
