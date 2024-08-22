@@ -137,6 +137,15 @@ export default function WeaponBuilderLayout() {
     return ""
   }
 
+  const setImageLinkWith = (data: string | null) => {
+    if (data === "알만딘") return "/Almandine.png"
+    if (data === "세룰리안") return "/Cerulean.png"
+    if (data === "말라카이트") return "/Malachite.png"
+    if (data === "루틸") return "/Rutile.png"
+    if (data === "크산틱") return "/Xantic.png"
+    return "/chipset.png"
+  }
+
   // 같은 이름 모듈 알림
   const openNotificationSameModule = (placement: NotificationPlacement) => {
     api.info({
@@ -462,8 +471,12 @@ export default function WeaponBuilderLayout() {
                         )
                         }
                       </div>
-                      <div className="flex flex-col justify-center items-center">
-                        <img src={activeModules[idx] ? activeModules[idx]!.image_url : "/chipset.png"} className="w-[60%]" />
+                      <div className="flex flex-col justify-center items-center w-full">
+                        {!activeModules[idx] ?
+                        <img src={setImageLinkWith(socket[idx])} className={setImageLinkWith(socket[idx]) === "/chipset.png" ? "w-[60%]" : "m-auto"} />
+                        :
+                        <img src={activeModules[idx]!.image_url} className="w-[60%]" />
+                        }
                         {
                           activeModules[idx] !== null && (
                             <>
