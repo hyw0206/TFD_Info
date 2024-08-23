@@ -12,6 +12,7 @@
 
   // antd import
   import { Select, Slider, Space, Tooltip } from 'antd'
+  import { DownCircleOutlined,  UpCircleOutlined } from '@ant-design/icons'
 
   // data import
   const datas: Descendant[] = require('@/src/data/json/descendant.json')
@@ -32,6 +33,8 @@
     // 선택된 소켓 타입
     const [socketTypeFilter, setSocketTypeFilter] = useState<string | null>(null)
     
+    const [isOpen, setIsOpen] = useState<boolean[]>(Array(4).fill(false));
+    
     // 일반 변수
 
     // 현재 내가 정보를 볼 계승자 번호
@@ -43,12 +46,12 @@
 
 
      // 비정형 필터링
-     const containsName = (reward: UnstructuredReward, name: string): boolean => {
+     const containsName = (reward: UnstructuredReward, name: string, type: string): boolean => {
       if (!name.includes("얼티밋")) {
         name = "일반 " + name
       }
-      return Object.values(reward).some(value => {        
-        return value.includes(name);
+      return Object.values(reward).some(value => {
+        return value.includes(`${name} ${type}`);
       });
     };
     
@@ -165,18 +168,26 @@
     }
     
     const setBoldDescendant = (data: string, descendant: string) => {
-      return data.includes(descendant) ? "font-bold" : ""
+      return data.includes(descendant) ? "font-bold text-red-500" : ""
     }
+
+    const toggleOpen = (index: number): void => {
+      setIsOpen((prevState) => 
+        prevState.map((item, idx) => (idx === index ? !item : item))
+      );
+    };
+
     // useEffect Hook Setting
 
     // 내가 보고자 하는 계승자가 바뀌면, 보고자 하는 스킬 + 레벨값 초기로 돌리기
     useEffect(() => {
       setSkillId('0')
       setLevel('40')
+      setIsOpen(Array(4).fill(false))
     }, [descendantId])
 
     return (
-      <div className="mt-8 m-auto">
+      <div className="mt-8 m-auto" id="information">
         { 
           // 캐릭터 기본 정보
         }
@@ -238,61 +249,253 @@
           level={level}
         />
 
-        <div className="mt-12 mb-4 text-xl">
-          <strong>{datas[descendantId].descendant_name}</strong> 파밍 정보
+        <div className="mt-12 mb-4 text-xl" id="farming">
+          <strong>{datas[descendantId].descendant_name}</strong> 파밍 정보 (획득 미션 유형/사용 미션 유형)
         </div>
-          {
-            (datas[descendantId].descendant_name === "프레이나" || 
-            datas[descendantId].descendant_name === "샤렌" || 
-            datas[descendantId].descendant_name === "블레어" || 
-            datas[descendantId].descendant_name === "버니") &&
-            <div>비정형 물질 파밍 X / 특정 임무 클리어로 바로 파밍</div>
-          }
         {
-          UnstructReward.filter(reward =>
-            containsName(reward, datas[descendantId].descendant_name)
-          ).map((reward, idx) =>{
-            return (
-              <div className="flex items-center mb-4 text-sm fix:text-base" key={reward.name + reward.gain}>
+          datas[descendantId].descendant_name === "프레이나" &&
+          (
+            <div className="flex flex-col mb-4">
+              <div className="flex items-center">
                 <div>
-                  <img className="w-10 mr-2 fix:w-20" src={`/descendant/${datas[descendantId].descendant_id}/${getImageSrc(reward, datas[descendantId].descendant_name)}`} />
+                  <img className="w-10 mr-2 fix:w-20" src={`/descendant/${datas[descendantId].descendant_id}/1.png`} />
                 </div>
-                <div className="w-64">
-                  <div>{reward.name}</div>
-                  <div>획득 : {reward.gain}</div>
-                  <div>사용 : {reward.unlock}</div>
+                <div className='font-bold w-40'>프레이나 강화 세포</div>
+                <div>
+                  획득 : 베스퍼스 (일반) - 벌목지 - 피난처 20%
                 </div>
-                {
-                Number(reward.name.split(" ")[0]) <= 54 ?
-                <div>
-                  <div className={setBoldDescendant(reward.reward_1, datas[descendantId].descendant_name)}>{reward.reward_1} 3%</div>
-                  <div className={setBoldDescendant(reward.reward_2, datas[descendantId].descendant_name)}>{reward.reward_2} 6%</div>
-                  <div className={setBoldDescendant(reward.reward_3, datas[descendantId].descendant_name)}>{reward.reward_3} 15%</div>
-                  <div className={setBoldDescendant(reward.reward_4, datas[descendantId].descendant_name)}>{reward.reward_4} 38%</div>
-                  <div className={setBoldDescendant(reward.reward_5, datas[descendantId].descendant_name)}>{reward.reward_5} 38%</div>     
-                </div> : 
-                <div>
-                 <div className={setBoldDescendant(reward.reward_1, datas[descendantId].descendant_name)}>{reward.reward_1} 6%</div>
-                 <div className={setBoldDescendant(reward.reward_2, datas[descendantId].descendant_name)}>{reward.reward_2} 10%</div>
-                 <div className={setBoldDescendant(reward.reward_3, datas[descendantId].descendant_name)}>{reward.reward_3} 20%</div>
-                 <div className={setBoldDescendant(reward.reward_4, datas[descendantId].descendant_name)}>{reward.reward_4} 32%</div>
-                 <div className={setBoldDescendant(reward.reward_5, datas[descendantId].descendant_name)}>{reward.reward_5} 32%</div>     
-               </div> 
-                }
               </div>
-            )
-          })
+              <div className="flex items-center">
+                <div>
+                  <img className="w-10 mr-2 fix:w-20" src={`/descendant/${datas[descendantId].descendant_id}/2.png`} />
+                </div>
+                <div className='font-bold w-40'>프레이나 안정화 장치</div>
+                <div>
+                  획득 : 베스퍼스 (일반) - 집하장 - 유적 진입로 20%
+                </div>
+              </div>
+              <div className="flex items-center">
+                <div>
+                  <img className="w-10 mr-2 fix:w-20" src={`/descendant/${datas[descendantId].descendant_id}/3.png`} />
+                </div>
+                <div className='font-bold w-40'>프레이나 나선 촉매</div>
+                <div>
+                  획득 : 베스퍼스 (일반) - 유적지 - 유적 지하 입구 20%
+                </div>
+              </div>
+              <div className="flex items-center">
+                <div>
+                  <img className="w-10 mr-2 fix:w-20" src={`/descendant/${datas[descendantId].descendant_id}/4.png`} />
+                </div>
+                <div className='font-bold w-40'>프레이나 코드</div>
+                <div>
+                  <div>
+                    획득 : 불모지 (일반) - 낙석 지대 - 벌거스 전략 초소 20% (비정형 물질 패턴: 프레이나)
+                  </div>
+                  <div>
+                    사용 : 불모지 (일반) - 낙석 지대 - 보이드 융합로 100%
+                  </div>
+                </div>
+              </div>  
+            </div>
+          )
         }
-
-        <div className="mt-12 mb-4 text-xl font-bold">
-          장착 가능한 모듈 (마우스 올릴 시 자세한 설명)
+        {
+          datas[descendantId].descendant_name === "버니" &&
+          (
+            <div className="flex flex-col mb-4">
+              <div className="flex items-center">
+                <div>
+                  <img className="w-10 mr-2 fix:w-20" src={`/descendant/${datas[descendantId].descendant_id}/1.png`} />
+                </div>
+                <div className='font-bold w-40'>버니 강화 세포</div>
+                <div>
+                  획득 : 킹스턴 (일반) - 무너진 극장 - 벌거스 야전 발전시설 20%
+                </div>
+              </div>
+              <div className="flex items-center">
+                <div>
+                  <img className="w-10 mr-2 fix:w-20" src={`/descendant/${datas[descendantId].descendant_id}/2.png`} />
+                </div>
+                <div className='font-bold w-40'>버니 안정화 장치</div>
+                <div>
+                  획득 : 킹스턴 (일반) - 무너진 극장 - 매지스터 연구지 20%
+                </div>
+              </div>
+              <div className="flex items-center">
+                <div>
+                  <img className="w-10 mr-2 fix:w-20" src={`/descendant/${datas[descendantId].descendant_id}/3.png`} />
+                </div>
+                <div className='font-bold w-40'>버니 나선 촉매</div>
+                <div>
+                  획득 : 킹스턴 (일반) - 대광장 - 벌거스 데이터 송신기 20%
+                </div>
+              </div>
+              <div className="flex items-center">
+                <div>
+                  <img className="w-10 mr-2 fix:w-20" src={`/descendant/${datas[descendantId].descendant_id}/4.png`} />
+                </div>
+                <div className='font-bold w-40'>버니 코드</div>
+                <div>
+                  <div>
+                    획득 : 킹스턴 (일반) - 대광장 - 잠든 계곡 20% (비정형 물질 패턴: 버니)
+                  </div>
+                  <div>
+                    사용 : 보이드 요격전 (일반) - 그레이브 워커 100%
+                  </div>
+                </div>
+              </div>  
+            </div>
+          )
+        }
+        {
+          datas[descendantId].descendant_name === "샤렌" &&
+          (
+            <div className="flex flex-col mb-4">
+              <div className="flex items-center">
+                <div>
+                  <img className="w-10 mr-2 fix:w-20" src={`/descendant/${datas[descendantId].descendant_id}/1.png`} />
+                </div>
+                <div className='font-bold w-40'>샤렌 강화 세포</div>
+                <div>
+                  획득 : 메아리 늪지 (일반) - 폐기 구역 - 종자 보관소 20%
+                </div>
+              </div>
+              <div className="flex items-center">
+                <div>
+                  <img className="w-10 mr-2 fix:w-20" src={`/descendant/${datas[descendantId].descendant_id}/2.png`} />
+                </div>
+                <div className='font-bold w-40'>샤렌 안정화 장치</div>
+                <div>
+                  획득 : 메아리 늪지 (일반) - 버려진 은신처 - 예배당 20%
+                </div>
+              </div>
+              <div className="flex items-center">
+                <div>
+                  <img className="w-10 mr-2 fix:w-20" src={`/descendant/${datas[descendantId].descendant_id}/3.png`} />
+                </div>
+                <div className='font-bold w-40'>샤렌 나선 촉매</div>
+                <div>
+                  획득 : 이그나 사막 (일반) - 붉은 황야 - 망명지 20%
+                </div>
+              </div>
+              <div className="flex items-center">
+                <div>
+                  <img className="w-10 mr-2 fix:w-20" src={`/descendant/${datas[descendantId].descendant_id}/4.png`} />
+                </div>
+                <div className='font-bold w-40'>샤렌 코드</div>
+                <div>
+                  <div>
+                    획득 : 이그나 사막 (일반) - 채굴장 - 칼리고 매장지 20%
+                  </div>
+                </div>
+              </div>  
+            </div>
+          )
+        }
+        {
+          datas[descendantId].descendant_name === "블레어" &&
+          (
+            <div className="flex flex-col mb-4">
+              <div className="flex items-center">
+                <div>
+                  <img className="w-10 mr-2 fix:w-20" src={`/descendant/${datas[descendantId].descendant_id}/1.png`} />
+                </div>
+                <div className='font-bold w-40'>블레어 강화 세포</div>
+                <div>
+                  획득 : 백야 협곡 (일반) - 달무덤 유역 - 의문의 끝자리 20%
+                </div>
+              </div>
+              <div className="flex items-center">
+                <div>
+                  <img className="w-10 mr-2 fix:w-20" src={`/descendant/${datas[descendantId].descendant_id}/2.png`} />
+                </div>
+                <div className='font-bold w-40'>블레어 안정화 장치</div>
+                <div>
+                  획득 : 백야 협곡 (일반) - 부화실 - 생체 실험실 20%
+                </div>
+              </div>
+              <div className="flex items-center">
+                <div>
+                  <img className="w-10 mr-2 fix:w-20" src={`/descendant/${datas[descendantId].descendant_id}/3.png`} />
+                </div>
+                <div className='font-bold w-40'>블레어 나선 촉매</div>
+                <div>
+                  획득 : 하기오스 (일반) - 오염지대 - 안식처 20%
+                </div>
+              </div>
+              <div className="flex items-center">
+                <div>
+                  <img className="w-10 mr-2 fix:w-20" src={`/descendant/${datas[descendantId].descendant_id}/4.png`} />
+                </div>
+                <div className='font-bold w-40'>블레어 코드</div>
+                <div>
+                  <div>
+                    획득 : 하기오스 (일반) - 별내림길 - 오래된 불가사의 20%
+                  </div>
+                </div>
+              </div>  
+            </div>
+          )
+        }
+        {
+        ["강화 세포", "안정화 장치", "나선 촉매", "코드"].map((item, idx) => {
+          return (
+            <>
+              <button onClick={() => toggleOpen(idx)} className="flex justify-between items-center w-96 mb-4 text-lg font-bold" key={datas[descendantId].descendant_name + idx}>
+                <span>{datas[descendantId].descendant_name} {item}</span> 
+                {isOpen[idx] ? <UpCircleOutlined />: <DownCircleOutlined />}
+              </button>
+              {
+                isOpen[idx] && 
+                UnstructReward.filter(reward =>
+                  containsName(reward, datas[descendantId].descendant_name, item)
+                ).map((reward, idx2) =>{
+                  return (
+                    <div className="flex items-center mb-4 text-sm fix:text-base" key={reward.name + reward.gain}>
+                      <div>
+                        <img className="w-10 mr-2 fix:w-20" src={`/descendant/${datas[descendantId].descendant_id}/${getImageSrc(reward, datas[descendantId].descendant_name)}`} />
+                      </div>
+                      <div className="w-64">
+                        <div>{reward.name}</div>
+                        <div>획득 : {reward.gain}</div>
+                        <div>사용 : {reward.unlock}</div>
+                      </div>
+                      {
+                      Number(reward.name.split(" ")[0]) <= 54 ?
+                      <div>
+                        <div className={setBoldDescendant(reward.reward_1, datas[descendantId].descendant_name)}>{reward.reward_1} 3%</div>
+                        <div className={setBoldDescendant(reward.reward_2, datas[descendantId].descendant_name)}>{reward.reward_2} 6%</div>
+                        <div className={setBoldDescendant(reward.reward_3, datas[descendantId].descendant_name)}>{reward.reward_3} 15%</div>
+                        <div className={setBoldDescendant(reward.reward_4, datas[descendantId].descendant_name)}>{reward.reward_4} 38%</div>
+                        <div className={setBoldDescendant(reward.reward_5, datas[descendantId].descendant_name)}>{reward.reward_5} 38%</div>     
+                      </div> : 
+                      <div>
+                      <div className={setBoldDescendant(reward.reward_1, datas[descendantId].descendant_name)}>{reward.reward_1} 6%</div>
+                      <div className={setBoldDescendant(reward.reward_2, datas[descendantId].descendant_name)}>{reward.reward_2} 10%</div>
+                      <div className={setBoldDescendant(reward.reward_3, datas[descendantId].descendant_name)}>{reward.reward_3} 20%</div>
+                      <div className={setBoldDescendant(reward.reward_4, datas[descendantId].descendant_name)}>{reward.reward_4} 32%</div>
+                      <div className={setBoldDescendant(reward.reward_5, datas[descendantId].descendant_name)}>{reward.reward_5} 32%</div>     
+                    </div> 
+                      } 
+                    </div>
+                  )
+                })
+              }
+            </>
+          )
+        })
+        
+        }
+        <div className="mt-12 mb-4 text-xl font-bold" id="module">
+          장착 가능한 모듈 (마우스 올릴시 간략 / 클릭 시 레벨당 스탯)
         </div>
         <div className="flex flex-col mb-4">
           <div className="flex mb-4">
             <Select
               style={{ width: 120, marginRight: 8 }}
               placeholder="등급 필터"
-              value={tierFilter || '초월'}
+              value={tierFilter || '전체'}
               onChange={setTierFilter}
             >
               {['일반', '희귀', '궁극', '초월', '전체'].map(tier => (

@@ -6,7 +6,18 @@ export default function ComponentMainPage() {
     <>
       <Head>
         <title>TFD Info - 외장 부품</title>
-        <meta name="keywords" content="보조 전원, 센서, 메모리, 처리 장치, 무덤 선봉대, 초신성, 전투의 미학, 절멸, 처형인, 학살자, 혹한, 극야, 맹독의 정수, 숙련 사수, 늪 정찰대, 얼어붙은 심장, 곡예사, 활화산, 굶주린 음파" />
+        <meta name="description" content="퍼스트 디센던트 외장 부품 정보를 모두 제공합니다." />
+        <meta name="robots" content="index, follow" />
+        <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="author" content="hyw0206" />
+        <meta property="og:title" content="TFD Info - 외장 부품" />
+        <meta property="og:description" content="퍼스트 디센던트 외장 부품 정보를 모두 제공합니다." />
+        <meta property="og:image" content="/logo.webp" />
+        <meta property="og:url" content="https://tfdinfo.vercel.app/" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="TFD Info - 외장 부품" />
+        <meta name="twitter:description" content="퍼스트 디센던트 외장 부품 정보를 모두 제공합니다." />
+        <meta name="twitter:image" content="/logo.webp" />
       </Head>
       <ComponentLayoutPage />
     </>
