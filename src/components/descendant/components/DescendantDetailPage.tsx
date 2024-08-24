@@ -195,6 +195,7 @@
           <img
             className="w-20 border-2 border-black shadow-lg"
             src={datas[descendantId].descendant_image_url}
+            alt={datas[descendantId].descendant_name}
           />
           <div className="ml-4 text-2xl font-bold">
             {datas[descendantId].descendant_name}
@@ -220,7 +221,11 @@
                 <span className="absolute right-1 bottom-0 text-xl font-bold text-white">
                   {skillNames[idx]}
                 </span>
-                <img className="w-16 skill" src={skill.skill_image_url}></img>
+                <img 
+                  className="w-16 skill" 
+                  src={skill.skill_image_url}
+                  alt={skill.skill_name}
+                />
               </div>
             )
           })}
@@ -258,7 +263,11 @@
             <div className="flex flex-col mb-4">
               <div className="flex items-center">
                 <div>
-                  <img className="w-10 mr-2 fix:w-20" src={`/descendant/${datas[descendantId].descendant_id}/1.png`} />
+                  <img 
+                    className="w-10 mr-2 fix:w-20" 
+                    src={`/descendant/${datas[descendantId].descendant_id}/1.png`} 
+                    alt="프레이나 강화 세포" 
+                  />
                 </div>
                 <div className='font-bold w-40'>프레이나 강화 세포</div>
                 <div>
@@ -267,7 +276,11 @@
               </div>
               <div className="flex items-center">
                 <div>
-                  <img className="w-10 mr-2 fix:w-20" src={`/descendant/${datas[descendantId].descendant_id}/2.png`} />
+                  <img 
+                    className="w-10 mr-2 fix:w-20" 
+                    src={`/descendant/${datas[descendantId].descendant_id}/2.png`} 
+                    alt="프레이나 안정화 장치"
+                  />
                 </div>
                 <div className='font-bold w-40'>프레이나 안정화 장치</div>
                 <div>
@@ -276,7 +289,7 @@
               </div>
               <div className="flex items-center">
                 <div>
-                  <img className="w-10 mr-2 fix:w-20" src={`/descendant/${datas[descendantId].descendant_id}/3.png`} />
+                  <img className="w-10 mr-2 fix:w-20" src={`/descendant/${datas[descendantId].descendant_id}/3.png`} alt="프레이나 나선 촉매"/>
                 </div>
                 <div className='font-bold w-40'>프레이나 나선 촉매</div>
                 <div>
@@ -285,7 +298,7 @@
               </div>
               <div className="flex items-center">
                 <div>
-                  <img className="w-10 mr-2 fix:w-20" src={`/descendant/${datas[descendantId].descendant_id}/4.png`} />
+                  <img className="w-10 mr-2 fix:w-20" src={`/descendant/${datas[descendantId].descendant_id}/4.png`} alt="프레이나 코드" />
                 </div>
                 <div className='font-bold w-40'>프레이나 코드</div>
                 <div>
@@ -306,7 +319,7 @@
             <div className="flex flex-col mb-4">
               <div className="flex items-center">
                 <div>
-                  <img className="w-10 mr-2 fix:w-20" src={`/descendant/${datas[descendantId].descendant_id}/1.png`} />
+                  <img className="w-10 mr-2 fix:w-20" src={`/descendant/${datas[descendantId].descendant_id}/1.png`} alt="버니 강화 세포" />
                 </div>
                 <div className='font-bold w-40'>버니 강화 세포</div>
                 <div>
@@ -315,7 +328,7 @@
               </div>
               <div className="flex items-center">
                 <div>
-                  <img className="w-10 mr-2 fix:w-20" src={`/descendant/${datas[descendantId].descendant_id}/2.png`} />
+                  <img className="w-10 mr-2 fix:w-20" src={`/descendant/${datas[descendantId].descendant_id}/2.png`} alt="버니 안정화 장치"/>
                 </div>
                 <div className='font-bold w-40'>버니 안정화 장치</div>
                 <div>
@@ -324,7 +337,7 @@
               </div>
               <div className="flex items-center">
                 <div>
-                  <img className="w-10 mr-2 fix:w-20" src={`/descendant/${datas[descendantId].descendant_id}/3.png`} />
+                  <img className="w-10 mr-2 fix:w-20" src={`/descendant/${datas[descendantId].descendant_id}/3.png`} alt="버니 나선 촉매"/>
                 </div>
                 <div className='font-bold w-40'>버니 나선 촉매</div>
                 <div>
@@ -333,7 +346,7 @@
               </div>
               <div className="flex items-center">
                 <div>
-                  <img className="w-10 mr-2 fix:w-20" src={`/descendant/${datas[descendantId].descendant_id}/4.png`} />
+                  <img className="w-10 mr-2 fix:w-20" src={`/descendant/${datas[descendantId].descendant_id}/4.png`} alt="버니 코드"/>
                 </div>
                 <div className='font-bold w-40'>버니 코드</div>
                 <div>
@@ -354,7 +367,7 @@
             <div className="flex flex-col mb-4">
               <div className="flex items-center">
                 <div>
-                  <img className="w-10 mr-2 fix:w-20" src={`/descendant/${datas[descendantId].descendant_id}/1.png`} />
+                  <img className="w-10 mr-2 fix:w-20" src={`/descendant/${datas[descendantId].descendant_id}/1.png`} alt="샤렌 강화 세포"/>
                 </div>
                 <div className='font-bold w-40'>샤렌 강화 세포</div>
                 <div>
@@ -363,7 +376,7 @@
               </div>
               <div className="flex items-center">
                 <div>
-                  <img className="w-10 mr-2 fix:w-20" src={`/descendant/${datas[descendantId].descendant_id}/2.png`} />
+                  <img className="w-10 mr-2 fix:w-20" src={`/descendant/${datas[descendantId].descendant_id}/2.png`} alt="샤렌 안정화 장치"/>
                 </div>
                 <div className='font-bold w-40'>샤렌 안정화 장치</div>
                 <div>
@@ -372,7 +385,7 @@
               </div>
               <div className="flex items-center">
                 <div>
-                  <img className="w-10 mr-2 fix:w-20" src={`/descendant/${datas[descendantId].descendant_id}/3.png`} />
+                  <img className="w-10 mr-2 fix:w-20" src={`/descendant/${datas[descendantId].descendant_id}/3.png`} alt="샤렌 나선 촉매"/>
                 </div>
                 <div className='font-bold w-40'>샤렌 나선 촉매</div>
                 <div>
@@ -381,7 +394,7 @@
               </div>
               <div className="flex items-center">
                 <div>
-                  <img className="w-10 mr-2 fix:w-20" src={`/descendant/${datas[descendantId].descendant_id}/4.png`} />
+                  <img className="w-10 mr-2 fix:w-20" src={`/descendant/${datas[descendantId].descendant_id}/4.png`} alt="샤렌 코드"/>
                 </div>
                 <div className='font-bold w-40'>샤렌 코드</div>
                 <div>
@@ -399,7 +412,7 @@
             <div className="flex flex-col mb-4">
               <div className="flex items-center">
                 <div>
-                  <img className="w-10 mr-2 fix:w-20" src={`/descendant/${datas[descendantId].descendant_id}/1.png`} />
+                  <img className="w-10 mr-2 fix:w-20" src={`/descendant/${datas[descendantId].descendant_id}/1.png`} alt="블레어 강화 세포"/>
                 </div>
                 <div className='font-bold w-40'>블레어 강화 세포</div>
                 <div>
@@ -408,7 +421,7 @@
               </div>
               <div className="flex items-center">
                 <div>
-                  <img className="w-10 mr-2 fix:w-20" src={`/descendant/${datas[descendantId].descendant_id}/2.png`} />
+                  <img className="w-10 mr-2 fix:w-20" src={`/descendant/${datas[descendantId].descendant_id}/2.png`} alt="블레어 안정화 장치"/>
                 </div>
                 <div className='font-bold w-40'>블레어 안정화 장치</div>
                 <div>
@@ -417,7 +430,7 @@
               </div>
               <div className="flex items-center">
                 <div>
-                  <img className="w-10 mr-2 fix:w-20" src={`/descendant/${datas[descendantId].descendant_id}/3.png`} />
+                  <img className="w-10 mr-2 fix:w-20" src={`/descendant/${datas[descendantId].descendant_id}/3.png`} alt="블레어 나선 촉매"/>
                 </div>
                 <div className='font-bold w-40'>블레어 나선 촉매</div>
                 <div>
@@ -426,7 +439,7 @@
               </div>
               <div className="flex items-center">
                 <div>
-                  <img className="w-10 mr-2 fix:w-20" src={`/descendant/${datas[descendantId].descendant_id}/4.png`} />
+                  <img className="w-10 mr-2 fix:w-20" src={`/descendant/${datas[descendantId].descendant_id}/4.png`} alt="블레어 코드"/>
                 </div>
                 <div className='font-bold w-40'>블레어 코드</div>
                 <div>
@@ -454,7 +467,7 @@
                   return (
                     <div className="flex items-center mb-4 text-sm fix:text-base" key={reward.name + reward.gain}>
                       <div>
-                        <img className="w-10 mr-2 fix:w-20" src={`/descendant/${datas[descendantId].descendant_id}/${getImageSrc(reward, datas[descendantId].descendant_name)}`} />
+                        <img className="w-10 mr-2 fix:w-20" src={`/descendant/${datas[descendantId].descendant_id}/${getImageSrc(reward, datas[descendantId].descendant_name)}`} alt={datas[descendantId].descendant_name} />
                       </div>
                       <div className="w-64">
                         <div>{reward.name}</div>
@@ -526,7 +539,7 @@
                     <div>{module.module_tier}</div>
                   </div>
                   <div className="flex flex-row pt-2 pb-2">
-                    <div><img className="w-20" src={module.image_url} /></div>
+                    <div><img className="w-20" src={module.image_url} alt={module.module_name}/></div>
                     <div className="ml-4">
                       <div>수용량 </div>
                       <div>(최저 레벨~최대 레벨)</div>
@@ -558,7 +571,7 @@
                     <div className={`mr-0.5 w-6 h-6 ${setClassWithSocket(module.module_socket_type)}`}></div>
                     <div>{module.module_stat[0].module_capacity}</div>
                   </div>
-                  <img className={`w-16 m-auto ${setClassWithTier(module.module_tier)}`} src={module.image_url} />
+                  <img className={`w-16 m-auto ${setClassWithTier(module.module_tier)}`} src={module.image_url} alt={module.module_name} />
                   <div className="text-center text-sm">{module.module_name}</div>
                   <div className="text-center text-sm">{module.module_type ? module.module_type : "-"}</div>
                 </div>

@@ -59,6 +59,17 @@ export default function Home() {
         <meta name="twitter:title" content="TFD Info" />
         <meta name="twitter:description" content="퍼스트 디센던트 정보 사이트" />
         <meta name="twitter:image" content="/logo.webp" />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "WebSite",
+              "name": "TFD Info",
+              "url": "https://tfdinfo.vercel.app/"
+            }),
+          }}
+        />
       </Head>
       <div className="text-center">
         {/* <div className="mt-4">유저 검색 ex{")"} 닉네임#1234</div>

@@ -330,6 +330,7 @@ export default function WeaponBuilderLayout() {
                   className="w-60 h-20 border-2 border-dashed"
                   src={weaponData[weapon].image_url} 
                   onClick={handleWeaponClick}
+                  alt={weaponData[weapon].weapon_name}
                 />
               </>
             ) : (
@@ -473,9 +474,9 @@ export default function WeaponBuilderLayout() {
                       </div>
                       <div className="flex flex-col justify-center items-center w-full">
                         {!activeModules[idx] ?
-                        <img src={setImageLinkWith(socket[idx])} className={setImageLinkWith(socket[idx]) === "/chipset.png" ? "w-[60%]" : "m-auto"} />
+                        <img src={setImageLinkWith(socket[idx])} className={setImageLinkWith(socket[idx]) === "/chipset.png" ? "w-[60%]" : "m-auto"} alt="socket" />
                         :
-                        <img src={activeModules[idx]!.image_url} className="w-[60%]" />
+                        <img src={activeModules[idx]!.image_url} className="w-[60%]" alt={activeModules[idx]!.module_name}/>
                         }
                         {
                           activeModules[idx] !== null && (
@@ -579,7 +580,7 @@ export default function WeaponBuilderLayout() {
                           <div>{module.module_tier}</div>
                         </div>
                         <div className="flex flex-row pt-2 pb-2">
-                          <div><img className="w-20" src={module.image_url} /></div>
+                          <div><img className="w-20" src={module.image_url} alt={module.module_name} /></div>
                           <div className="ml-4">
                             <div>수용량</div>
                             <div>{module.module_stat[0].module_capacity}~{module.module_stat[module.module_stat.length-1].module_capacity}</div>
@@ -617,7 +618,7 @@ export default function WeaponBuilderLayout() {
                             <div className={`mr-0.5 w-6 h-6 ${setClassWithSocket(module.module_socket_type)}`}></div>
                             <div>{module.module_stat[0].module_capacity}</div>
                           </div>
-                          <img className={`w-16 m-auto ${setClassWithTierBg(module.module_tier)}`} src={module.image_url} />
+                          <img className={`w-16 m-auto ${setClassWithTierBg(module.module_tier)}`} src={module.image_url} alt={module.module_name} />
                           <div className="text-center text-sm">{module.module_name}</div>
                           <div className="text-center text-sm">{module.module_type ? module.module_type : "-"}</div>
                         </div>
