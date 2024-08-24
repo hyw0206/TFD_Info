@@ -47,6 +47,18 @@ export default function Home() {
     <>
       <Head>
         <title>TFD Info</title>
+        <meta name="description" content="퍼스트 디센던트 정보 사이트" />
+        <meta name="robots" content="index, follow" />
+        <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="author" content="hyw0206" />
+        <meta property="og:title" content="TFD Info" />
+        <meta property="og:description" content="퍼스트 디센던트 정보 사이트" />
+        <meta property="og:image" content="/logo.webp" />
+        <meta property="og:url" content="https://tfdinfo.vercel.app/" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="TFD Info" />
+        <meta name="twitter:description" content="퍼스트 디센던트 정보 사이트" />
+        <meta name="twitter:image" content="/logo.webp" />
       </Head>
       <div className="text-center">
         {/* <div className="mt-4">유저 검색 ex{")"} 닉네임#1234</div>

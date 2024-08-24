@@ -34,7 +34,7 @@
     const [socketTypeFilter, setSocketTypeFilter] = useState<string | null>(null)
     
     const [isOpen, setIsOpen] = useState<boolean[]>(Array(4).fill(false));
-    
+
     // 일반 변수
 
     // 현재 내가 정보를 볼 계승자 번호
@@ -488,7 +488,7 @@
         
         }
         <div className="mt-12 mb-4 text-xl font-bold" id="module">
-          장착 가능한 모듈 (마우스 올릴시 간략 / 클릭 시 레벨당 스탯)
+          장착 가능한 모듈 (마우스 올릴시 간략 스탯)
         </div>
         <div className="flex flex-col mb-4">
           <div className="flex mb-4">
