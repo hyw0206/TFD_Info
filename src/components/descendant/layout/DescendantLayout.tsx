@@ -14,8 +14,8 @@ export default function DescendantLayoutPage() {
   
   // useState Hook Setting
 
-  // 선택된 계승자 id (기본 : 얼티밋 버니)
-  const [descendantId, setDescendantId] = useState('18')
+  // 선택된 계승자 id
+  const [descendantId, setDescendantId] = useState('21')
 
   // 바인딩 함수
   

@@ -452,6 +452,56 @@
           )
         }
         {
+          datas[descendantId].descendant_name === "헤일리" &&
+          (
+            <div className="flex flex-col mb-4">
+              <div className="flex items-center">
+                <div>
+                  <img className="w-10 mr-2 fix:w-20" src={`/descendant/${datas[descendantId].descendant_id}/1.png`} alt="헤일리 강화 세포 DNA"/>
+                </div>
+                <div className='font-bold w-40'>헤일리 강화 세포 DNA</div>
+                <div>
+                  획득 : 킹스턴 (어려움) - 매지스터 연구지, 잠든 계곡
+                </div>
+              </div>
+              <div className="flex items-center">
+                <div>
+                  <img className="w-10 mr-2 fix:w-20" src={`/descendant/${datas[descendantId].descendant_id}/2.png`} alt="헤일리 안정화 장치 부품"/>
+                </div>
+                <div className='font-bold w-40'>헤일리 안정화 장치 부품</div>
+                <div>
+                  획득 : 베스퍼스 (어려움) - 피난처, 메아리 늪지 (어려움) - 예배당
+                </div>
+              </div>
+              <div className="flex items-center">
+                <div>
+                  <img className="w-10 mr-2 fix:w-20" src={`/descendant/${datas[descendantId].descendant_id}/3.png`} alt="헤일리 나선 촉매 고리"/>
+                </div>
+                <div className='font-bold w-40'>헤일리 나선 촉매</div>
+                <div>
+                  획득 : 아그나 사막 (어려움) - 망명지, 아그나 사막 (어려움) - 칼리고 매장지
+                </div>
+              </div>
+              <div className="flex items-center">
+                <div>
+                  <img className="w-10 mr-2 fix:w-20" src={`/descendant/${datas[descendantId].descendant_id}/4.png`} alt="헤일리 데이터 칩"/>
+                </div>
+                <div className='font-bold w-40'>헤일리 데이터 칩</div>
+                <div>
+                  <div>
+                    획득 : 하기오스 (어려움) - 안식처, 백야 협곡 (어려움) - 의문의 끝자리
+                  </div>
+                </div>
+              </div>  
+            </div>
+          )
+        }
+        {
+        (datas[descendantId].descendant_name !== "블레어" &&
+        datas[descendantId].descendant_name !== "샤렌" &&
+        datas[descendantId].descendant_name !== "버니" &&
+        datas[descendantId].descendant_name !== "프레이나" &&
+        datas[descendantId].descendant_name !== "헤일리") &&
         ["강화 세포", "안정화 장치", "나선 촉매", "코드"].map((item, idx) => {
           return (
             <>
