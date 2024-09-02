@@ -4,6 +4,7 @@ import { Weapon, Basestat } from '@/src/data/type/weapon_type'
 import { Stat } from '@/src/data/type/stat'
 import { Module } from '@/src/data/type/module'
 import { StatInfo } from '@/src/data/type/statinfo'
+import { WeaponStats } from "@/src/data/type/weapon_attribute";
 
 // Hook import
 
@@ -18,6 +19,7 @@ const datas: Weapon[] = require('@/src/data/json/weapon.json');
 const stats: Stat[] = require('@/src/data/json/stat.json');
 const statInfo: StatInfo[] = require('@/src/data/json/statInfo.json');
 const moduleInfo: Module[] = require('@/src/data/json/module.json');
+const attributeDatas: WeaponStats[] = require("@/src/data/json/weapon_attribute.json");
 
 export default function WeaponStatDetailPage(props: { weaponNumber: string }) {
   // useState Hook Setting
@@ -232,9 +234,34 @@ export default function WeaponStatDetailPage(props: { weaponNumber: string }) {
             <div className="mt-4 text-2xl font-bold text-gray-500">
               {datas[weaponNumber].weapon_perk_ability_name}
             </div>
-            <div className="mt-2">
+            <div className="mt-2 mb-4">
               {datas[weaponNumber].weapon_perk_ability_description}
             </div>
+            {attributeDatas
+              .filter((attribute: WeaponStats) => attribute.name === datas[weaponNumber].weapon_name)
+              .map((item) => {
+                const combinedStats = item.stats.reduce((acc, curr) => {
+                  Object.entries(curr).forEach(([key, value]) => {
+                    if (!acc[key]) acc[key] = [];
+                    acc[key].push(value);
+                  });
+                  return acc;
+                }, {} as Record<string, string[]>);
+
+                return (
+                  <div key={item.name}>
+                    {Object.entries(combinedStats).map(([statName, statValues]) => {
+                      const uniqueValues = Array.from(new Set(statValues));
+                      return (
+                        <div key={statName} className="flex my-3 text-center">
+                          <div className="w-80 font-bold">{statName}</div>
+                          <div className="grow">{uniqueValues.join(' | ')}</div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                );
+              })}
           </>
         ) : (
           <div>

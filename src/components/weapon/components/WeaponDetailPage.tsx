@@ -12,7 +12,6 @@ import { WeaponType } from "@/src/data/etc/weaponvars";
 
 // data import
 const datas: Weapon[] = require("@/src/data/json/weapon.json");
-
 export default function WepaonDetailPage(props: {weaponRoundTypeid: string, weaponTypeid: string}) {
 
   // useState Hook Setting
@@ -58,6 +57,7 @@ export default function WepaonDetailPage(props: {weaponRoundTypeid: string, weap
                     <>
                       <div>{weapon.weapon_perk_ability_name}</div>
                       <div className="hidden max-w-xl text-xs opacity-75 fix:block">{weapon.weapon_perk_ability_description}</div>
+                      
                     </>
                     : <div className="leading-10">특성 없음</div>
                   }
