@@ -6,7 +6,18 @@ export default function DescendantMainPage() {
     <>
       <Head>
         <title>TFD Info - 계승자</title>
-        <meta name="keywords" content="모듈, 전력 응집, 전력 전환, 초전도체, 생체 연료, 전력 충전, 고압 전류, 레픽, 에이잭스, 비에사, 얼티밋 레픽, 제이버, 버니, 얼티밋 에이잭스, 프레이나, 글레이, 얼티밋 비에사, 샤렌, 블레어, 밸비, 카일, 에시모, 엔조, 유진, 루나, 얼티밋 버니, 얼티밋 글레이, 얼티밋 밸비" />
+        <meta name="description" content="퍼스트 디센던트 계승자의 파밍 정보, 스탯, 스킬, 모듈에 관한 정보를 제공합니다." />
+        <meta name="robots" content="index, follow" />
+        <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="author" content="hyw0206" />
+        <meta property="og:title" content="TFD Info - 계승자" />
+        <meta property="og:description" content="퍼스트 디센던트 계승자의 파밍 정보, 스탯, 스킬, 모듈에 관한 정보를 제공합니다." />
+        <meta property="og:image" content="/logo.webp" />
+        <meta property="og:url" content="https://tfdinfo.vercel.app/" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="TFD Info - 계승자" />
+        <meta name="twitter:description" content="퍼스트 디센던트 계승자의 파밍 정보, 스탯, 스킬, 모듈에 관한 정보를 제공합니다." />
+        <meta name="twitter:image" content="/logo.webp" />
       </Head>
       <DescendantLayoutPage />
     </>

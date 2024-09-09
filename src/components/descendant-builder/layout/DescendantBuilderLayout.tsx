@@ -121,7 +121,15 @@ export default function DescendantBuilderLayout() {
     }); 
   };
 
-
+  const setImageLinkWith = (data: string | null) => {
+    if (data === "알만딘") return "/Almandine.png"
+    if (data === "세룰리안") return "/Cerulean.png"
+    if (data === "말라카이트") return "/Malachite.png"
+    if (data === "루틸") return "/Rutile.png"
+    if (data === "크산틱") return "/Xantic.png"
+    return "/chipset.png"
+  }
+  
   // bindind Func
 
   // 계승자 선택 창 여는 경우
@@ -305,6 +313,7 @@ export default function DescendantBuilderLayout() {
                   className="w-40 h-40 border-2 border-dashed"
                   src={descendantData[descendant].descendant_image_url} 
                   onClick={handleDescendantClick}
+                  alt={descendantData[descendant].descendant_name}
                 />
               </>
             ) : (
@@ -424,8 +433,12 @@ export default function DescendantBuilderLayout() {
                         )
                         }
                       </div>
-                      <div className="flex flex-col justify-center items-center">
-                        <img src={activeModules[idx] ? activeModules[idx]!.image_url : "/chipset.png"} className="w-[60%]" />
+                      <div className="flex flex-col justify-center items-center w-full">
+                        {!activeModules[idx] ?
+                        <img src={setImageLinkWith(socket[idx])} className={setImageLinkWith(socket[idx]) === "/chipset.png" ? "w-[60%]" : "m-auto"} alt="slot" />
+                        :
+                        <img src={activeModules[idx]!.image_url} className="w-[60%]" alt={activeModules[idx]!.image_url} />
+                        }
                         {
                           activeModules[idx] !== null && (
                             <>
@@ -536,7 +549,7 @@ export default function DescendantBuilderLayout() {
                           <div>{module.module_tier}</div>
                         </div>
                         <div className="flex flex-row pt-2 pb-2">
-                          <div><img className="w-20" src={module.image_url} /></div>
+                          <div><img className="w-20" src={module.image_url} alt={module.module_name}/></div>
                           <div className="ml-4">
                             <div>수용량</div>
                             <div>{module.module_stat[0].module_capacity}~{module.module_stat[module.module_stat.length-1].module_capacity}</div>
@@ -574,7 +587,7 @@ export default function DescendantBuilderLayout() {
                             <div className={`mr-0.5 w-6 h-6 ${setClassWithSocket(module.module_socket_type)}`}></div>
                             <div>{module.module_stat[0].module_capacity}</div>
                           </div>
-                          <img className={`w-16 m-auto ${setClassWithTierBg(module.module_tier)}`} src={module.image_url} />
+                          <img className={`w-16 m-auto ${setClassWithTierBg(module.module_tier)}`} src={module.image_url} alt={module.module_name} />
                           <div className="text-center text-sm">{module.module_name}</div>
                           <div className="text-center text-sm">{module.module_type ? module.module_type : "-"}</div>
                         </div>

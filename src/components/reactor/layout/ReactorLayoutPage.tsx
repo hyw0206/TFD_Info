@@ -33,7 +33,7 @@ export default function ReactorLayoutPage() {
             return (
               <div className="flex mt-6 ml-6 items-center text-sm fix:text-base" key={data.image_url + idx}>
                 <div className="flex flex-col items-center w-40">
-                  <img className="w-12 h-12 object-cover fix:w-12 fix:h-12" src={data.image_url} />
+                  <img className="w-12 h-12 object-cover fix:w-12 fix:h-12" src={data.image_url} alt={data.reactor_name} />
                   <div>{data.reactor_name}</div>
                 </div>
                 <div className="w-28 text-center">

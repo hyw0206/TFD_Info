@@ -4,6 +4,7 @@ import { Weapon, Basestat } from '@/src/data/type/weapon_type'
 import { Stat } from '@/src/data/type/stat'
 import { Module } from '@/src/data/type/module'
 import { StatInfo } from '@/src/data/type/statinfo'
+import { WeaponStats } from "@/src/data/type/weapon_attribute";
 
 // Hook import
 
@@ -18,6 +19,7 @@ const datas: Weapon[] = require('@/src/data/json/weapon.json');
 const stats: Stat[] = require('@/src/data/json/stat.json');
 const statInfo: StatInfo[] = require('@/src/data/json/statInfo.json');
 const moduleInfo: Module[] = require('@/src/data/json/module.json');
+const attributeDatas: WeaponStats[] = require("@/src/data/json/weapon_attribute.json");
 
 export default function WeaponStatDetailPage(props: { weaponNumber: string }) {
   // useState Hook Setting
@@ -142,6 +144,7 @@ export default function WeaponStatDetailPage(props: { weaponNumber: string }) {
             <img
               className="w-32 h-14 p-1 object-cover weapon"
               src={datas[weaponNumber].image_url}
+              alt={datas[weaponNumber].weapon_name}
             />
           </div>
           <div className="flex flex-col">
@@ -225,15 +228,40 @@ export default function WeaponStatDetailPage(props: { weaponNumber: string }) {
           <>
             <img
               className="w-16 mt-4 skill"
-              src={datas[weaponNumber].weapon_perk_ability_image_url || ''} // null을 빈 문자열로 변환
-              alt={datas[weaponNumber].weapon_perk_ability_name || '무기 특성 이미지'} // alt 속성 추가
+              src={datas[weaponNumber].weapon_perk_ability_image_url || ''} 
+              alt={datas[weaponNumber].weapon_perk_ability_name || '무기 특성 이미지'}
             />
             <div className="mt-4 text-2xl font-bold text-gray-500">
               {datas[weaponNumber].weapon_perk_ability_name}
             </div>
-            <div className="mt-2">
+            <div className="mt-2 mb-4">
               {datas[weaponNumber].weapon_perk_ability_description}
             </div>
+            {attributeDatas
+              .filter((attribute: WeaponStats) => attribute.name === datas[weaponNumber].weapon_name)
+              .map((item) => {
+                const combinedStats = item.stats.reduce((acc, curr) => {
+                  Object.entries(curr).forEach(([key, value]) => {
+                    if (!acc[key]) acc[key] = [];
+                    acc[key].push(value);
+                  });
+                  return acc;
+                }, {} as Record<string, string[]>);
+
+                return (
+                  <div key={item.name}>
+                    {Object.entries(combinedStats).map(([statName, statValues]) => {
+                      const uniqueValues = Array.from(new Set(statValues));
+                      return (
+                        <div key={statName} className="flex my-3 text-center">
+                          <div className="w-80 font-bold">{statName}</div>
+                          <div className="grow">{uniqueValues.join(' | ')}</div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                );
+              })}
           </>
         ) : (
           <div>
@@ -278,7 +306,7 @@ export default function WeaponStatDetailPage(props: { weaponNumber: string }) {
                   <div>{module.module_tier}</div>
                 </div>
                 <div className="flex flex-row pt-2 pb-2">
-                  <div><img className="w-20" src={module.image_url} /></div>
+                  <div><img className="w-20" src={module.image_url} alt={module.module_name} /></div>
                   <div className="ml-4">
                     <div>수용량</div>
                     <div>{module.module_stat[0].module_capacity}~{module.module_stat[module.module_stat.length-1].module_capacity}</div>
@@ -309,7 +337,7 @@ export default function WeaponStatDetailPage(props: { weaponNumber: string }) {
                     <div className={`mr-0.5 w-6 h-6 ${setClassWithSocket(module.module_socket_type)}`}></div>
                     <div>{module.module_stat[0].module_capacity}</div>
                   </div>
-                  <img className={`w-16 m-auto ${setClassWithTier(module.module_tier)}`} src={module.image_url} />
+                  <img className={`w-16 m-auto ${setClassWithTier(module.module_tier)}`} src={module.image_url} alt={module.module_name} />
                   <div className="text-center text-sm">{module.module_name}</div>
                   <div className="text-center text-sm">{module.module_type ? module.module_type : "-"}</div>
                 </div>

@@ -42,11 +42,58 @@ export default function Home() {
       `/search/${nickname}`
     );
   }
+  const url = 'https://open.api.nexon.com'
 
+  // useEffect(() => {
+  //   axios.get(`${url}/static/tfd/meta/ko/descendant.json`).then((r) => {
+  //     console.log('des response : ', r)
+  //   })
+  //   axios.get(`${url}/static/tfd/meta/ko/weapon.json`).then((r) => {
+  //     console.log('wea response : ', r)
+  //   })
+  //   axios.get(`${url}/static/tfd/meta/ko/module.json`).then((r) => {
+  //     console.log('mod response : ', r)
+  //   })
+  //   axios.get(`${url}/static/tfd/meta/ko/reactor.json`).then((r) => {
+  //     console.log('react response : ', r)
+  //   })
+  //   axios.get(`${url}/static/tfd/meta/ko/reward.json`).then((r) => {
+  //     console.log('reward response : ', r)
+  //   })
+  //   axios.get(`${url}/static/tfd/meta/ko/stat.json`).then((r) => {
+  //     console.log('stat response : ', r)
+  //   })
+  //   axios.get(`${url}/static/tfd/meta/ko/external-component.json`).then((r) => {
+  //     console.log('compo response : ', r)
+  //   })
+  // }, [])
   return (
     <>
       <Head>
         <title>TFD Info</title>
+        <meta name="description" content="퍼스트 디센던트 정보 사이트" />
+        <meta name="robots" content="index, follow" />
+        <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="author" content="hyw0206" />
+        <meta property="og:title" content="TFD Info" />
+        <meta property="og:description" content="퍼스트 디센던트 정보 사이트" />
+        <meta property="og:image" content="/logo.webp" />
+        <meta property="og:url" content="https://tfdinfo.vercel.app/" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="TFD Info" />
+        <meta name="twitter:description" content="퍼스트 디센던트 정보 사이트" />
+        <meta name="twitter:image" content="/logo.webp" />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "WebSite",
+              "name": "TFD Info",
+              "url": "https://tfdinfo.vercel.app/"
+            }),
+          }}
+        />
       </Head>
       <div className="text-center">
         {/* <div className="mt-4">유저 검색 ex{")"} 닉네임#1234</div>
@@ -69,7 +116,10 @@ export default function Home() {
         <div>각 무기 / 계승자 상세 페이지에서 장착 가능한 전체 모듈을 확인 가능합니다!</div>
         <br />
         <div className="font-bold"><a target="_blank" href="https://github.com/hyw0206/TFD_Info?tab=readme-ov-file#%EC%97%85%EB%8D%B0%EC%9D%B4%ED%8A%B8-%EB%82%B4%EC%97%AD">사이트 업데이트 내역 바로 가기</a></div>
-       
+        {
+        // 배너 영역
+        /* <div className="w-[700px] h-[700px] border-2 border-white mx-auto my-4"></div>
+        <div className="w-[700px] h-[100px] border-2 border-white mx-auto my-4"></div> */}
       </div>
     </>
   )

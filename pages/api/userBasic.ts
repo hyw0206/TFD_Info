@@ -5,11 +5,10 @@ import axios from 'axios';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   const { ouid } = req.query;
-
+  // MY API KEY IS FUCKING BROKEN
   if (typeof ouid !== 'string') {
     return res.status(400).json({ error: 'Invalid ouid parameter' });
   }
-  console.log(process.env.NEXON_API_KEY);
   try {
     const response = await axios.get('https://open.api.nexon.com/tfd/v1/user/basic', {
       params: { ouid },

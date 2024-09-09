@@ -12,7 +12,6 @@ import { WeaponType } from "@/src/data/etc/weaponvars";
 
 // data import
 const datas: Weapon[] = require("@/src/data/json/weapon.json");
-
 export default function WepaonDetailPage(props: {weaponRoundTypeid: string, weaponTypeid: string}) {
 
   // useState Hook Setting
@@ -46,7 +45,7 @@ export default function WepaonDetailPage(props: {weaponRoundTypeid: string, weap
             <div key={weapon.weapon_name + weapon.weapon_id}>
               <div className="flex cursor-pointer" key={weapon.weapon_id} id={String(idx)} onClick={() => findWeaponNumber(weapon.weapon_id)}>
                 <div className="w-12 h-12 mr-4 fix:w-20">
-                  <img className="w-12 h-8 p-0.5 border-2 border-black object-cover weapon fix:w-20 fix:h-10" src={weapon.image_url} />
+                  <img className="w-12 h-8 p-0.5 border-2 border-black object-cover weapon fix:w-20 fix:h-10" src={weapon.image_url} alt={weapon.weapon_name} />
                 </div>
                 <div className="w-20 mr-4 fix:w-32">
                   <div className="w-20 text-sm fix:text-base fix:w-auto">{weapon.weapon_name}</div>
@@ -58,6 +57,7 @@ export default function WepaonDetailPage(props: {weaponRoundTypeid: string, weap
                     <>
                       <div>{weapon.weapon_perk_ability_name}</div>
                       <div className="hidden max-w-xl text-xs opacity-75 fix:block">{weapon.weapon_perk_ability_description}</div>
+                      
                     </>
                     : <div className="leading-10">특성 없음</div>
                   }

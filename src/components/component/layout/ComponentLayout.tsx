@@ -167,7 +167,7 @@ export default function ComponentLayoutPage() {
                 </div>
               } key={data.external_component_id + data.external_component_name}>
                 <div className="relative flex flex-col w-40 mb-4 text-sm text-center cursor-pointer">
-                  <img className={`w-20 h-20 m-auto object-cover ${setClassWithTier(data.external_component_tier)}`} src={data.image_url}></img>
+                  <img className={`w-20 h-20 m-auto object-cover ${setClassWithTier(data.external_component_tier)}`} src={data.image_url} alt={data.external_component_name}></img>
                   <div>{data.external_component_name}</div>
                   {
                     data.set_option_detail.length !== 0 ?

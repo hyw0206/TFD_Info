@@ -146,6 +146,15 @@ export default function WeaponBuilderLayout() {
     return ""
   }
 
+  const setImageLinkWith = (data: string | null) => {
+    if (data === "알만딘") return "/Almandine.png"
+    if (data === "세룰리안") return "/Cerulean.png"
+    if (data === "말라카이트") return "/Malachite.png"
+    if (data === "루틸") return "/Rutile.png"
+    if (data === "크산틱") return "/Xantic.png"
+    return "/chipset.png"
+  }
+
   // 같은 이름 모듈 알림
   const openNotificationSameModule = (placement: NotificationPlacement) => {
     api.info({
@@ -330,6 +339,7 @@ export default function WeaponBuilderLayout() {
                   className="w-60 h-20 border-2 border-dashed"
                   src={weaponData[weapon].image_url} 
                   onClick={handleWeaponClick}
+                  alt={weaponData[weapon].weapon_name}
                 />
               </>
             ) : (
@@ -575,7 +585,7 @@ export default function WeaponBuilderLayout() {
                           <div>{module.module_tier}</div>
                         </div>
                         <div className="flex flex-row pt-2 pb-2">
-                          <div><img className="w-20" src={module.image_url} /></div>
+                          <div><img className="w-20" src={module.image_url} alt={module.module_name} /></div>
                           <div className="ml-4">
                             <div>수용량</div>
                             <div>{module.module_stat[0].module_capacity}~{module.module_stat[module.module_stat.length-1].module_capacity}</div>
@@ -613,7 +623,7 @@ export default function WeaponBuilderLayout() {
                             <div className={`mr-0.5 w-6 h-6 ${setClassWithSocket(module.module_socket_type)}`}></div>
                             <div>{module.module_stat[0].module_capacity}</div>
                           </div>
-                          <img className={`w-16 m-auto ${setClassWithTierBg(module.module_tier)}`} src={module.image_url} />
+                          <img className={`w-16 m-auto ${setClassWithTierBg(module.module_tier)}`} src={module.image_url} alt={module.module_name} />
                           <div className="text-center text-sm">{module.module_name}</div>
                           <div className="text-center text-sm">{module.module_type ? module.module_type : "-"}</div>
                         </div>

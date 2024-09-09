@@ -26,6 +26,14 @@ const getCurrentRotationDetails = () => {
     { rotation: 11, start: new Date('2024-08-27T16:00:00'), end: new Date('2024-09-03T15:59:59') },
     { rotation: 12, start: new Date('2024-09-03T16:00:00'), end: new Date('2024-09-10T15:59:59') },
     { rotation: 13, start: new Date('2024-09-10T16:00:00'), end: new Date('2024-09-17T15:59:59') },
+    { rotation: 14, start: new Date('2024-09-17T16:00:00'), end: new Date('2024-09-24T15:59:59') },
+    { rotation: 15, start: new Date('2024-09-24T16:00:00'), end: new Date('2024-10-01T15:59:59') },
+    { rotation: 16, start: new Date('2024-10-01T16:00:00'), end: new Date('2024-10-08T15:59:59') },
+    { rotation: 17, start: new Date('2024-10-08T16:00:00'), end: new Date('2024-10-15T15:59:59') },
+    { rotation: 18, start: new Date('2024-10-15T16:00:00'), end: new Date('2024-10-22T15:59:59') },
+    { rotation: 19, start: new Date('2024-10-22T16:00:00'), end: new Date('2024-10-29T15:59:59') },
+    { rotation: 20, start: new Date('2024-10-29T16:00:00'), end: new Date('2024-11-05T15:59:59') },
+
   ];
 
   // 현재 날짜에 해당하는 로테이션 번호와 날짜 범위 찾기
