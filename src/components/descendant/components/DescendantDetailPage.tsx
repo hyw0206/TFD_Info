@@ -24,6 +24,7 @@
   export default function DescendantDetailPage(props: { descendantId: string }) {
     // useState Hook Setting
 
+
     // 현재 내가 클릭한, 정보를 볼 skill
     const [skillId, setSkillId] = useState('0')
     // 현재 내가 정보를 볼 level
@@ -38,7 +39,7 @@
     // 일반 변수
 
     // 현재 내가 정보를 볼 계승자 번호
-    const descendantId = parseInt(props.descendantId)
+    const selectDescendant = datas.filter((data) => data.descendant_id == props.descendantId)[0];
     // 5개의 스킬 단축키명
     const skillNames = ['Q', 'C', 'V', 'Z', 'P'] 
 
@@ -93,48 +94,49 @@
       return module.module_class === "계승자" && (
         Number(module.module_id) < 254001001 ||
         (
+          
           (Number(module.module_id) >= 254001001 && Number(module.module_id) <= 254001004) &&
-          (datas[descendantId].descendant_name === "레픽" || datas[descendantId].descendant_name === "얼티밋 레픽") ||
+          (selectDescendant.descendant_name === "레픽" || selectDescendant.descendant_name === "얼티밋 레픽") ||
           (Number(module.module_id) >= 254002001 && Number(module.module_id) <= 254002004) &&
-          (datas[descendantId].descendant_name === "에이잭스" || datas[descendantId].descendant_name === "얼티밋 에이잭스") ||
+          (selectDescendant.descendant_name === "에이잭스" || selectDescendant.descendant_name === "얼티밋 에이잭스") ||
           (Number(module.module_id) >= 254003001 && Number(module.module_id) <= 254003004) &&
-          (datas[descendantId].descendant_name === "비에사" || datas[descendantId].descendant_name === "얼티밋 비에사") ||
+          (selectDescendant.descendant_name === "비에사" || selectDescendant.descendant_name === "얼티밋 비에사") ||
           (Number(module.module_id) >= 254004001 && Number(module.module_id) <= 254004002) &&
-          (datas[descendantId].descendant_name === "얼티밋 레픽") ||
+          (selectDescendant.descendant_name === "얼티밋 레픽") ||
           (Number(module.module_id) >= 254005001 && Number(module.module_id) <= 254005004) &&
-          (datas[descendantId].descendant_name === "제이버") ||
+          (selectDescendant.descendant_name === "제이버") ||
           (Number(module.module_id) >= 254006001 && Number(module.module_id) <= 254006004) &&
-          (datas[descendantId].descendant_name === "버니" || datas[descendantId].descendant_name === "얼티밋 버니") ||
+          (selectDescendant.descendant_name === "버니" || selectDescendant.descendant_name === "얼티밋 버니") ||
           (Number(module.module_id) >= 254007001 && Number(module.module_id) <= 254007002) &&
-          (datas[descendantId].descendant_name === "얼티밋 에이잭스") ||
+          (selectDescendant.descendant_name === "얼티밋 에이잭스") ||
           (Number(module.module_id) >= 254008001 && Number(module.module_id) <= 254008004) &&
-          (datas[descendantId].descendant_name === "프레이나") ||
+          (selectDescendant.descendant_name === "프레이나") ||
           (Number(module.module_id) >= 254009001 && Number(module.module_id) <= 254009004) &&
-          (datas[descendantId].descendant_name === "글레이" || datas[descendantId].descendant_name === "얼티밋 글레이") ||
+          (selectDescendant.descendant_name === "글레이" || selectDescendant.descendant_name === "얼티밋 글레이") ||
           (Number(module.module_id) >= 254009005 && Number(module.module_id) <= 254009006) &&
-          datas[descendantId].descendant_name === "얼티밋 글레이" ||
+          selectDescendant.descendant_name === "얼티밋 글레이" ||
           (Number(module.module_id) >= 254010001 && Number(module.module_id) <= 254010002) &&
-          (datas[descendantId].descendant_name === "얼티밋 비에사") ||
+          (selectDescendant.descendant_name === "얼티밋 비에사") ||
           (Number(module.module_id) >= 254011001 && Number(module.module_id) <= 254011004) &&
-          (datas[descendantId].descendant_name === "샤렌") ||
+          (selectDescendant.descendant_name === "샤렌") ||
           (Number(module.module_id) >= 254012001 && Number(module.module_id) <= 254012004) &&
-          (datas[descendantId].descendant_name === "루나") ||
+          (selectDescendant.descendant_name === "루나") ||
           (Number(module.module_id) >= 254013001 && Number(module.module_id) <= 254013004) &&
-          (datas[descendantId].descendant_name === "밸비" || datas[descendantId].descendant_name === "얼티밋 밸비") ||
+          (selectDescendant.descendant_name === "밸비" || selectDescendant.descendant_name === "얼티밋 밸비") ||
           (Number(module.module_id) >= 254013005 && Number(module.module_id) <= 254013006) &&
-          (datas[descendantId].descendant_name === "얼티밋 밸비") ||
+          (selectDescendant.descendant_name === "얼티밋 밸비") ||
           (Number(module.module_id) >= 254014001 && Number(module.module_id) <= 254014004) &&
-          (datas[descendantId].descendant_name === "카일") ||
+          (selectDescendant.descendant_name === "카일") ||
           (Number(module.module_id) >= 254015001 && Number(module.module_id) <= 254015004) &&
-          (datas[descendantId].descendant_name === "에시모") ||
+          (selectDescendant.descendant_name === "에시모") ||
           (Number(module.module_id) >= 254016001 && Number(module.module_id) <= 254016004) &&
-          (datas[descendantId].descendant_name === "엔조") ||
+          (selectDescendant.descendant_name === "엔조") ||
           (Number(module.module_id) >= 254017001 && Number(module.module_id) <= 254017004) &&
-          (datas[descendantId].descendant_name === "유진") ||
+          (selectDescendant.descendant_name === "유진") ||
           (Number(module.module_id) >= 254018001 && Number(module.module_id) <= 254018004) &&
-          (datas[descendantId].descendant_name === "블레어") ||
+          (selectDescendant.descendant_name === "블레어") ||
           (Number(module.module_id) >= 254019001 && Number(module.module_id) <= 254019002) &&
-          (datas[descendantId].descendant_name === "얼티밋 버니")
+          (selectDescendant.descendant_name === "얼티밋 버니")
         )
       )
     }
@@ -184,7 +186,7 @@
       setSkillId('0')
       setLevel('40')
       setIsOpen(Array(4).fill(false))
-    }, [descendantId])
+    }, [selectDescendant])
 
     return (
       <div className="mt-8 m-auto" id="information">
@@ -194,18 +196,18 @@
         <div className="flex items-center">
           <img
             className="w-20 border-2 border-black shadow-lg"
-            src={datas[descendantId].descendant_image_url}
-            alt={datas[descendantId].descendant_name}
+            src={selectDescendant.descendant_image_url}
+            alt={selectDescendant.descendant_name}
           />
           <div className="ml-4 text-2xl font-bold">
-            {datas[descendantId].descendant_name}
+            {selectDescendant.descendant_name}
           </div>
         </div>
         <div className="mt-8 mb-4 text-xl">
-          <strong>{datas[descendantId].descendant_name}</strong> 스킬
+          <strong>{selectDescendant.descendant_name}</strong> 스킬
         </div>
         <div className="flex">
-          {datas[descendantId].descendant_skill.map((skill, idx) => {
+          {selectDescendant.descendant_skill.map((skill, idx) => {
             return (
               // 캐릭터 스킬
               <div
@@ -235,7 +237,7 @@
           skillId={skillId}
         />
         <div className="mt-12 mb-4 text-xl">
-          <strong>{datas[descendantId].descendant_name}</strong> 스탯
+          <strong>{selectDescendant.descendant_name}</strong> 스탯
         </div>
     
         <Space wrap>
@@ -255,17 +257,17 @@
         />
 
         <div className="mt-12 mb-4 text-xl" id="farming">
-          <strong>{datas[descendantId].descendant_name}</strong> 파밍 정보 (획득 미션 유형/사용 미션 유형)
+          <strong>{selectDescendant.descendant_name}</strong> 파밍 정보 (획득 미션 유형/사용 미션 유형)
         </div>
         {
-          datas[descendantId].descendant_name === "프레이나" &&
+          selectDescendant.descendant_name === "프레이나" &&
           (
             <div className="flex flex-col mb-4">
               <div className="flex items-center">
                 <div>
                   <img 
                     className="w-10 mr-2 fix:w-20" 
-                    src={`/descendant/${datas[descendantId].descendant_id}/1.png`} 
+                    src={`/descendant/${selectDescendant.descendant_id}/1.png`} 
                     alt="프레이나 강화 세포" 
                   />
                 </div>
@@ -278,7 +280,7 @@
                 <div>
                   <img 
                     className="w-10 mr-2 fix:w-20" 
-                    src={`/descendant/${datas[descendantId].descendant_id}/2.png`} 
+                    src={`/descendant/${selectDescendant.descendant_id}/2.png`} 
                     alt="프레이나 안정화 장치"
                   />
                 </div>
@@ -289,7 +291,7 @@
               </div>
               <div className="flex items-center">
                 <div>
-                  <img className="w-10 mr-2 fix:w-20" src={`/descendant/${datas[descendantId].descendant_id}/3.png`} alt="프레이나 나선 촉매"/>
+                  <img className="w-10 mr-2 fix:w-20" src={`/descendant/${selectDescendant.descendant_id}/3.png`} alt="프레이나 나선 촉매"/>
                 </div>
                 <div className='font-bold w-40'>프레이나 나선 촉매</div>
                 <div>
@@ -298,7 +300,7 @@
               </div>
               <div className="flex items-center">
                 <div>
-                  <img className="w-10 mr-2 fix:w-20" src={`/descendant/${datas[descendantId].descendant_id}/4.png`} alt="프레이나 코드" />
+                  <img className="w-10 mr-2 fix:w-20" src={`/descendant/${selectDescendant.descendant_id}/4.png`} alt="프레이나 코드" />
                 </div>
                 <div className='font-bold w-40'>프레이나 코드</div>
                 <div>
@@ -314,12 +316,12 @@
           )
         }
         {
-          datas[descendantId].descendant_name === "버니" &&
+          selectDescendant.descendant_name === "버니" &&
           (
             <div className="flex flex-col mb-4">
               <div className="flex items-center">
                 <div>
-                  <img className="w-10 mr-2 fix:w-20" src={`/descendant/${datas[descendantId].descendant_id}/1.png`} alt="버니 강화 세포" />
+                  <img className="w-10 mr-2 fix:w-20" src={`/descendant/${selectDescendant.descendant_id}/1.png`} alt="버니 강화 세포" />
                 </div>
                 <div className='font-bold w-40'>버니 강화 세포</div>
                 <div>
@@ -328,7 +330,7 @@
               </div>
               <div className="flex items-center">
                 <div>
-                  <img className="w-10 mr-2 fix:w-20" src={`/descendant/${datas[descendantId].descendant_id}/2.png`} alt="버니 안정화 장치"/>
+                  <img className="w-10 mr-2 fix:w-20" src={`/descendant/${selectDescendant.descendant_id}/2.png`} alt="버니 안정화 장치"/>
                 </div>
                 <div className='font-bold w-40'>버니 안정화 장치</div>
                 <div>
@@ -337,7 +339,7 @@
               </div>
               <div className="flex items-center">
                 <div>
-                  <img className="w-10 mr-2 fix:w-20" src={`/descendant/${datas[descendantId].descendant_id}/3.png`} alt="버니 나선 촉매"/>
+                  <img className="w-10 mr-2 fix:w-20" src={`/descendant/${selectDescendant.descendant_id}/3.png`} alt="버니 나선 촉매"/>
                 </div>
                 <div className='font-bold w-40'>버니 나선 촉매</div>
                 <div>
@@ -346,7 +348,7 @@
               </div>
               <div className="flex items-center">
                 <div>
-                  <img className="w-10 mr-2 fix:w-20" src={`/descendant/${datas[descendantId].descendant_id}/4.png`} alt="버니 코드"/>
+                  <img className="w-10 mr-2 fix:w-20" src={`/descendant/${selectDescendant.descendant_id}/4.png`} alt="버니 코드"/>
                 </div>
                 <div className='font-bold w-40'>버니 코드</div>
                 <div>
@@ -362,12 +364,12 @@
           )
         }
         {
-          datas[descendantId].descendant_name === "샤렌" &&
+          selectDescendant.descendant_name === "샤렌" &&
           (
             <div className="flex flex-col mb-4">
               <div className="flex items-center">
                 <div>
-                  <img className="w-10 mr-2 fix:w-20" src={`/descendant/${datas[descendantId].descendant_id}/1.png`} alt="샤렌 강화 세포"/>
+                  <img className="w-10 mr-2 fix:w-20" src={`/descendant/${selectDescendant.descendant_id}/1.png`} alt="샤렌 강화 세포"/>
                 </div>
                 <div className='font-bold w-40'>샤렌 강화 세포</div>
                 <div>
@@ -376,7 +378,7 @@
               </div>
               <div className="flex items-center">
                 <div>
-                  <img className="w-10 mr-2 fix:w-20" src={`/descendant/${datas[descendantId].descendant_id}/2.png`} alt="샤렌 안정화 장치"/>
+                  <img className="w-10 mr-2 fix:w-20" src={`/descendant/${selectDescendant.descendant_id}/2.png`} alt="샤렌 안정화 장치"/>
                 </div>
                 <div className='font-bold w-40'>샤렌 안정화 장치</div>
                 <div>
@@ -385,7 +387,7 @@
               </div>
               <div className="flex items-center">
                 <div>
-                  <img className="w-10 mr-2 fix:w-20" src={`/descendant/${datas[descendantId].descendant_id}/3.png`} alt="샤렌 나선 촉매"/>
+                  <img className="w-10 mr-2 fix:w-20" src={`/descendant/${selectDescendant.descendant_id}/3.png`} alt="샤렌 나선 촉매"/>
                 </div>
                 <div className='font-bold w-40'>샤렌 나선 촉매</div>
                 <div>
@@ -394,7 +396,7 @@
               </div>
               <div className="flex items-center">
                 <div>
-                  <img className="w-10 mr-2 fix:w-20" src={`/descendant/${datas[descendantId].descendant_id}/4.png`} alt="샤렌 코드"/>
+                  <img className="w-10 mr-2 fix:w-20" src={`/descendant/${selectDescendant.descendant_id}/4.png`} alt="샤렌 코드"/>
                 </div>
                 <div className='font-bold w-40'>샤렌 코드</div>
                 <div>
@@ -407,12 +409,12 @@
           )
         }
         {
-          datas[descendantId].descendant_name === "블레어" &&
+          selectDescendant.descendant_name === "블레어" &&
           (
             <div className="flex flex-col mb-4">
               <div className="flex items-center">
                 <div>
-                  <img className="w-10 mr-2 fix:w-20" src={`/descendant/${datas[descendantId].descendant_id}/1.png`} alt="블레어 강화 세포"/>
+                  <img className="w-10 mr-2 fix:w-20" src={`/descendant/${selectDescendant.descendant_id}/1.png`} alt="블레어 강화 세포"/>
                 </div>
                 <div className='font-bold w-40'>블레어 강화 세포</div>
                 <div>
@@ -421,7 +423,7 @@
               </div>
               <div className="flex items-center">
                 <div>
-                  <img className="w-10 mr-2 fix:w-20" src={`/descendant/${datas[descendantId].descendant_id}/2.png`} alt="블레어 안정화 장치"/>
+                  <img className="w-10 mr-2 fix:w-20" src={`/descendant/${selectDescendant.descendant_id}/2.png`} alt="블레어 안정화 장치"/>
                 </div>
                 <div className='font-bold w-40'>블레어 안정화 장치</div>
                 <div>
@@ -430,7 +432,7 @@
               </div>
               <div className="flex items-center">
                 <div>
-                  <img className="w-10 mr-2 fix:w-20" src={`/descendant/${datas[descendantId].descendant_id}/3.png`} alt="블레어 나선 촉매"/>
+                  <img className="w-10 mr-2 fix:w-20" src={`/descendant/${selectDescendant.descendant_id}/3.png`} alt="블레어 나선 촉매"/>
                 </div>
                 <div className='font-bold w-40'>블레어 나선 촉매</div>
                 <div>
@@ -439,7 +441,7 @@
               </div>
               <div className="flex items-center">
                 <div>
-                  <img className="w-10 mr-2 fix:w-20" src={`/descendant/${datas[descendantId].descendant_id}/4.png`} alt="블레어 코드"/>
+                  <img className="w-10 mr-2 fix:w-20" src={`/descendant/${selectDescendant.descendant_id}/4.png`} alt="블레어 코드"/>
                 </div>
                 <div className='font-bold w-40'>블레어 코드</div>
                 <div>
@@ -452,12 +454,12 @@
           )
         }
         {
-          datas[descendantId].descendant_name === "헤일리" &&
+          selectDescendant.descendant_name === "헤일리" &&
           (
             <div className="flex flex-col mb-4">
               <div className="flex items-center">
                 <div>
-                  <img className="w-10 mr-2 fix:w-20" src={`/descendant/${datas[descendantId].descendant_id}/1.png`} alt="헤일리 강화 세포 DNA"/>
+                  <img className="w-10 mr-2 fix:w-20" src={`/descendant/${selectDescendant.descendant_id}/1.png`} alt="헤일리 강화 세포 DNA"/>
                 </div>
                 <div className='font-bold w-40'>헤일리 강화 세포 DNA</div>
                 <div>
@@ -466,7 +468,7 @@
               </div>
               <div className="flex items-center">
                 <div>
-                  <img className="w-10 mr-2 fix:w-20" src={`/descendant/${datas[descendantId].descendant_id}/2.png`} alt="헤일리 안정화 장치 부품"/>
+                  <img className="w-10 mr-2 fix:w-20" src={`/descendant/${selectDescendant.descendant_id}/2.png`} alt="헤일리 안정화 장치 부품"/>
                 </div>
                 <div className='font-bold w-40'>헤일리 안정화 장치 부품</div>
                 <div>
@@ -475,7 +477,7 @@
               </div>
               <div className="flex items-center">
                 <div>
-                  <img className="w-10 mr-2 fix:w-20" src={`/descendant/${datas[descendantId].descendant_id}/3.png`} alt="헤일리 나선 촉매 고리"/>
+                  <img className="w-10 mr-2 fix:w-20" src={`/descendant/${selectDescendant.descendant_id}/3.png`} alt="헤일리 나선 촉매 고리"/>
                 </div>
                 <div className='font-bold w-40'>헤일리 나선 촉매</div>
                 <div>
@@ -484,7 +486,7 @@
               </div>
               <div className="flex items-center">
                 <div>
-                  <img className="w-10 mr-2 fix:w-20" src={`/descendant/${datas[descendantId].descendant_id}/4.png`} alt="헤일리 데이터 칩"/>
+                  <img className="w-10 mr-2 fix:w-20" src={`/descendant/${selectDescendant.descendant_id}/4.png`} alt="헤일리 데이터 칩"/>
                 </div>
                 <div className='font-bold w-40'>헤일리 데이터 칩</div>
                 <div>
@@ -497,27 +499,27 @@
           )
         }
         {
-        (datas[descendantId].descendant_name !== "블레어" &&
-        datas[descendantId].descendant_name !== "샤렌" &&
-        datas[descendantId].descendant_name !== "버니" &&
-        datas[descendantId].descendant_name !== "프레이나" &&
-        datas[descendantId].descendant_name !== "헤일리") &&
+        (selectDescendant.descendant_name !== "블레어" &&
+        selectDescendant.descendant_name !== "샤렌" &&
+        selectDescendant.descendant_name !== "버니" &&
+        selectDescendant.descendant_name !== "프레이나" &&
+        selectDescendant.descendant_name !== "헤일리") &&
         ["강화 세포", "안정화 장치", "나선 촉매", "코드"].map((item, idx) => {
           return (
             <>
-              <button onClick={() => toggleOpen(idx)} className="flex justify-between items-center w-96 mb-4 text-lg font-bold" key={datas[descendantId].descendant_name + idx}>
-                <span>{datas[descendantId].descendant_name} {item}</span> 
+              <button onClick={() => toggleOpen(idx)} className="flex justify-between items-center w-96 mb-4 text-lg font-bold" key={selectDescendant.descendant_name + idx}>
+                <span>{selectDescendant.descendant_name} {item}</span> 
                 {isOpen[idx] ? <UpCircleOutlined />: <DownCircleOutlined />}
               </button>
               {
                 isOpen[idx] && 
                 UnstructReward.filter(reward =>
-                  containsName(reward, datas[descendantId].descendant_name, item)
+                  containsName(reward, selectDescendant.descendant_name, item)
                 ).map((reward, idx2) =>{
                   return (
                     <div className="flex items-center mb-4 text-sm fix:text-base" key={reward.name + reward.gain}>
                       <div>
-                        <img className="w-10 mr-2 fix:w-20" src={`/descendant/${datas[descendantId].descendant_id}/${getImageSrc(reward, datas[descendantId].descendant_name)}`} alt={datas[descendantId].descendant_name} />
+                        <img className="w-10 mr-2 fix:w-20" src={`/descendant/${selectDescendant.descendant_id}/${getImageSrc(reward, selectDescendant.descendant_name)}`} alt={selectDescendant.descendant_name} />
                       </div>
                       <div className="w-64">
                         <div>{reward.name}</div>
@@ -527,18 +529,18 @@
                       {
                       Number(reward.name.split(" ")[0]) <= 54 ?
                       <div>
-                        <div className={setBoldDescendant(reward.reward_1, datas[descendantId].descendant_name)}>{reward.reward_1} 3%</div>
-                        <div className={setBoldDescendant(reward.reward_2, datas[descendantId].descendant_name)}>{reward.reward_2} 6%</div>
-                        <div className={setBoldDescendant(reward.reward_3, datas[descendantId].descendant_name)}>{reward.reward_3} 15%</div>
-                        <div className={setBoldDescendant(reward.reward_4, datas[descendantId].descendant_name)}>{reward.reward_4} 38%</div>
-                        <div className={setBoldDescendant(reward.reward_5, datas[descendantId].descendant_name)}>{reward.reward_5} 38%</div>     
+                        <div className={setBoldDescendant(reward.reward_1, selectDescendant.descendant_name)}>{reward.reward_1} 3%</div>
+                        <div className={setBoldDescendant(reward.reward_2, selectDescendant.descendant_name)}>{reward.reward_2} 6%</div>
+                        <div className={setBoldDescendant(reward.reward_3, selectDescendant.descendant_name)}>{reward.reward_3} 15%</div>
+                        <div className={setBoldDescendant(reward.reward_4, selectDescendant.descendant_name)}>{reward.reward_4} 38%</div>
+                        <div className={setBoldDescendant(reward.reward_5, selectDescendant.descendant_name)}>{reward.reward_5} 38%</div>     
                       </div> : 
                       <div>
-                      <div className={setBoldDescendant(reward.reward_1, datas[descendantId].descendant_name)}>{reward.reward_1} 6%</div>
-                      <div className={setBoldDescendant(reward.reward_2, datas[descendantId].descendant_name)}>{reward.reward_2} 10%</div>
-                      <div className={setBoldDescendant(reward.reward_3, datas[descendantId].descendant_name)}>{reward.reward_3} 20%</div>
-                      <div className={setBoldDescendant(reward.reward_4, datas[descendantId].descendant_name)}>{reward.reward_4} 32%</div>
-                      <div className={setBoldDescendant(reward.reward_5, datas[descendantId].descendant_name)}>{reward.reward_5} 32%</div>     
+                      <div className={setBoldDescendant(reward.reward_1, selectDescendant.descendant_name)}>{reward.reward_1} 6%</div>
+                      <div className={setBoldDescendant(reward.reward_2, selectDescendant.descendant_name)}>{reward.reward_2} 10%</div>
+                      <div className={setBoldDescendant(reward.reward_3, selectDescendant.descendant_name)}>{reward.reward_3} 20%</div>
+                      <div className={setBoldDescendant(reward.reward_4, selectDescendant.descendant_name)}>{reward.reward_4} 32%</div>
+                      <div className={setBoldDescendant(reward.reward_5, selectDescendant.descendant_name)}>{reward.reward_5} 32%</div>     
                     </div> 
                       } 
                     </div>

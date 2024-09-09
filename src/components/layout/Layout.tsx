@@ -50,14 +50,14 @@ export default function Layout(props: { children: JSX.Element }) {
           <div className="relative">
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center space-x-1 text-lg font-medium text-white dark:text-gray-100"
+        className="flex items-center space-x-1 text-lg font-medium text-white dark:text-black"
       >
         <span className="text-lg font-bold">빌더</span>
         <span className={`${isOpen ? 'rotate-180' : ''} transition-transform`}>&#9660;</span>
       </button>
 
       {isOpen && (
-        <div className="absolute top-full right-4 mt-2 w-24 bg-white dark:bg-black border border-gray-300 dark:border-gray-700 rounded-lg shadow-lg z-10 text-center">
+        <div className="absolute top-full right-4 mt-2 w-24 bg-white dark:bg-black border border-gray-300 dark:text-white rounded-lg shadow-lg z-10 text-center">
           <Link href="/weapon-builder">
             <a className="block px-4 py-2 text-gray-800 dark:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-700">무기</a>
           </Link>
@@ -77,11 +77,11 @@ export default function Layout(props: { children: JSX.Element }) {
           </div>
         </div>
       </div>
-      <div className="pt-16 pb-24 min-w-[800px] min-h-[200dvh] bg-white dark:bg-darkbg dark:text-gray-100 fix:min-h-[100dvh]">
+      <div className="pt-16 pb-24 min-w-[800px] min-h-[200dvh] bg-white dark:bg-black dark:text-white fix:min-h-[100dvh]">
         {props.children}
       </div>
       <Analytics />
-      <div className="fixed bottom-0 left-0 right-0 h-24 bg-gray-800 text-white dark:bg-darkhf dark:text-gray-100 min-w-[800px]">
+      <div className="fixed bottom-0 left-0 right-0 h-24 bg-black text-white dark:bg-white dark:text-black min-w-[800px]">
         <div className="max-w-full mx-auto p-4 text-center">
           © TFD Info All Rights Reserved. Hosted by Vercel. The First Descendant
           and all related logos are trademarks of Nexon.

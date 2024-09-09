@@ -36,8 +36,11 @@ export default function WeaponLayout() {
             return (
               <div key={`weapon-round-${idx}`}>
                 <div className="flex p-2">
-                  <div className="w-16 text-center text-sm fix:w-20 fix:text-base">{type.weaponRoundType}</div>
-                  <div className="flex">
+                  <div className="flex justify-center items-center">
+                    <img className="w-8 h-8" src={`./rune/rune_${idx}.png`} alt={type.weaponRoundType} />
+                    <div className="w-16 text-center text-sm fix:w-20 fix:text-base">{type.weaponRoundType}</div>
+                  </div>
+                  <div className="flex justify-center items-center">
                     {
                       type.weaponType.map((weaponType, idx2) => {
                         return (
