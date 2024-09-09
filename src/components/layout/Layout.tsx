@@ -21,9 +21,13 @@ export default function Layout(props: { children: JSX.Element }) {
     localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
     document.documentElement.classList.toggle('dark', isDarkMode);
   }, [isDarkMode]);
+
+  useEffect(() => {
+    setIsOpen(false);
+  }, [props.children]);
   return (
     <>
-      <div className="fixed top-0 left-0 right-0 h-16 bg-gray-800 text-white dark:bg-darkhf dark:text-gray-100 z-10 min-w-[800px]">
+      <div className="fixed top-0 left-0 right-0 h-16 bg-black text-white dark:bg-white dark:text-black z-10 min-w-[800px]">
         <div className="flex items-center h-full px-4 max-w-4xl mx-auto font-bold text-lg">
           <div className="flex-1 text-center">
             <Link href="/">TFD Info</Link>
@@ -53,7 +57,7 @@ export default function Layout(props: { children: JSX.Element }) {
       </button>
 
       {isOpen && (
-        <div className="absolute top-full right-4 mt-2 w-24 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-lg shadow-lg z-10 text-center">
+        <div className="absolute top-full right-4 mt-2 w-24 bg-white dark:bg-black border border-gray-300 dark:border-gray-700 rounded-lg shadow-lg z-10 text-center">
           <Link href="/weapon-builder">
             <a className="block px-4 py-2 text-gray-800 dark:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-700">무기</a>
           </Link>
@@ -73,7 +77,7 @@ export default function Layout(props: { children: JSX.Element }) {
           </div>
         </div>
       </div>
-      <div className="pt-16 pb-24 min-w-[800px] min-h-[200dvh] bg-slate-300 dark:bg-darkbg dark:text-gray-100 fix:min-h-[100dvh]">
+      <div className="pt-16 pb-24 min-w-[800px] min-h-[200dvh] bg-white dark:bg-darkbg dark:text-gray-100 fix:min-h-[100dvh]">
         {props.children}
       </div>
       <Analytics />

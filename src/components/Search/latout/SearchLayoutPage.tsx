@@ -24,15 +24,15 @@ export default function SearchLayoutPage(props: { nickname: string }) {
 
         const userOuid = response.data.ouid;
 
-        // 사용자 기본 정보 가져오기
         const response_data = await axios.get('/api/userBasic', {
           params: {
             ouid: userOuid
           }
         });
 
-        // 사용자 데이터 저장
         setUserBasicData(response_data.data);
+        
+
 
       } catch (err) {
         if (axios.isAxiosError(err) && err.response) {

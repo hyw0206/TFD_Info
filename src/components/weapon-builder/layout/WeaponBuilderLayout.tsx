@@ -109,6 +109,15 @@ export default function WeaponBuilderLayout() {
   ]
   // 일반 함수
 
+  const asdf = (data: string | null) => {
+    if (data === "알만딘") return "Almandine.png"
+    if (data === "세룰리안") return "Cerulean.png"
+    if (data === "말라카이트") return "Malachite.png"
+    if (data === "루틸") return "Rutile.png"
+    if (data === "크산틱") return "Xantic.png"
+    return "chipset.png"
+  }
+
   // 티어에 따라 텍스트 색 클래스 반환
   const setClassWithTierText = (data: string) => {
     if (data === "일반") return "grade1_text" 
@@ -463,7 +472,7 @@ export default function WeaponBuilderLayout() {
                         }
                       </div>
                       <div className="flex flex-col justify-center items-center">
-                        <img src={activeModules[idx] ? activeModules[idx]!.image_url : "/chipset.png"} className="w-[60%]" />
+                        <img src={!activeModules[idx] ? asdf(socket[idx]) : activeModules[idx]!.image_url} className="w-[60%]" />
                         {
                           activeModules[idx] !== null && (
                             <>
