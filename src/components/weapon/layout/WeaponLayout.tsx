@@ -28,7 +28,16 @@ export default function WeaponLayout() {
 
   return (
     <div className="max-w-4xl m-auto p-4">
-      <div className="mt-8 mb-4 ml-6 text-2xl font-bold">무기</div>
+      <nav className="fixed top-20 right-4 w-28 area text-center z-50 text-white">
+        <ul>
+          <div className='py-2'>빠른 이동 탭</div>
+          <li className='pt-2 border-t-2'><a href="#weapon">무기 목록</a></li>
+          <li className='pt-2'><a href="#information">무기 정보</a></li>
+          <li className='pt-2'><a href="#attribute">무기 특성</a></li>
+          <li className='py-2'><a href="#module">무기 모듈</a></li>
+        </ul>
+      </nav>
+      <div className="mt-8 mb-4 ml-6 text-2xl font-bold" id="weapon">무기</div>
       <div className="mt-2 ml-4 pt-2 pb-2 pl-4 text-lg text-white area">무기 분류</div>
       <div className="ml-4">
         {
@@ -37,7 +46,7 @@ export default function WeaponLayout() {
               <div key={`weapon-round-${idx}`}>
                 <div className="flex p-2">
                   <div className="flex justify-center items-center">
-                    <img className="w-8 h-8" src={`./rune/rune_${idx}.png`} alt={type.weaponRoundType} />
+                    <img className="w-8 h-8 bg-black" src={`./rune/rune_${idx}.png`} alt={type.weaponRoundType} />
                     <div className="w-16 text-center text-sm fix:w-20 fix:text-base">{type.weaponRoundType}</div>
                   </div>
                   <div className="flex justify-center items-center">
@@ -58,6 +67,7 @@ export default function WeaponLayout() {
             )
           })
         }
+        
       </div>
       <div className="flex pt-4 pb-4">
         <div className="w-32 pr-2 pt-2 pb-2 text-center areagray fix:w-64 fix:pr-0 dark:bg-darkhf">아이템 이름</div>

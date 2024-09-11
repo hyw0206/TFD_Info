@@ -13,6 +13,8 @@ import { useEffect, useState } from 'react'
 // antd import
 
 import { Flex, Progress, Select, Space, Tooltip, Slider} from 'antd'
+import { DownCircleOutlined, UpCircleOutlined } from '@ant-design/icons';
+import { UnstructuredReward } from '@/src/data/type/unstructured_reward';
 // data import
 
 const datas: Weapon[] = require('@/src/data/json/weapon.json');
@@ -20,7 +22,7 @@ const stats: Stat[] = require('@/src/data/json/stat.json');
 const statInfo: StatInfo[] = require('@/src/data/json/statInfo.json');
 const moduleInfo: Module[] = require('@/src/data/json/module.json');
 const attributeDatas: WeaponStats[] = require("@/src/data/json/weapon_attribute.json");
-
+const UnstructReward: UnstructuredReward[] = require('@/src/data/json/unstructured_reward.json');
 export default function WeaponStatDetailPage(props: { weaponNumber: string }) {
   // useState Hook Setting
   
@@ -31,7 +33,7 @@ export default function WeaponStatDetailPage(props: { weaponNumber: string }) {
   // 필터링 상태
   const [tierFilter, setTierFilter] = useState<string | null>(null);
   const [socketTypeFilter, setSocketTypeFilter] = useState<string | null>(null);
-
+  const [isOpen, setIsOpen] = useState<boolean[]>(Array(4).fill(false));
   // 일반 변수
 
   const wantStats = [
@@ -53,8 +55,14 @@ export default function WeaponStatDetailPage(props: { weaponNumber: string }) {
   const weaponNumber = Number(props.weaponNumber);
 
   // 일반 함수
-
-
+  const setBoldWeapon = (data: string, weapon: string) => {
+    return data.includes(weapon) ? "font-bold text-red-500" : ""
+  }
+  const containsName = (reward: UnstructuredReward, name: string, type: string): boolean => {
+    return Object.values(reward).some(value => {
+      return value.includes(`${name} ${type}`);
+    });
+  };
   
   const onChangeGetLevel2 = (selectLevel: number) => {
     const levelStr = String(selectLevel)
@@ -95,7 +103,11 @@ export default function WeaponStatDetailPage(props: { weaponNumber: string }) {
     percent = Math.min(Math.max(percent, 2), 100); // Ensure percent is between 2 and 100
     return Math.round(percent); // Return rounded percentage
   };
-
+  const toggleOpen = (index: number): void => {
+    setIsOpen((prevState) => 
+      prevState.map((item, idx) => (idx === index ? !item : item))
+    );
+  };
 
   // 데이터 필터링 함수
   
@@ -130,12 +142,13 @@ export default function WeaponStatDetailPage(props: { weaponNumber: string }) {
 
   useEffect(() => {
     setLevel('100')
-  
-  }, [])
+    setIsOpen(Array(4).fill(false))
+  }, [weaponNumber])
+
   
   return (
     <>
-      <div className="mb-4 text-xl">
+      <div className="mb-4 text-xl" id="information">
         <strong>{datas[weaponNumber].weapon_name}</strong> 정보
       </div>
       <div className="flex flex-col">
@@ -220,7 +233,7 @@ export default function WeaponStatDetailPage(props: { weaponNumber: string }) {
             ))}
         </div>
       </div>
-      <div className="mt-4 mb-4 text-xl">
+      <div className="mt-4 mb-4 text-xl" id="attribute">
         <strong>{datas[weaponNumber].weapon_name}</strong> 특성
       </div>
       <div>
@@ -255,7 +268,7 @@ export default function WeaponStatDetailPage(props: { weaponNumber: string }) {
                       return (
                         <div key={statName} className="flex my-3 text-center">
                           <div className="w-80 font-bold">{statName}</div>
-                          <div className="grow">{uniqueValues.join(' | ')}</div>
+                          <div className="grow text-sm">{uniqueValues.join(' | ')}</div>
                         </div>
                       );
                     })}
@@ -269,7 +282,59 @@ export default function WeaponStatDetailPage(props: { weaponNumber: string }) {
           </div>
         )}
       </div>
-      <div className="mt-4 mb-4 text-xl font-bold">
+      {
+      datas[weaponNumber].weapon_name !== "떨어진 희망" &&  
+      datas[weaponNumber].weapon_name !== "천둥우리" &&  
+      datas[weaponNumber].weapon_name !== "엑스커버" &&  
+      datas[weaponNumber].weapon_name !== "최후의 비수" &&  
+      datas[weaponNumber].weapon_name !== "평화 중재자" &&  
+      datas[weaponNumber].weapon_name !== "시그보어의 증명" &&  
+      datas[weaponNumber].weapon_tier === "궁극" &&
+      ["고분자 융합체", "합성 광섬유", "나노 튜브", "연구 도면"].map((item, idx) => {
+          return (
+            <>
+              <button onClick={() => toggleOpen(idx)} className="flex justify-between items-center w-96 mb-4 text-lg font-bold" key={datas[weaponNumber].weapon_name + idx}>
+                <span>{datas[weaponNumber].weapon_name} {item}</span> 
+                {isOpen[idx] ? <UpCircleOutlined />: <DownCircleOutlined />}
+              </button>
+              {
+                isOpen[idx] && 
+                UnstructReward.filter(reward =>
+                  containsName(reward, datas[weaponNumber].weapon_name, item)
+                ).map((reward, idx2) =>{
+                  return (
+                    <div className="flex items-center mb-4 text-sm fix:text-base" key={reward.name + reward.gain}>
+
+                      <div className="w-64">
+                        <div>{reward.name}</div>
+                        <div>획득 : {reward.gain}</div>
+                        <div>사용 : {reward.unlock}</div>
+                      </div>
+                      {
+                      Number(reward.name.split(" ")[0]) <= 54 ?
+                      <div>
+                        <div className={setBoldWeapon(reward.reward_1, datas[weaponNumber].weapon_name)}>{reward.reward_1} 3%</div>
+                        <div className={setBoldWeapon(reward.reward_2, datas[weaponNumber].weapon_name)}>{reward.reward_2} 6%</div>
+                        <div className={setBoldWeapon(reward.reward_3, datas[weaponNumber].weapon_name)}>{reward.reward_3} 15%</div>
+                        <div className={setBoldWeapon(reward.reward_4, datas[weaponNumber].weapon_name)}>{reward.reward_4} 38%</div>
+                        <div className={setBoldWeapon(reward.reward_5, datas[weaponNumber].weapon_name)}>{reward.reward_5} 38%</div>     
+                      </div> : 
+                      <div>
+                      <div className={setBoldWeapon(reward.reward_1, datas[weaponNumber].weapon_name)}>{reward.reward_1} 6%</div>
+                      <div className={setBoldWeapon(reward.reward_2, datas[weaponNumber].weapon_name)}>{reward.reward_2} 10%</div>
+                      <div className={setBoldWeapon(reward.reward_3, datas[weaponNumber].weapon_name)}>{reward.reward_3} 20%</div>
+                      <div className={setBoldWeapon(reward.reward_4, datas[weaponNumber].weapon_name)}>{reward.reward_4} 32%</div>
+                      <div className={setBoldWeapon(reward.reward_5, datas[weaponNumber].weapon_name)}>{reward.reward_5} 32%</div>     
+                    </div> 
+                      } 
+                    </div>
+                  )
+                })
+              }
+            </>
+          )
+        })}
+      <div className="mt-4 mb-4 text-xl font-bold" id="module">
         장착 가능한 모듈 (마우스 올릴 시 자세한 설명)
       </div>
       <div className="flex flex-col mb-4">

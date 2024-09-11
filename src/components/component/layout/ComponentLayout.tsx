@@ -136,7 +136,7 @@ export default function ComponentLayoutPage() {
             return (
               <>
               <Tooltip title={
-                <div className="flex flex-col w-60 p-2">
+                <div className="flex flex-col w-96 p-2 z-100 bg-black">
                   <div className="pb-2 border-b font-bold">
                       <div className="text-lg">{data.external_component_name}</div>
                       <div className="flex justify-between">
@@ -150,7 +150,7 @@ export default function ComponentLayoutPage() {
                       <div>{data.base_stat[99].stat_value}</div>
                     </div>
                   </div>
-                  <div className="max-w-lg overflow-hidden pt-2 pb-2 border-b">
+                  <div className="max-w-lg pt-2 pb-2 border-b">
                     <div className="font-bold">세트 효과</div>
                     {
                     data.set_option_detail.length !== 0 ?

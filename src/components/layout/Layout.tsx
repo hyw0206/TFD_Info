@@ -57,7 +57,7 @@ export default function Layout(props: { children: JSX.Element }) {
       </button>
 
       {isOpen && (
-        <div className="absolute top-full right-4 mt-2 w-24 bg-white dark:bg-black border border-gray-300 dark:text-white rounded-lg shadow-lg z-10 text-center">
+        <div className="absolute top-full right-4 mt-2 w-24 bg-white dark:bg-black border border-gray-300 dark:text-white rounded-lg shadow-lg z-100 text-center">
           <Link href="/weapon-builder">
             <a className="block px-4 py-2 text-gray-800 dark:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-700">무기</a>
           </Link>

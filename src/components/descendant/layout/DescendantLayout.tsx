@@ -42,13 +42,13 @@ export default function DescendantLayoutPage() {
   }
   return (
     <div className="max-w-4xl m-auto p-4">
-      <nav className="fixed top-20 right-0 w-28 area text-center z-50 text-white">
+      <nav className="fixed top-20 right-4 w-28 area text-center z-50 text-white">
         <ul>
           <div className='py-2'>빠른 이동 탭</div>
           <li className='pt-2 border-t-2'><a href="#descendant">계승자 목록</a></li>
           <li className='pt-2'><a href="#information">계승자 정보</a></li>
           <li className='pt-2'><a href="#farming">계승자 파밍</a></li>
-          <li className='pt-2'><a href="#module">계승자 모듈</a></li>
+          <li className='py-2'><a href="#module">계승자 모듈</a></li>
         </ul>
       </nav>
       <div className="mt-8 mb-4 ml-6 text-2xl font-bold" id="descendant">계승자</div>
