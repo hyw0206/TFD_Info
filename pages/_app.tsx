@@ -1,7 +1,7 @@
 import Layout from '@/src/components/layout/Layout'
 import '@/styles/globals.css'
 import type { AppProps } from 'next/app'
-import  Head  from 'next/head'
+import Head from 'next/head'
 import Script from 'next/script'
 
 export default function App({ Component, pageProps }: AppProps) {
@@ -25,6 +25,13 @@ export default function App({ Component, pageProps }: AppProps) {
           gtag('config', 'G-CRKFG9WF5J');
         `}
       </Script>
+      <Script
+        async
+        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8273624756633692"
+        crossOrigin="anonymous"
+        strategy="afterInteractive"
+      />
+
       <Layout>
         <Component {...pageProps}/>
       </Layout>
