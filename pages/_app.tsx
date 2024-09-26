@@ -11,6 +11,7 @@ export default function App({ Component, pageProps }: AppProps) {
         <link rel="icon" href="/favicon.ico" />
         <meta name="naver-site-verification" content="eba98bbf9cbf6aea7a04c2e0664ccfb04da74d1e" />
         <meta name="google-site-verification" content="Bj-S5JYAz0S3_WfSna66mTxZZoxADZEnle3Au_Hhga8" />
+        <meta name="google-adsense-account" content="ca-pub-8273624756633692" />
       </Head>
       <Script
         src="https://www.googletagmanager.com/gtag/js?id=G-CRKFG9WF5J"
